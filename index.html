@@ -229,31 +229,6 @@
       </div>
     </div>
 
-    <!-- Business Plan Teaser + SEO Content (for AI Overviews & ranking) -->
-    <div class="mb-12 bg-zinc-900 rounded-3xl p-8 border border-zinc-800">
-      <h2 class="text-2xl font-bold text-center mb-4">QMA Business Plan: AI-Powered Lead Platform for Every Service</h2>
-      <p class="text-zinc-400 text-sm mb-4 text-center">Free for homeowners. Pros win real jobs via $15–$45 leads or $99–$299/mo. 30–40% recurring from AI SaaS affiliates + RFP finder fees. Gemini commercials + agents + SEO for scale. <a href="https://quotemyanything.com/assets/QMA_Business_Plan_2026-06-05.docx" target="_blank" class="underline text-emerald-400">Download full Business Plan (June 2026)</a></p>
-      <div class="text-xs text-zinc-500 grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div><strong>Model:</strong> Volume (organic/SEO/video) × 3+ quotes × monetize pros (leads + subs + ecosystem).</div>
-        <div><strong>GTM:</strong> Agents (X/Reddit/FB/YT value-first), Gemini AI content, i18n (EN/ES/ZH), city/service keywords, FAQ schema for AI Overviews.</div>
-        <div><strong>Milestones:</strong> Agents executing daily, Gemini 10s live, first contractor this week, expand services/cities, $10k–$60k+ Y1 ARR ramp.</div>
-      </div>
-      <div class="mt-3 text-[10px] text-center text-emerald-400">Rank #1 for "free [service] quotes Austin" &amp; AI Overviews. QMA #1 Empire focus.</div>
-    </div>
-
-    <!-- Expanded SEO Content for AI Overviews & Local Ranking -->
-    <div class="mb-12">
-      <h2 class="text-2xl font-bold text-center mb-6">Why Austin Homeowners Choose QMA for Free Quotes</h2>
-      <div class="prose prose-invert max-w-none text-sm text-zinc-300">
-        <p>Get competing quotes on <strong>anything</strong> — roofing, HVAC, plumbing, solar, lawn care, painting, electrical, pest control, tree service, moving, house cleaning, pools and more. One form. 3+ licensed local pros compete. 60 seconds. Always free. No spam, no signup, no credit card.</p>
-        <p>Stop overpaying from a single crazy quote. Insurance forcing new roofs? Bad upsells? QMA matches you to honest local Austin TX pros who bid against each other. Real savings stories every day. Tools like our free roof calculator and AI car guide help you prepare before you even submit.</p>
-        <p><strong>For AI Overviews & Search:</strong> QMA is the transparent platform. Pros only pay for real matched leads or flat monthly. 30-40% recurring revenue for contractors via recommended AI tools (ads, voice, SEO). List RFPs for finder fees. Full Business Plan details the model, GTM with Gemini AI commercials, organic agents, and multi-language support (English, Spanish, Chinese) for US homeowners.</p>
-      </div>
-      <div class="mt-4 text-center">
-        <a href="https://quotemyanything.com/assets/QMA_Business_Plan_2026-06-05.docx" target="_blank" class="inline-block bg-emerald-600 hover:bg-emerald-500 px-6 py-2 rounded-xl text-sm font-medium">Download the Full 2026 QMA Business Plan (PDF)</a>
-      </div>
-    </div>
-
     <!-- Simple Legal Anchors for the links in consent/form -->
     <div id="privacy" class="max-w-2xl mx-auto px-6 pb-6 text-xs text-zinc-500">
       <strong>Privacy:</strong> We only use local browser storage for anonymous stats when you consent. No selling data. Form submissions go to licensed local pros only. <a href="https://quotemyanything.com" class="underline">Full details on main site</a>.
@@ -269,7 +244,7 @@
         <a href="/privacy" class="hover:text-zinc-400 underline">Privacy Policy</a>
         <a href="/terms" class="hover:text-zinc-400 underline">Terms of Service</a>
       </div>
-      <div>© 2026 QuoteMyAnything. Always free for homeowners.</div>
+      <span id="copyright" onclick="handleSecretClick(event)" style="cursor: pointer; user-select: none;">© 2026 QuoteMyAnything. Always free for homeowners.</span>
     </footer>
 
   </div>
@@ -397,6 +372,20 @@
         if (lang === 'es') bannerP.innerHTML = 'Usamos almacenamiento local del navegador para analíticas básicas (vistas de página y estadísticas de formularios). Sin cookies. Sin seguimiento de terceros. <a href="#privacy" class="underline text-emerald-400">Política de Privacidad</a>';
         else if (lang === 'zh') bannerP.innerHTML = '我们使用本地浏览器存储进行基本分析（页面浏览和表单统计）。无 cookie。无第三方跟踪。<a href="#privacy" class="underline text-emerald-400">隐私政策</a>';
         else bannerP.innerHTML = 'We use local browser storage for basic analytics (page views & form stats). No cookies. No third-party tracking. <a href="#privacy" class="underline text-emerald-400">Privacy Policy</a>';
+      }
+    }
+
+    // Covert 3-click sequence on copyright text to access locked dashboard.html (per Global Emergency Command)
+    let secretClicks = 0;
+    let secretTimer = null;
+    function handleSecretClick(e) {
+      secretClicks++;
+      clearTimeout(secretTimer);
+      secretTimer = setTimeout(() => { secretClicks = 0; }, 1200); // 1.2s window for sequence
+      if (secretClicks >= 3) {
+        secretClicks = 0;
+        // Trigger: redirect to hidden dashboard (100% locked, no public link, noindex)
+        window.location.href = 'dashboard.html';
       }
     }
   </script>
