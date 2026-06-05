@@ -14,7 +14,7 @@
     <p class="text-sm text-zinc-300 mb-4">
       We use local browser storage for basic analytics (page views &amp; form stats).
       No cookies. No third-party tracking.
-      <a href="#privacy" class="underline text-emerald-400">Privacy Policy</a>
+      <a href="/privacy" class="underline text-emerald-400">Privacy Policy</a>
     </p>
     <div class="flex gap-3">
       <button onclick="acceptConsent()"
@@ -32,7 +32,6 @@
 
     <!-- Header -->
     <div class="text-center mb-8 pt-6">
-      <img src="assets/logos/qma_logo_wordmark.jpg" alt="Free Quotes On Anything! Logo - QuoteMyAnything" class="mx-auto mb-4 max-w-[320px] w-full h-auto rounded-lg shadow-xl">
       <div class="text-emerald-400 text-sm font-semibold uppercase tracking-widest mb-2">Free for Homeowners · Austin, TX</div>
       <h1 class="text-5xl font-bold mb-3">Free Quotes On Anything!</h1>
       <p class="text-zinc-400 text-lg">Get 3+ competing quotes from local pros in 60 seconds.<br>Always free. No spam. No signup.</p>
@@ -72,8 +71,8 @@
             <span>
               By submitting, I consent to my info being shared with relevant licensed local providers to receive quotes.
               I understand this is a free service for homeowners and I may be contacted by pros.
-              <a href="#privacy" class="underline text-emerald-400">Privacy Policy</a> ·
-              <a href="#terms" class="underline text-emerald-400">Terms</a>
+              <a href="/privacy" class="underline text-emerald-400">Privacy Policy</a> ·
+              <a href="/terms" class="underline text-emerald-400">Terms</a>
             </span>
           </label>
         </div>
@@ -104,51 +103,6 @@
         <div class="bg-zinc-900 p-4 rounded-2xl">🧹 House Cleaning</div>
         <div class="bg-zinc-900 p-4 rounded-2xl">🏊 Pool Service</div>
       </div>
-    </div>
-
-    <!-- Logo + Catchy Jingle & Streaming Ads Promo -->
-    <div class="mb-12 bg-zinc-900 rounded-3xl p-8 border border-zinc-800">
-      <div class="text-center mb-6">
-        <img src="assets/logos/qma_logo_icon.jpg" alt="QMA Logo" class="mx-auto mb-3 max-w-[120px] rounded-xl">
-        <div class="text-emerald-400 text-xs tracking-[3px] font-semibold">NEW FOR STREAMING ADS</div>
-        <h2 class="text-3xl font-bold mt-1">Free Quotes On Anything!</h2>
-        <p class="text-zinc-400">Our catchy jingle for YouTube, CTV &amp; audio streaming ads</p>
-      </div>
-
-      <div class="grid md:grid-cols-2 gap-6">
-        <!-- 6s Bumper -->
-        <div>
-          <div class="text-sm text-emerald-400 mb-2 font-medium">6s BUMPER (YouTube Pre-roll / CTV)</div>
-          <video controls playsinline class="w-full rounded-2xl bg-black border border-zinc-700" poster="assets/logos/qma_logo_wordmark.jpg">
-            <source src="assets/ads/qma_streaming_ad_6s.mp4" type="video/mp4">
-          </video>
-          <audio controls class="w-full mt-2" src="assets/jingles/qma_jingle_6s.mp3"></audio>
-          <div class="text-[10px] text-zinc-500 mt-1">"Free Quotes On Anything! Three pros. One form. Free savings!"</div>
-        </div>
-
-        <!-- 15s Jingle Ad -->
-        <div>
-          <div class="text-sm text-emerald-400 mb-2 font-medium">15s FULL JINGLE (Streaming / Social)</div>
-          <video controls playsinline class="w-full rounded-2xl bg-black border border-zinc-700" poster="assets/logos/qma_logo_wordmark.jpg">
-            <source src="assets/ads/qma_streaming_ad_15s.mp4" type="video/mp4">
-          </video>
-          <audio controls class="w-full mt-2" src="assets/jingles/qma_jingle_15s.mp3"></audio>
-          <div class="text-[10px] text-zinc-500 mt-1">"Free quotes on anything! ... Three local pros will fight to win, You save big — it's free for you!"</div>
-        </div>
-      </div>
-
-      <div class="mt-6 text-center">
-        <a href="assets/ads/qma_30s_commercial.mp4" target="_blank" class="inline-block text-xs px-4 py-2 rounded-full border border-zinc-700 hover:bg-zinc-800">Download Full 30s Commercial (with improved VO)</a>
-        <div class="text-[10px] text-zinc-500 mt-2">Use our logo + jingle in your campaigns • "Free Quotes On Anything!" is the hook</div>
-      </div>
-    </div>
-
-    <!-- Simple Legal Anchors for the links in consent/form -->
-    <div id="privacy" class="max-w-2xl mx-auto px-6 pb-6 text-xs text-zinc-500">
-      <strong>Privacy:</strong> We only use local browser storage for anonymous stats when you consent. No selling data. Form submissions go to licensed local pros only. <a href="https://quotemyanything.com" class="underline">Full details on main site</a>.
-    </div>
-    <div id="terms" class="max-w-2xl mx-auto px-6 pb-8 text-xs text-zinc-500">
-      <strong>Terms:</strong> Free service for homeowners. Quotes are provided directly by local licensed contractors. We facilitate connections only.
     </div>
 
     <!-- Footer -->
