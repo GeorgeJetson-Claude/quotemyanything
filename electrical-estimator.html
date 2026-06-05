@@ -1,52 +1,216 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electrical Work Estimator | QuoteMyAnything</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: #0f172a; color: #f1f5f9; }
-        .btn-primary { background-color: #f59e0b; color: #fff; }
-        .btn-primary:hover { background-color: #d97706; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Electrical Quote Estimator Austin TX - Get 3 Competing Quotes | QuoteMyAnything</title>
+  <meta name="description" content="Instant electrical project cost estimator for Austin TX. Get 3 free competing quotes from local licensed electricians in 60 seconds. Always free for homeowners. New Gemini AI commercial.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .micro { transition: all .1s ease; }
+    .micro:hover { transform: translateY(-1px); }
+    .calc-result { background: #052e16; border: 1px solid #166534; }
+  </style>
 </head>
-<body class="bg-dark-bg text-dark-text min-h-screen">
-    <nav class="bg-dark-surface border-b border-dark-border">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="index.html" class="font-bold text-lg text-emerald">QMA</a>
-            <div class="text-sm text-dark-muted">Free Quotes On Anything!™</div>
-        </div>
+<body class="bg-zinc-950 text-zinc-100">
+  <div class="max-w-3xl mx-auto p-6">
+
+    <!-- Hamburger Menu (same as main, all subpages + quick form) -->
+    <nav class="mb-6">
+      <div class="flex items-center justify-between bg-zinc-900 border border-zinc-800 rounded-2xl p-3">
+        <a href="index.html" class="font-bold tracking-tighter flex items-center gap-2">
+          <span class="inline-block w-6 h-6 bg-emerald-500 text-zinc-950 rounded text-center text-xs font-black leading-6">Q</span>
+          <span class="text-sm">QMA</span>
+        </a>
+        <button id="hamburger-btn" class="text-2xl px-3 py-1 leading-none focus:outline-none" aria-label="Toggle menu">☰</button>
+      </div>
+      <div id="mobile-menu" class="hidden mt-2 bg-zinc-900 border border-zinc-800 rounded-2xl p-4 text-sm max-h-[70vh] overflow-auto">
+        <a href="index.html#quick-form" class="block py-2 font-semibold text-emerald-400 hover:underline">🚀 Get Free Quotes Now (Quick Form that emails us)</a>
+        <div class="mt-3 text-emerald-400 font-semibold text-xs tracking-widest">SERVICES (click to landing page with form)</div>
+        <a href="roofing.html" class="block py-1 pl-1 hover:text-emerald-400">🏠 Roofing</a>
+        <a href="hvac.html" class="block py-1 pl-1 hover:text-emerald-400">❄️ HVAC / AC Repair</a>
+        <a href="plumbing.html" class="block py-1 pl-1 hover:text-emerald-400">🔧 Plumbing</a>
+        <a href="solar.html" class="block py-1 pl-1 hover:text-emerald-400">☀️ Solar Installation</a>
+        <a href="lawn-care.html" class="block py-1 pl-1 hover:text-emerald-400">🌿 Lawn Care</a>
+        <a href="painting.html" class="block py-1 pl-1 hover:text-emerald-400">🎨 House Painting</a>
+        <a href="electrical.html" class="block py-1 pl-1 hover:text-emerald-400">⚡ Electrical</a>
+        <a href="pest-control.html" class="block py-1 pl-1 hover:text-emerald-400">🐛 Pest Control</a>
+        <a href="tree-service.html" class="block py-1 pl-1 hover:text-emerald-400">🌳 Tree Service</a>
+        <a href="moving.html" class="block py-1 pl-1 hover:text-emerald-400">📦 Moving</a>
+        <a href="house-cleaning.html" class="block py-1 pl-1 hover:text-emerald-400">🧹 House Cleaning</a>
+        <a href="index.html#quick-form" class="block py-1 pl-1 hover:text-emerald-400">🏊 Pool Service (Quick Free Form)</a>
+
+        <div class="mt-3 text-emerald-400 font-semibold text-xs tracking-widest">FREE CALCULATORS &amp; TOOLS</div>
+        <a href="roof-calculator.html" class="block py-1 pl-1 hover:text-emerald-400">🏠 Roof Calculator</a>
+        <a href="car-ai-guide.html" class="block py-1 pl-1 hover:text-emerald-400">🚗 Car AI Guide</a>
+        <a href="hvac-calculator.html" class="block py-1 pl-1 hover:text-emerald-400">❄️ HVAC Savings Calculator</a>
+        <a href="solar-calculator.html" class="block py-1 pl-1 hover:text-emerald-400">☀️ Solar Payback Calculator</a>
+        <a href="moving-estimator.html" class="block py-1 pl-1 hover:text-emerald-400">📦 Moving Cost Estimator</a>
+        <a href="electrical-estimator.html" class="block py-1 pl-1 hover:text-emerald-400">⚡ Electrical Estimator</a>
+        <a href="painting-calculator.html" class="block py-1 pl-1 hover:text-emerald-400">🎨 Painting Cost Calculator</a>
+
+        <div class="mt-3 text-emerald-400 font-semibold text-xs tracking-widest">LEGAL</div>
+        <a href="privacy.html" class="block py-1 pl-1 hover:text-emerald-400">Privacy Policy</a>
+        <a href="terms.html" class="block py-1 pl-1 hover:text-emerald-400">Terms of Service</a>
+        <a href="disclaimer.html" class="block py-1 pl-1 hover:text-emerald-400">Disclaimer</a>
+      </div>
     </nav>
-    
-    <main class="max-w-4xl mx-auto px-4 py-12">
-        <h1 class="text-4xl font-bold mb-4">Electrical Work Estimator</h1>
-        <p class="text-dark-muted mb-6">Rough cost estimates for common electrical work.</p>
-        
-        <div class="bg-dark-surface border border-dark-border rounded-lg p-8">
-            <div class="mb-6">
-                <h3 class="font-semibold mb-2">Select work type:</h3>
-                <div class="space-y-2">
-                    <button onclick="setEstimate('Outlet install', '150-300')" class="w-full text-left p-3 bg-dark-bg rounded border border-dark-border hover:border-emerald">Outlet/switch install: $150-300</button>
-                    <button onclick="setEstimate('Ceiling fan', '200-400')" class="w-full text-left p-3 bg-dark-bg rounded border border-dark-border hover:border-emerald">Ceiling fan install: $200-400</button>
-                    <button onclick="setEstimate('New breaker', '300-600')" class="w-full text-left p-3 bg-dark-bg rounded border border-dark-border hover:border-emerald">New circuit breaker: $300-600</button>
-                    <button onclick="setEstimate('Panel upgrade', '1500-3000')" class="w-full text-left p-3 bg-dark-bg rounded border border-dark-border hover:border-emerald">Panel upgrade: $1500-3000</button>
-                </div>
-            </div>
-            <div id="result" class="mt-6 p-4 bg-dark-bg rounded text-center"></div>
+
+    <!-- Header -->
+    <div class="text-center mb-8 pt-4">
+      <div class="inline-flex items-center gap-2 mb-3">
+        <div class="w-9 h-9 bg-emerald-500 rounded-2xl flex items-center justify-center text-zinc-950 font-black text-2xl">Q</div>
+        <div>
+          <div class="text-3xl font-bold tracking-tighter">Free Quotes On Anything!</div>
+          <div class="text-emerald-400 text-xs tracking-[2px] -mt-1">ALWAYS FREE FOR HOMEOWNERS • AUSTIN TX</div>
         </div>
-    </main>
-    <script>
-        function setEstimate(work, range) {
-            document.getElementById('result').innerHTML = `<p class="text-xl font-semibold">${work}</p><p class="text-2xl font-bold text-emerald mt-2">$${range}</p><p class="text-dark-muted mt-2">Get exact quotes from licensed electricians</p><p class="mt-4"><a href="electrical.html" class="btn-primary px-4 py-2 rounded inline-block">Get Free Electrical Quotes →</a></p>`;
-        }
-    </script>
-    
-    <footer class="bg-dark-surface border-t border-dark-border mt-12 py-6">
-        <div class="max-w-4xl mx-auto px-4 text-sm text-dark-muted text-center">
-            <p class="mb-2">&copy; 2025 QuoteMyAnything, LLC. All rights reserved.</p>
+      </div>
+      <p class="text-zinc-400">Electrical Project Estimator — See rough cost + save by comparing 3 local pros.</p>
+      <div class="mt-3 flex justify-center gap-2">
+        <a href="https://quotemyanything.com" class="inline-block bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold px-5 py-2 rounded-3xl micro">Main Site</a>
+        <a href="https://quotemyanything.com/electrical.html" class="inline-block bg-zinc-800 hover:bg-zinc-700 text-sm font-semibold px-5 py-2 rounded-3xl micro">Get Electrical Quotes →</a>
+      </div>
+    </div>
+
+    <!-- Gemini promo -->
+    <div class="mb-8 bg-zinc-900 border border-emerald-800 rounded-3xl p-6 text-center">
+      <div class="text-emerald-400 text-xs tracking-widest mb-1">NEW GEMINI VIDEO ON MAIN</div>
+      <div class="font-semibold mb-2">New 10s QMA Commercial — "Free Quotes On Anything!"</div>
+      <a href="https://quotemyanything.com" class="inline-block text-emerald-400 underline text-sm">Watch the Gemini brand video on main site →</a>
+    </div>
+
+    <!-- Estimator -->
+    <div class="bg-zinc-900 rounded-3xl p-8 border border-zinc-800 mb-8">
+      <h2 class="text-2xl font-bold mb-4">Electrical Project Cost Estimator</h2>
+      <p class="text-sm text-zinc-400 mb-6">Austin TX rough ranges. Real savings (15-30% typical) by getting 3 competing bids from licensed local electricians.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Project type</label>
+          <select id="ptype" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm" oninput="calcElectrical()">
+            <option value="panel">Panel upgrade / service</option>
+            <option value="wiring">Whole home rewire</option>
+            <option value="outlets">Outlets + lighting</option>
+            <option value="ev">EV charger install</option>
+            <option value="other">Other electrical</option>
+          </select>
         </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Home size (sq ft)</label>
+          <input id="sqft" type="number" value="2000" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm" oninput="calcElectrical()">
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Urgency</label>
+          <select id="urgency" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm" oninput="calcElectrical()">
+            <option value="normal">Normal (weeks)</option>
+            <option value="soon">Soon (days)</option>
+            <option value="emergency">Emergency (today)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="elec-results" class="calc-result rounded-2xl p-6 hidden">
+        <div class="grid grid-cols-2 gap-4 text-center">
+          <div>
+            <div class="text-xs text-zinc-400">Est. cost range (single quote)</div>
+            <div id="erange" class="text-3xl font-bold text-white mt-1">$1,800 – $3,200</div>
+          </div>
+          <div>
+            <div class="text-xs text-emerald-400">Savings with 3 competing quotes</div>
+            <div id="esave" class="text-3xl font-bold text-emerald-400 mt-1">$650</div>
+            <div id="epct" class="text-sm text-emerald-300">~25% lower</div>
+          </div>
+        </div>
+        <div class="mt-4 text-xs text-zinc-400 text-center">Licensed, insured electricians only. Get real bids free in 60s.</div>
+      </div>
+
+      <button onclick="showElecForm()" class="mt-6 w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-3xl font-semibold text-lg micro">Get My 3 Free Electrical Quotes &amp; Save →</button>
+      <p class="text-center text-[10px] text-zinc-500 mt-2">Free for homeowners. No spam. Compare &amp; choose.</p>
+    </div>
+
+    <!-- Form -->
+    <div id="elec-form" class="bg-zinc-900 rounded-3xl p-6 border border-zinc-800 mb-8 hidden">
+      <h3 class="font-bold mb-1">Free electrical quotes in 60 seconds</h3>
+      <p class="text-xs text-zinc-400 mb-4">One form. Up to 3 local licensed pros compete.</p>
+      <form action="https://formspree.io/f/xdajvlvr" method="POST">
+        <input type="hidden" name="site_source" value="electrical-estimator">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1">
+        <textarea name="message" required rows="2" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm mb-3" placeholder="e.g. 200 amp panel upgrade needed in 78704, 2,200 sq ft home, EV charger too"></textarea>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <input type="email" name="email" required placeholder="you@email.com" class="bg-black border border-zinc-700 rounded-2xl p-3 text-sm">
+          <input type="tel" name="phone" placeholder="Phone (for scheduling)" class="bg-black border border-zinc-700 rounded-2xl p-3 text-sm">
+        </div>
+        <div class="mt-3 p-3 bg-black/60 rounded-2xl text-[11px] text-zinc-400">
+          <label class="flex gap-2">
+            <input type="checkbox" required class="mt-0.5 accent-emerald-500">
+            <span>By submitting, you agree to be contacted by up to 3 local licensed contractors in the greater Austin area. Reply STOP to unsubscribe. Message and data rates may apply. Your information is only shared with contractors for the purpose of providing quotes. We do not sell or share your data for any other reason. <a href="https://quotemyanything.com/privacy.html" class="underline">Privacy</a></span>
+          </label>
+        </div>
+        <button type="submit" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-3xl font-semibold text-lg micro">Send My Free Electrical Quote Request →</button>
+      </form>
+    </div>
+
+    <div class="text-center text-xs text-zinc-400 mb-8">
+      More free tools: <a href="https://quotemyanything.com/hvac-calculator.html" class="underline">HVAC Calculator</a> • <a href="https://quotemyanything.com/solar-calculator.html" class="underline">Solar Calculator</a> • <a href="https://quotemyanything.com" class="underline text-emerald-400">All 11+ services + Gemini commercial</a>
+    </div>
+
+    <footer class="text-center text-xs text-zinc-500 pb-10">
+      <div class="mb-1">(737) 667-6844 • quotemyanything.com • Austin, TX</div>
+      <div class="flex justify-center gap-3">
+        <a href="https://quotemyanything.com/privacy.html" class="hover:text-zinc-300">Privacy</a>
+        <a href="https://quotemyanything.com/terms.html" class="hover:text-zinc-300">Terms</a>
+        <a href="https://quotemyanything.com/disclaimer.html" class="hover:text-zinc-300">Disclaimer</a>
+      </div>
+      <div class="mt-3 text-[10px] text-zinc-600">Always free for homeowners. Value-first. Built for speed &amp; trust.</div>
     </footer>
-    <script src="assets/js/qma-chat.js"></script>
+  </div>
+
+  <script>
+    function calcElectrical() {
+      const ptype = document.getElementById('ptype').value;
+      const sqft = parseFloat(document.getElementById('sqft').value) || 2000;
+      const urgency = document.getElementById('urgency').value;
+
+      let base = 2200;
+      if (ptype === 'panel') base = 1800;
+      if (ptype === 'wiring') base = 4200;
+      if (ptype === 'outlets') base = 950;
+      if (ptype === 'ev') base = 1250;
+      if (ptype === 'other') base = 1600;
+
+      base += (sqft - 1500) * 0.6;
+      if (urgency === 'soon') base *= 1.2;
+      if (urgency === 'emergency') base *= 1.6;
+
+      const low = Math.round(base * 0.85);
+      const high = Math.round(base * 1.2);
+      const savings = Math.round((high - low) * 0.6);
+      const pct = Math.round(20 + (urgency === 'emergency' ? 5 : 0));
+
+      document.getElementById('erange').textContent = '$' + low.toLocaleString() + ' – $' + high.toLocaleString();
+      document.getElementById('esave').textContent = '$' + savings.toLocaleString();
+      document.getElementById('epct').textContent = '~' + pct + '% lower with 3 quotes';
+      document.getElementById('elec-results').classList.remove('hidden');
+    }
+
+    function showElecForm() {
+      document.getElementById('elec-form').classList.remove('hidden');
+      document.getElementById('elec-form').scrollIntoView({behavior: 'smooth'});
+    }
+
+    window.onload = function() {
+      calcElectrical();
+    }
+
+    // Hamburger menu toggle (shared)
+    setTimeout(() => {
+      const btn = document.getElementById('hamburger-btn');
+      const menu = document.getElementById('mobile-menu');
+      if (btn && menu) {
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
+      }
+    }, 0);
+  </script>
 </body>
 </html>
