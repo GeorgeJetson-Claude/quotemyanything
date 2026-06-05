@@ -1,58 +1,200 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar Payback Calculator | QuoteMyAnything</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: #0f172a; color: #f1f5f9; }
-        .btn-primary { background-color: #f59e0b; color: #fff; }
-        .btn-primary:hover { background-color: #d97706; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Solar Savings Calculator Austin TX - Estimate Payback &amp; Get 3 Competing Quotes | QuoteMyAnything</title>
+  <meta name="description" content="Solar payback &amp; savings estimator for Austin TX homes. Get 3 free competing quotes from local pros in 60 seconds. Always free for homeowners. Gemini AI commercial live.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .micro { transition: all .1s ease; }
+    .micro:hover { transform: translateY(-1px); }
+    .calc-result { background: #052e16; border: 1px solid #166534; }
+  </style>
 </head>
-<body class="bg-dark-bg text-dark-text min-h-screen">
-    <nav class="bg-dark-surface border-b border-dark-border">
-        <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="index.html" class="font-bold text-lg text-emerald">QMA</a>
-            <div class="text-sm text-dark-muted">Free Quotes On Anything!™</div>
-        </div>
+<body class="bg-zinc-950 text-zinc-100">
+  <div class="max-w-3xl mx-auto p-6">
+
+    <!-- Hamburger Menu (same as main, all subpages + quick form) -->
+    <nav class="mb-6">
+      <div class="flex items-center justify-between bg-zinc-900 border border-zinc-800 rounded-2xl p-3">
+        <a href="index.html" class="font-bold tracking-tighter flex items-center gap-2">
+          <span class="inline-block w-6 h-6 bg-emerald-500 text-zinc-950 rounded text-center text-xs font-black leading-6">Q</span>
+          <span class="text-sm">QMA</span>
+        </a>
+        <button id="hamburger-btn" class="text-2xl px-3 py-1 leading-none focus:outline-none" aria-label="Toggle menu">☰</button>
+      </div>
+      <div id="mobile-menu" class="hidden mt-2 bg-zinc-900 border border-zinc-800 rounded-2xl p-4 text-sm max-h-[70vh] overflow-auto">
+        <a href="index.html#quick-form" class="block py-2 font-semibold text-emerald-400 hover:underline">🚀 Get Free Quotes Now (Quick Form that emails us)</a>
+        <div class="mt-3 text-emerald-400 font-semibold text-xs tracking-widest">SERVICES (click to landing page with form)</div>
+        <a href="roofing.html" class="block py-1 pl-1 hover:text-emerald-400">🏠 Roofing</a>
+        <a href="hvac.html" class="block py-1 pl-1 hover:text-emerald-400">❄️ HVAC / AC Repair</a>
+        <a href="plumbing.html" class="block py-1 pl-1 hover:text-emerald-400">🔧 Plumbing</a>
+        <a href="solar.html" class="block py-1 pl-1 hover:text-emerald-400">☀️ Solar Installation</a>
+        <a href="lawn-care.html" class="block py-1 pl-1 hover:text-emerald-400">🌿 Lawn Care</a>
+        <a href="painting.html" class="block py-1 pl-1 hover:text-emerald-400">🎨 House Painting</a>
+        <a href="electrical.html" class="block py-1 pl-1 hover:text-emerald-400">⚡ Electrical</a>
+        <a href="pest-control.html" class="block py-1 pl-1 hover:text-emerald-400">🐛 Pest Control</a>
+        <a href="tree-service.html" class="block py-1 pl-1 hover:text-emerald-400">🌳 Tree Service</a>
+        <a href="moving.html" class="block py-1 pl-1 hover:text-emerald-400">📦 Moving</a>
+        <a href="house-cleaning.html" class="block py-1 pl-1 hover:text-emerald-400">🧹 House Cleaning</a>
+        <a href="index.html#quick-form" class="block py-1 pl-1 hover:text-emerald-400">🏊 Pool Service (Quick Free Form)</a>
+
+        <div class="mt-3 text-emerald-400 font-semibold text-xs tracking-widest">FREE CALCULATORS &amp; TOOLS</div>
+        <a href="roof-calculator.html" class="block py-1 pl-1 hover:text-emerald-400">🏠 Roof Calculator</a>
+        <a href="car-ai-guide.html" class="block py-1 pl-1 hover:text-emerald-400">🚗 Car AI Guide</a>
+        <a href="hvac-calculator.html" class="block py-1 pl-1 hover:text-emerald-400">❄️ HVAC Savings Calculator</a>
+        <a href="solar-calculator.html" class="block py-1 pl-1 hover:text-emerald-400">☀️ Solar Payback Calculator</a>
+        <a href="moving-estimator.html" class="block py-1 pl-1 hover:text-emerald-400">📦 Moving Cost Estimator</a>
+        <a href="electrical-estimator.html" class="block py-1 pl-1 hover:text-emerald-400">⚡ Electrical Estimator</a>
+        <a href="painting-calculator.html" class="block py-1 pl-1 hover:text-emerald-400">🎨 Painting Cost Calculator</a>
+
+        <div class="mt-3 text-emerald-400 font-semibold text-xs tracking-widest">LEGAL</div>
+        <a href="privacy.html" class="block py-1 pl-1 hover:text-emerald-400">Privacy Policy</a>
+        <a href="terms.html" class="block py-1 pl-1 hover:text-emerald-400">Terms of Service</a>
+        <a href="disclaimer.html" class="block py-1 pl-1 hover:text-emerald-400">Disclaimer</a>
+      </div>
     </nav>
-    
-    <main class="max-w-4xl mx-auto px-4 py-12">
-        <h1 class="text-4xl font-bold mb-4">Solar Payback Calculator</h1>
-        <p class="text-dark-muted mb-6">Estimate your solar ROI and payback period.</p>
-        
-        <div class="bg-dark-surface border border-dark-border rounded-lg p-8">
-            <div class="mb-4">
-                <label class="block text-sm font-semibold mb-2">Monthly electric bill ($)</label>
-                <input type="number" name="bill" min="50" max="500" value="150" class="w-full px-4 py-2 bg-dark-bg border border-dark-border rounded text-dark-text" onchange="calculateSolar()">
-            </div>
-            <div class="mb-4">
-                <label class="block text-sm font-semibold mb-2">Roof gets good sunlight?</label>
-                <select name="sunlight" class="w-full px-4 py-2 bg-dark-bg border border-dark-border rounded text-dark-text" onchange="calculateSolar()">
-                    <option value="excellent">Excellent (5+ hrs/day)</option>
-                    <option value="good">Good (4-5 hrs/day)</option>
-                    <option value="fair">Fair (3-4 hrs/day)</option>
-                </select>
-            </div>
-            <button onclick="calculateSolar()" class="btn-primary px-6 py-3 rounded font-bold w-full">Calculate ROI</button>
-            <div id="result" class="mt-6 p-4 bg-dark-bg rounded text-center"></div>
+
+    <!-- Header -->
+    <div class="text-center mb-8 pt-4">
+      <div class="inline-flex items-center gap-2 mb-3">
+        <div class="w-9 h-9 bg-emerald-500 rounded-2xl flex items-center justify-center text-zinc-950 font-black text-2xl">Q</div>
+        <div>
+          <div class="text-3xl font-bold tracking-tighter">Free Quotes On Anything!</div>
+          <div class="text-emerald-400 text-xs tracking-[2px] -mt-1">ALWAYS FREE FOR HOMEOWNERS • AUSTIN TX</div>
         </div>
-    </main>
-    <script>
-        function calculateSolar() {
-            const bill = parseFloat(document.querySelector('input[name="bill"]').value) || 150;
-            const payback = Math.round((bill * 12 * 7) / (bill * 12));
-            document.getElementById('result').innerHTML = `<p class="text-2xl font-bold">~${payback} year payback</p><p class="text-dark-muted mt-2">Typical solar cost $15k-$20k after incentives</p><p class="mt-4"><a href="solar.html" class="btn-primary px-4 py-2 rounded inline-block">Get Free Solar Quotes →</a></p>`;
-        }
-    </script>
-    
-    <footer class="bg-dark-surface border-t border-dark-border mt-12 py-6">
-        <div class="max-w-4xl mx-auto px-4 text-sm text-dark-muted text-center">
-            <p class="mb-2">&copy; 2025 QuoteMyAnything, LLC. All rights reserved.</p>
+      </div>
+      <p class="text-zinc-400">Solar Payback Calculator — See your break-even and savings by getting 3 local bids.</p>
+      <div class="mt-3 flex justify-center gap-2">
+        <a href="https://quotemyanything.com" class="inline-block bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold px-5 py-2 rounded-3xl micro">Main Site</a>
+        <a href="https://quotemyanything.com/solar.html" class="inline-block bg-zinc-800 hover:bg-zinc-700 text-sm font-semibold px-5 py-2 rounded-3xl micro">Get Solar Quotes →</a>
+      </div>
+    </div>
+
+    <!-- Gemini -->
+    <div class="mb-8 bg-zinc-900 border border-emerald-800 rounded-3xl p-6 text-center">
+      <div class="text-emerald-400 text-xs tracking-widest mb-1">NEW GEMINI VIDEO ON MAIN</div>
+      <div class="font-semibold mb-2">New 10s QMA Commercial — "Free Quotes On Anything!"</div>
+      <a href="https://quotemyanything.com" class="inline-block text-emerald-400 underline text-sm">Watch the Gemini brand video on main →</a>
+    </div>
+
+    <!-- Estimator -->
+    <div class="bg-zinc-900 rounded-3xl p-8 border border-zinc-800 mb-8">
+      <h2 class="text-2xl font-bold mb-4">Solar Savings &amp; Payback Estimator</h2>
+      <p class="text-sm text-zinc-400 mb-6">Rough numbers for Austin (high sun). Real savings from 3 competing local quotes (typical 10-25% better pricing).</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Monthly electric bill ($)</label>
+          <input id="bill" type="number" value="180" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm" oninput="calcSolar()">
         </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Roof sq ft available</label>
+          <input id="roof" type="number" value="450" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm" oninput="calcSolar()">
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Current rate (¢/kWh)</label>
+          <input id="rate" type="number" value="14" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm" oninput="calcSolar()">
+        </div>
+      </div>
+
+      <div id="solar-results" class="calc-result rounded-2xl p-6 hidden">
+        <div class="grid grid-cols-3 gap-4 text-center">
+          <div>
+            <div class="text-xs text-zinc-400">Est. system size</div>
+            <div id="size" class="text-2xl font-bold text-white mt-1">7.2 kW</div>
+          </div>
+          <div>
+            <div class="text-xs text-emerald-400">Annual savings</div>
+            <div id="annual" class="text-2xl font-bold text-emerald-400 mt-1">$1,850</div>
+          </div>
+          <div>
+            <div class="text-xs text-zinc-400">Simple payback</div>
+            <div id="payback" class="text-2xl font-bold text-white mt-1">6.8 yrs</div>
+          </div>
+        </div>
+        <div class="mt-4 text-xs text-zinc-400 text-center">Get 3 free local bids to improve pricing, incentives, and timeline. Numbers are estimates only.</div>
+      </div>
+
+      <button onclick="showSolarForm()" class="mt-6 w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-3xl font-semibold text-lg micro">Get My 3 Free Solar Quotes &amp; Improve Payback →</button>
+      <p class="text-center text-[10px] text-zinc-500 mt-2">Free for homeowners. Compare &amp; choose the best local deal.</p>
+    </div>
+
+    <!-- Form -->
+    <div id="solar-form" class="bg-zinc-900 rounded-3xl p-6 border border-zinc-800 mb-8 hidden">
+      <h3 class="font-bold mb-1">Free solar quotes in 60 seconds</h3>
+      <p class="text-xs text-zinc-400 mb-4">One form. 3 licensed local pros compete for your roof.</p>
+      <form action="https://formspree.io/f/xdajvlvr" method="POST">
+        <input type="hidden" name="site_source" value="solar-calculator">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1">
+        <textarea name="message" required rows="2" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm mb-3" placeholder="e.g. 1,800 sq ft home, south-facing roof in 78745, $160/mo bill, interested in 2026 incentives"></textarea>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <input type="email" name="email" required placeholder="you@email.com" class="bg-black border border-zinc-700 rounded-2xl p-3 text-sm">
+          <input type="tel" name="phone" placeholder="Phone (for site visit scheduling)" class="bg-black border border-zinc-700 rounded-2xl p-3 text-sm">
+        </div>
+        <div class="mt-3 p-3 bg-black/60 rounded-2xl text-[11px] text-zinc-400">
+          <label class="flex gap-2">
+            <input type="checkbox" required class="mt-0.5 accent-emerald-500">
+            <span>By submitting, you agree to be contacted by up to 3 local licensed contractors in the greater Austin area. Reply STOP to unsubscribe. Message and data rates may apply. Your information is only shared with contractors for the purpose of providing quotes. We do not sell or share your data for any other reason. <a href="https://quotemyanything.com/privacy.html" class="underline">Privacy</a></span>
+          </label>
+        </div>
+        <button type="submit" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-3xl font-semibold text-lg micro">Send My Free Solar Quote Request →</button>
+      </form>
+    </div>
+
+    <div class="text-center text-xs text-zinc-400 mb-8">
+      More free tools: <a href="https://quotemyanything.com/roof-calculator.html" class="underline">Roof Calculator</a> • <a href="https://quotemyanything.com/hvac-calculator.html" class="underline">HVAC Calculator</a> • <a href="https://quotemyanything.com" class="underline text-emerald-400">All services + Gemini commercial</a>
+    </div>
+
+    <footer class="text-center text-xs text-zinc-500 pb-10">
+      <div class="mb-1">(737) 667-6844 • quotemyanything.com • Austin, TX</div>
+      <div class="flex justify-center gap-3">
+        <a href="https://quotemyanything.com/privacy.html" class="hover:text-zinc-300">Privacy</a>
+        <a href="https://quotemyanything.com/terms.html" class="hover:text-zinc-300">Terms</a>
+        <a href="https://quotemyanything.com/disclaimer.html" class="hover:text-zinc-300">Disclaimer</a>
+      </div>
+      <div class="mt-3 text-[10px] text-zinc-600">Always free for homeowners. Value-first. Built for speed &amp; trust.</div>
     </footer>
-    <script src="assets/js/qma-chat.js"></script>
+  </div>
+
+  <script>
+    function calcSolar() {
+      const bill = parseFloat(document.getElementById('bill').value) || 180;
+      const roof = parseFloat(document.getElementById('roof').value) || 450;
+      const rate = parseFloat(document.getElementById('rate').value) || 14;
+
+      const kwhPerMonth = (bill / (rate / 100));
+      const systemKw = Math.min(12, Math.max(4, Math.round((roof / 100) * 0.8)));
+      const annualGen = systemKw * 1400; // Austin sun hours approx
+      const annualBillSavings = Math.round(annualGen * (rate / 100));
+      const installedEst = systemKw * 2800;
+      const payback = (installedEst / (annualBillSavings * 0.7)).toFixed(1); // rough after incentives
+
+      document.getElementById('size').textContent = systemKw + ' kW';
+      document.getElementById('annual').textContent = '$' + annualBillSavings.toLocaleString();
+      document.getElementById('payback').textContent = payback + ' yrs';
+      document.getElementById('solar-results').classList.remove('hidden');
+    }
+
+    function showSolarForm() {
+      document.getElementById('solar-form').classList.remove('hidden');
+      document.getElementById('solar-form').scrollIntoView({behavior:'smooth'});
+    }
+
+    window.onload = function() {
+      calcSolar();
+    }
+
+    // Hamburger menu toggle (shared)
+    setTimeout(() => {
+      const btn = document.getElementById('hamburger-btn');
+      const menu = document.getElementById('mobile-menu');
+      if (btn && menu) {
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
+      }
+    }, 0);
+  </script>
 </body>
 </html>
