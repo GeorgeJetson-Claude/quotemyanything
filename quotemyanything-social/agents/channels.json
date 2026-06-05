@@ -1,22 +1,34 @@
 {
-  "x": {
-    "search_queries": [
-      "Austin (roofing OR roofer OR \"roof damage\" OR \"hail damage\" OR storm) (quote OR recommend OR \"need help\" OR repair) lang:en",
-      "Austin TX (hail OR \"central texas storm\" OR \"wind damage\") roof",
-      "\"need roofer Austin\" OR \"roof repair after storm\" Austin",
-      "Williamson OR Bastrop OR \"Round Rock\" OR Georgetown (hail OR storm) roof",
-      "Central Texas storm damage roof quotes",
-      "Austin TX home repair quote",
-      "\"need roofer Austin\"",
-      "\"HVAC quote Austin\""
-    ],
-    "monitor_hashtags": ["#AustinRoofing", "#ATXHome"],
-    "post_account": "@your_qma_account"
-  },
+  "_focus": "Discord + Reddit are primary channels. X/Facebook are optional/secondary. Human-in-the-loop: agents find + draft, you post.",
   "reddit": {
-    "subreddits": ["r/Austin", "r/AustinJobs", "r/HomeImprovement", "r/HomeOwners", "r/lawncare", "r/HVAC", "r/Roofing", "r/Plumbing", "r/Moving", "r/electricians", "r/pestcontrol", "r/solar", "r/Insurance"],
-    "keywords": ["need a quote", "looking for a roofer", "roof repair Austin", "hail damage roof", "storm damage roof", "central texas roof", "how much does it cost", "recommend a contractor", "HVAC Austin", "lawn care Austin", "roof repair Austin", "moving company Austin", "pest control Austin", "anyone know a good", "cheapest", "get quotes"],
+    "subreddits": ["r/Austin", "r/AustinJobs", "r/HomeImprovement", "r/HomeOwners", "r/lawncare", "r/HVAC", "r/Roofing", "r/Plumbing", "r/Moving", "r/electricians", "r/pestcontrol", "r/solar", "r/Insurance", "r/houston", "r/Dallas", "r/sanantonio", "r/RealEstate"],
+    "keywords": ["need a quote", "looking for a roofer", "roof repair", "hail damage roof", "storm damage roof", "central texas roof", "how much does it cost", "recommend a contractor", "HVAC", "lawn care", "moving company", "pest control", "anyone know a good", "cheapest", "get quotes", "estimate", "who do you use"],
     "post_sub": "r/Austin",
-    "rss_for_zapier": "https://www.reddit.com/r/Austin+HomeImprovement+lawncare+HVAC+Roofing/new.json?limit=25"
+    "rss_for_zapier": "https://www.reddit.com/r/Austin+HomeImprovement+lawncare+HVAC+Roofing+Plumbing+Moving+solar+pestcontrol+electricians/new.json?limit=50",
+    "etiquette": "Be genuinely helpful first. Read subreddit rules. Only drop the QMA link when it directly answers a quote/recommendation request. No copy-paste spam."
+  },
+  "discord": {
+    "target_servers": [
+      "Austin / Central Texas local community servers",
+      "Texas homeowner / DIY / home-improvement servers",
+      "Real estate & new-homeowner servers (people who just bought & need services)",
+      "Storm / weather / disaster-recovery servers after hail/wind events",
+      "City-specific servers as we expand (Houston, Dallas, San Antonio, then FL)"
+    ],
+    "approach": "Join as a helpful member, not an advertiser. Answer 'who should I call for X' questions with a real recommendation + optionally the QMA quote link. Offer the free calculators as genuine value (roof area, HVAC savings, solar payback).",
+    "value_hooks": [
+      "Free roof/HVAC/solar/moving calculators (no signup) — share the tool, not just a pitch",
+      "60-second free-quote form when someone is actively asking for a contractor",
+      "Storm-damage help threads (Central TX hail) — high intent, be the helpful local resource"
+    ],
+    "rules": "Respect each server's self-promo rules. Build reputation first. Never mass-DM. Quality over volume.",
+    "etiquette": "Human-in-the-loop only. The agent surfaces opportunities; you reply as a real person."
+  },
+  "x": {
+    "_status": "OPTIONAL / secondary — not a focus per current strategy",
+    "search_queries": ["Austin (roofing OR roofer OR \"hail damage\" OR storm) (quote OR recommend OR repair) lang:en"]
+  },
+  "facebook": {
+    "_status": "OPTIONAL / secondary — not a focus per current strategy"
   }
 }
