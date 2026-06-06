@@ -23,16 +23,25 @@
 - Partner network backend build ("which we need built" — login stubs, asset gate).
 - Empire full sync (trackers, plans, assets) when gdrive/rclone stable.
 
-## REVENUE STATUS (2026-06-06)
+## REVENUE STATUS (2026-06-06) [updated]
 - Live public: Free to list (home services RFPs + yard sale items + sports tickets/cruises/antiques/diamonds/"anything"). Buyers/winners pay small premium ($29 flat or 3-5% finder on awarded deal) → "boom new money stream".
-- Pros/Partners: $15-45 per qualified lead or $99-299/mo volume. New inbound volume from expanded "List Anything" + Yard Sale categories now promoted on for-pros.
-- Consumer side: Zero cost, email-only next steps. High trust → more submissions → more matched opportunities for the network.
-- Content flywheel: Daily Groq automation (TikTok/organic) driving "how did they build the business Angi never heard of?" curiosity + direct CTAs to the free list / quote forms.
+- Pros/Partners: $15-45 per qualified lead or $99-299/mo volume. New inbound volume from expanded "List Anything" + Yard Sale categories + bidding now promoted with "Ultimate Edge" copy on for-pros.
+- Consumer side: Zero cost, email-only next steps. High trust → more submissions → more matched opportunities + deal wins for the network.
+- Content flywheel: Daily Groq automation (TikTok/organic) driving "how did they build the business Angi never heard of?" curiosity + direct CTAs to the free list / quote / bid flows. New content pack ships the killer positioning.
+
+## FOCUS: Making the Ultimate Angi List Killer (2026-06-06)
+- New dedicated section in for-pros.html: "The Ultimate Edge for Pros" — highlights free consumer/seller volume (home + yard sales + tickets + cruises + antiques + diamonds + luxury = pipeline traditional paid-lead directories miss), bidding to win full deals (not just per-lead), one professional dashboard for routing + bidding + tracking, AI Concierge matching, clean no-spam email-only experience for consumers (your brand stays trusted), low cost (per-lead/monthly or small premium on awards). Positions QMA as the modern scale engine vs old review/lead models.
+- Dashboard header/footer updated with killer language: "The modern engine: route qualified leads + bid to win full deals on RFPs, yard sales, anything. Free consumer volume + small premium on awards." + footer "The ultimate platform for pros who want volume + direct deal wins."
+- Fresh content pack created: angi_killer_content_pack.md (TikTok scripts, X/Reddit posts, Google SEO titles/descs). All use mystery "how did this no-name build the business they never heard of?", free-to-list drives real high-intent inbound, bidding model, "anything" expansion, AI Concierge (Quote Yodler), professional tools/dashboard, organic flywheel CTAs to site + for-pros.
+- daily_tiktok_automation.py updated to llama-3.1-70b-versatile for higher-quality killer content (re-run when rate limits allow; current run saved error JSON but mechanism live).
+- Goal: Explosive organic curiosity → massive free listings → pros get better volume + bidding opportunities than paid directories → ask "how are they doing this?" without us ever naming competitors in public UI.
+- All prior constraints: no competitor names, video only on approved index spot, email-only next steps, professional brand, safe minimal changes.
 
 ## HANDOFF / NOTES
-- Worktree primary for edits: /home/tupacmafia911/.grok/worktrees/tupacmafia911-local-qma/2026-06-05-d4314a09/quotemyanything/{dashboard.html,for-pros.html,...}
-- Projects mirror (automation + deploy source): /home/tupacmafia911/projects/quotemyanything/
+- Worktree primary for edits.
+- Projects mirror (automation + deploy source).
 - Vercel project: quotemyanything (id prj_lPknd6uqHmkwxjDdrE6Y7wzpYDZQ). GitHub GeorgeJetson-Claude/quotemyanything main. Safe continuous deploys via MCP push_files (triggers build).
-- "Ship Deploy and make sure we have the best site Online in 2026" + "keep shipping use best practice and skills and get us inbound leads" — executing.
+- Next: Post the new content pack daily, re-run automation with 70b model, GSC indexing on for-pros + dashboard mentions, more calculators/tools for home services volume, partner login for assets.
+- "keep shipping use best practice and skills and get us inbound leads" + focus on ultimate Angi List killer — executing.
 
-Timestamp: 2026-06-06 (push changes for dashboard + bids)
+Timestamp: 2026-06-06 (Angi killer focus + copy/content updates)
