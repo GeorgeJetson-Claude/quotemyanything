@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>QMA Lead Tracking &amp; Bidding Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .micro { transition: all .1s ease; }
+    .micro:hover { transform: translateY(-1px); }
+    .card { background: #1e293b; border-radius: 16px; padding: 24px; border: 1px solid #334155; margin-bottom: 24px; }
+    table { font-size: 13px; }
+    .status { padding: 1px 8px; border-radius: 9999px; font-size: 11px; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen p-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h1 class="text-3xl font-bold">QMA Lead Tracking &amp; Bidding Dashboard</h1>
+        <p class="text-sm text-zinc-400">Internal / Partner only • Lead routing ($15-45 or monthly) + RFP / Yard Sale bid flow (small premium on award)</p>
+      </div>
+      <a href="for-pros.html" class="text-emerald-400 hover:underline text-sm">← Back to For Pros</a>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4">
+        <div class="text-xs text-zinc-400">LEADS ROUTED (TOTAL)</div>
+        <div id="stat-leads" class="text-3xl font-bold text-emerald-400">0</div>
+      </div>
+      <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4">
+        <div class="text-xs text-zinc-400">EST. REVENUE (LEADS)</div>
+        <div id="stat-revenue" class="text-3xl font-bold">$0</div>
+      </div>
+      <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4">
+        <div class="text-xs text-zinc-400">ACTIVE RFPs / LISTINGS</div>
+        <div id="stat-rfps" class="text-3xl font-bold text-amber-400">0</div>
+      </div>
+      <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4">
+        <div class="text-xs text-zinc-400">BIDS SENT (THIS SESSION)</div>
+        <div id="stat-bids" class="text-3xl font-bold">0</div>
+      </div>
+    </div>
+
+    <!-- HOME SERVICE LEADS (routing) -->
+    <div class="card">
+      <h2 class="text-xl font-semibold mb-1 text-emerald-400">📥 Home Service Lead Routing</h2>
+      <p class="text-sm text-zinc-400 mb-4">Paste leads from Formspree emails. Route to pros. Track billing. Shared with public routing console.</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+        <input id="lead-name" type="text" placeholder="Lead Name" class="bg-black border border-zinc-700 rounded-xl px-4 py-2 text-sm">
+        <input id="lead-contact" type="text" placeholder="Email or Phone" class="bg-black border border-zinc-700 rounded-xl px-4 py-2 text-sm">
+        <select id="lead-service" class="bg-black border border-zinc-700 rounded-xl px-4 py-2 text-sm">
+          <option value="">Service Category</option>
+          <option value="roofing">Roofing</option>
+          <option value="hvac">HVAC / AC Repair</option>
+          <option value="plumbing">Plumbing</option>
+          <option value="electrical">Electrical</option>
+          <option value="lawn-care">Lawn Care</option>
+          <option value="pest-control">Pest Control</option>
+          <option value="moving">Moving</option>
+          <option value="painting">Painting</option>
+          <option value="solar">Solar</option>
+          <option value="house-cleaning">House Cleaning</option>
+          <option value="tree-service">Tree Service</option>
+          <option value="tickets">Sports Tickets / Events</option>
+          <option value="cruises">Cruises / Travel</option>
+          <option value="antiques">Antiques / Collectibles</option>
+          <option value="other">Other / Anything</option>
+        </select>
+        <input id="lead-zip" type="text" placeholder="ZIP (e.g. 78704)" class="bg-black border border-zinc-700 rounded-xl px-4 py-2 text-sm">
+      </div>
+      <textarea id="lead-details" rows="2" placeholder="Details (e.g. Roof leak after storm, 2-story, insurance claim, or '2 Taylor Swift tickets this weekend')" class="w-full bg-black border border-zinc-700 rounded-2xl px-4 py-2 text-sm mb-3"></textarea>
+
+      <div class="flex flex-wrap gap-3 items-center mb-4">
+        <select id="route-model" class="bg-black border border-zinc-700 rounded-xl px-3 py-2 text-sm">
+          <option value="per-lead">Per-lead ($15-45)</option>
+          <option value="monthly">Monthly sub ($99-299)</option>
+        </select>
+        <button onclick="routeLead()" class="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-2xl text-sm font-semibold">Route Lead →</button>
+        <button onclick="seedDemoLeads()" class="bg-zinc-800 hover:bg-zinc-700 px-4 py-2 rounded-2xl text-sm">Seed demo leads</button>
+      </div>
+
+      <h3 class="font-semibold mb-2 text-sm">Routed Leads Log</h3>
+      <div class="overflow-auto border border-zinc-800 rounded-2xl max-h-[220px]">
+        <table class="w-full">
+          <thead class="bg-zinc-900 text-xs"><tr>
+            <th class="text-left p-2">Date</th><th class="text-left p-2">Lead</th><th class="text-left p-2">Category</th><th class="text-left p-2">ZIP</th>
+            <th class="text-right p-2">Est $</th><th class="text-left p-2">Status</th><th class="p-2"></th>
+          </tr></thead>
+          <tbody id="routed-tbody" class="text-xs"></tbody>
+        </table>
+      </div>
+      <div class="mt-2 text-xs text-zinc-400 flex gap-4">
+        <span>Total routed: <span id="total-routed" class="font-semibold text-white">0</span></span>
+        <span>Est revenue: $<span id="total-revenue" class="font-semibold text-emerald-400">0</span></span>
+        <button onclick="clearRoutedLog()" class="underline">Clear</button>
+      </div>
+    </div>
+
+    <!-- ACTIVE RFPs & YARD SALE LISTINGS - THE PLACE TO SEND BIDS -->
+    <div class="card" id="active-rfps">
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <h2 class="text-xl font-semibold text-amber-400">🛍️ Active RFPs, Yard Sales &amp; "Anything" Listings</h2>
+          <p class="text-sm text-zinc-400">High-intent postings (free to list). Send competing bids/offers here. Small premium on successful award.</p>
+        </div>
+        <button onclick="seedDemoListings()" class="text-xs bg-zinc-800 hover:bg-zinc-700 px-3 py-1.5 rounded">Seed demo listings</button>
+      </div>
+
+      <div class="overflow-auto border border-zinc-800 rounded-2xl">
+        <table class="w-full">
+          <thead class="bg-zinc-900 text-xs"><tr>
+            <th class="text-left p-2">Posted</th>
+            <th class="text-left p-2">Category</th>
+            <th class="text-left p-2">Title / Need</th>
+            <th class="text-left p-2">Budget</th>
+            <th class="text-left p-2">Deadline</th>
+            <th class="text-center p-2">Bids</th>
+            <th class="p-2"></th>
+          </tr></thead>
+          <tbody id="listings-tbody" class="text-xs"></tbody>
+        </table>
+      </div>
+      <p class="text-[10px] text-zinc-500 mt-2">Listings come from the "List Anything (Free)" form on this site + demo data. Click "Send Bid" to compete.</p>
+    </div>
+
+    <!-- SEND BID FORM (the place people use to send bids) -->
+    <div class="card" id="bid-form-card" style="display:none; border-color:#f59e0b;">
+      <h3 class="font-semibold mb-2">Send Bid / Offer on Listing <span id="bid-listing-title" class="text-amber-400"></span></h3>
+      <form id="bid-form" onsubmit="submitBid(event)">
+        <input type="hidden" id="bid-listing-id">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+          <input id="bidder-name" type="text" placeholder="Your name / company" required class="bg-black border border-zinc-700 rounded-xl px-4 py-2 text-sm">
+          <input id="bidder-contact" type="text" placeholder="Email or phone (for the lister)" required class="bg-black border border-zinc-700 rounded-xl px-4 py-2 text-sm">
+          <input id="bid-amount" type="text" placeholder="Bid amount or 'best offer'" class="bg-black border border-zinc-700 rounded-xl px-4 py-2 text-sm">
+          <input id="bid-timeline" type="text" placeholder="Can complete by..." class="bg-black border border-zinc-700 rounded-xl px-4 py-2 text-sm">
+        </div>
+        <textarea id="bid-message" rows="3" placeholder="Message to the lister (terms, photos link, why you're the best, etc.)" required class="w-full bg-black border border-zinc-700 rounded-2xl px-4 py-2 text-sm mb-3"></textarea>
+        <div class="flex gap-3">
+          <button type="submit" class="bg-amber-600 hover:bg-amber-500 text-white px-6 py-2 rounded-2xl font-semibold text-sm">Send Bid →</button>
+          <button type="button" onclick="cancelBidForm()" class="bg-zinc-800 hover:bg-zinc-700 px-5 py-2 rounded-2xl text-sm">Cancel</button>
+        </div>
+        <p class="text-[10px] text-zinc-500 mt-2">Bid is sent directly to the poster (email + dashboard notification in real flow). We only earn the small premium if you win the deal.</p>
+      </form>
+    </div>
+
+    <!-- MY BIDS & RECEIVED (tracking for both sides) -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="card">
+        <h3 class="font-semibold mb-2">📤 Bids I've Sent</h3>
+        <div id="sent-bids" class="text-xs space-y-2 max-h-[220px] overflow-auto"></div>
+        <p class="text-[10px] text-zinc-500 mt-2">You will be contacted directly by the lister if they like your offer.</p>
+      </div>
+      <div class="card">
+        <h3 class="font-semibold mb-2">📥 Bids Received on My Listings</h3>
+        <div id="received-bids" class="text-xs space-y-2 max-h-[220px] overflow-auto"></div>
+        <button onclick="showMyListings()" class="text-xs underline mt-2">Show my posted listings</button>
+      </div>
+    </div>
+
+    <div class="text-center mt-8 text-xs text-zinc-500">
+      All data is local to this browser (demo / internal use). In production, Formspree emails + real backend routing + email relay for bids. 
+      Use the "List Anything (Free)" form on for-pros.html to create new live RFPs that appear here for bidding.
+      <br>© 2026 QuoteMyAnything — Free to list. Small premium only on awarded deals.
+    </div>
+  </div>
+
+  <script>
+    // Shared localStorage keys with for-pros.html
+    let routedLeads = [];
+    let activeListings = [];
+    let sentBids = [];
+    let receivedBids = []; // demo aggregation
+
+    function loadAll() {
+      try { routedLeads = JSON.parse(localStorage.getItem('qma_routed_leads') || '[]'); } catch(e){}
+      try { activeListings = JSON.parse(localStorage.getItem('qma_active_listings') || '[]'); } catch(e){}
+      try { sentBids = JSON.parse(localStorage.getItem('qma_sent_bids') || '[]'); } catch(e){}
+      renderAll();
+    }
+
+    function saveAll() {
+      try { localStorage.setItem('qma_routed_leads', JSON.stringify(routedLeads)); } catch(e){}
+      try { localStorage.setItem('qma_active_listings', JSON.stringify(activeListings)); } catch(e){}
+      try { localStorage.setItem('qma_sent_bids', JSON.stringify(sentBids)); } catch(e){}
+    }
+
+    function renderAll() {
+      renderRoutedTable();
+      renderListingsTable();
+      renderSentBids();
+      renderReceivedBids();
+      updateStats();
+    }
+
+    function updateStats() {
+      document.getElementById('stat-leads').textContent = routedLeads.length;
+      const rev = routedLeads.reduce((s, l) => s + (l.estRev || 30), 0);
+      document.getElementById('stat-revenue').textContent = '$' + rev;
+      document.getElementById('stat-rfps').textContent = activeListings.length;
+      document.getElementById('stat-bids').textContent = sentBids.length;
+    }
+
+    // === LEAD ROUTING (shared logic) ===
+    function renderRoutedTable() {
+      const tbody = document.getElementById('routed-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      let totalRev = 0;
+      routedLeads.forEach((lead, idx) => {
+        const rev = lead.estRev || 30;
+        totalRev += rev;
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid #334155';
+        tr.innerHTML = `
+          <td class="p-2">${lead.date}</td>
+          <td class="p-2">${lead.name}<br><span class="text-zinc-500">${lead.contact}</span></td>
+          <td class="p-2">${lead.service}</td>
+          <td class="p-2">${lead.zip}</td>
+          <td class="p-2 text-right">$${rev}</td>
+          <td class="p-2"><span class="status" style="background:${lead.status==='Delivered' ? '#166534' : '#854d0e'}">${lead.status}</span></td>
+          <td class="p-2">
+            <button onclick="markDelivered(${idx})" class="bg-emerald-700 text-white text-[10px] px-2 py-0.5 rounded">Deliver</button>
+            <button onclick="deleteRouted(${idx})" class="ml-1 text-red-400">×</button>
+          </td>`;
+        tbody.appendChild(tr);
+      });
+      const tEl = document.getElementById('total-routed');
+      const rEl = document.getElementById('total-revenue');
+      if (tEl) tEl.textContent = routedLeads.length;
+      if (rEl) rEl.textContent = totalRev;
+    }
+
+    function routeLead() {
+      const name = (document.getElementById('lead-name')||{}).value || 'Anonymous Lead';
+      const contact = (document.getElementById('lead-contact')||{}).value || 'no-contact';
+      const service = (document.getElementById('lead-service')||{}).value || 'other';
+      const zip = (document.getElementById('lead-zip')||{}).value || '787XX';
+      const details = (document.getElementById('lead-details')||{}).value || '';
+      const model = (document.getElementById('route-model')||{}).value || 'per-lead';
+
+      const estRev = model === 'monthly' ? 99 : 30;
+      const entry = {
+        date: new Date().toISOString().slice(0,10),
+        name, contact, service, zip, details,
+        source: 'dashboard',
+        model, estRev, status: 'Routed'
+      };
+      routedLeads.unshift(entry);
+      saveAll();
+      renderAll();
+      // clear
+      ['lead-name','lead-contact','lead-zip','lead-details'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+    }
+
+    function markDelivered(idx) {
+      if (routedLeads[idx]) { routedLeads[idx].status = 'Delivered'; saveAll(); renderAll(); }
+    }
+    function deleteRouted(idx) {
+      routedLeads.splice(idx,1); saveAll(); renderAll();
+    }
+
+    function seedDemoLeads() {
+      const demos = [
+        {name:'Maria Lopez', contact:'maria@lopez.dev', service:'hvac', zip:'78704', details:'2200sqft not cooling after storm', model:'per-lead'},
+        {name:'Tom Rivera', contact:'tom.r@icloud.com', service:'roofing', zip:'78660', details:'Storm damage, 2 story, insurance', model:'per-lead'},
+        {name:'Sarah Chen', contact:'sarah@localmoving.co', service:'moving', zip:'78745', details:'2BR apartment to 25mi away this weekend', model:'monthly'}
+      ];
+      demos.forEach(d => {
+        routedLeads.unshift({
+          date: new Date().toISOString().slice(0,10),
+          name: d.name, contact: d.contact, service: d.service, zip: d.zip, details: d.details,
+          source: 'demo', model: d.model, estRev: d.model==='monthly'?99:30, status:'Routed'
+        });
+      });
+      saveAll(); renderAll();
+    }
+
+    function clearRoutedLog() {
+      routedLeads = []; saveAll(); renderAll();
+    }
+
+    // === LISTINGS + BIDDING (the core "place for people to send bids to") ===
+    function renderListingsTable() {
+      const tbody = document.getElementById('listings-tbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (activeListings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="p-3 text-center text-zinc-500">No active listings yet. Use the "List Anything (Free)" form on for-pros.html or seed demo data.</td></tr>';
+        return;
+      }
+
+      activeListings.forEach((l, idx) => {
+        const bidCount = (sentBids.filter(b => b.listingId === l.id).length) || 0;
+        const tr = document.createElement('tr');
+        tr.style.borderBottom = '1px solid #334155';
+        tr.innerHTML = `
+          <td class="p-2">${new Date(l.timestamp).toLocaleDateString()}</td>
+          <td class="p-2">${l.category}</td>
+          <td class="p-2 font-medium">${l.title}</td>
+          <td class="p-2">${l.budget || '—'}</td>
+          <td class="p-2">${l.deadline || '—'}</td>
+          <td class="p-2 text-center"><span class="bg-amber-900/60 px-2 rounded">${bidCount}</span></td>
+          <td class="p-2">
+            <button onclick="openBidForm('${l.id}', '${l.title.replace(/'/g,"\\'")}' )" class="bg-amber-600 hover:bg-amber-500 text-white text-xs px-3 py-1 rounded">Send Bid</button>
+            <button onclick="viewBidsForListing('${l.id}')" class="ml-1 text-xs underline">View bids</button>
+          </td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function seedDemoListings() {
+      if (activeListings.length > 0 && !confirm('Replace current demo listings?')) return;
+      activeListings = [
+        {id:'demo1', poster:'Homeowner - Liberty Hill', email:'demo1@qma.test', category:'yard sale', title:'Full living room set + tools + patio furniture', details:'Moving soon. Couch, 2 recliners, dining table for 6, power tools, outdoor set. All good condition.', budget:'$600-900 OBO', deadline:'This weekend', fee_model:'finder', timestamp: new Date(Date.now()-86400000*1).toISOString()},
+        {id:'demo2', poster:'Sports fan', email:'demo2@qma.test', category:'tickets', title:'2 tickets Taylor Swift - Austin N3', details:'Section 108, row 12. Willing to sell as pair or separate. Need to move fast.', budget:'Best offer over face', deadline:'48 hours', fee_model:'both', timestamp: new Date(Date.now()-86400000*0.5).toISOString()},
+        {id:'demo3', poster:'Austin family', email:'demo3@qma.test', category:'cruises', title:'Last-minute 4-person Caribbean cruise (Feb)', details:'Need 2 connecting rooms or suite. Flexible on dates within 10 days. 2 adults + 2 kids.', budget:'Under $3200 total', deadline:'ASAP', fee_model:'listing', timestamp: new Date().toISOString()},
+        {id:'demo4', poster:'Collector', email:'demo4@qma.test', category:'antiques', title:'Vintage Rolex + diamond tennis bracelet appraisal/buy', details:'Rolex Submariner 16610 (papers), 2ct tennis bracelet. Prefer local Austin buyer or reputable dealer quote.', budget:'Fair market', deadline:'This week', fee_model:'finder', timestamp: new Date(Date.now()-86400000*2).toISOString()},
+        {id:'demo5', poster:'Homeowner', email:'demo5@qma.test', category:'roofing', title:'Storm damage roof repair - 2 story 2400sqft', details:'Shingles + underlayment. Insurance claim open. Need 3 competing bids this week.', budget:'$8-14k', deadline:'7 days', fee_model:'listing', timestamp: new Date(Date.now()-86400000*0.3).toISOString()}
+      ];
+      saveAll();
+      renderListingsTable();
+      updateStats();
+    }
+
+    let currentBidListing = null;
+
+    function openBidForm(listingId, title) {
+      currentBidListing = listingId;
+      document.getElementById('bid-listing-id').value = listingId;
+      document.getElementById('bid-listing-title').textContent = title;
+      document.getElementById('bid-form-card').style.display = 'block';
+      document.getElementById('bid-form-card').scrollIntoView({behavior:'smooth'});
+      // prefill demo bidder if wanted
+      if (!document.getElementById('bidder-name').value) {
+        document.getElementById('bidder-name').value = 'Demo Pro Services';
+        document.getElementById('bidder-contact').value = 'bids@demopro.com | 512-555-0199';
+      }
+    }
+
+    function cancelBidForm() {
+      document.getElementById('bid-form-card').style.display = 'none';
+      document.getElementById('bid-form').reset();
+    }
+
+    function submitBid(e) {
+      e.preventDefault();
+      const listingId = document.getElementById('bid-listing-id').value;
+      const listing = activeListings.find(l => l.id === listingId);
+      if (!listing) { alert('Listing not found'); return; }
+
+      const bid = {
+        id: 'bid_' + Date.now(),
+        listingId,
+        listingTitle: listing.title,
+        bidderName: document.getElementById('bidder-name').value,
+        bidderContact: document.getElementById('bidder-contact').value,
+        amount: document.getElementById('bid-amount').value || 'Best offer',
+        timeline: document.getElementById('bid-timeline').value || 'ASAP',
+        message: document.getElementById('bid-message').value,
+        timestamp: new Date().toISOString(),
+        status: 'Sent'
+      };
+
+      sentBids.unshift(bid);
+      saveAll();
+
+      // Demo: also record as received for the poster side
+      if (!receivedBids[listingId]) receivedBids[listingId] = [];
+      receivedBids[listingId].push(bid);
+
+      alert('Bid sent! The lister (' + (listing.poster || 'the poster') + ') has received your details and offer via our system. They will contact you directly.');
+
+      cancelBidForm();
+      renderAll();
+    }
+
+    function viewBidsForListing(listingId) {
+      const bids = sentBids.filter(b => b.listingId === listingId);
+      if (bids.length === 0) {
+        alert('No bids yet on this listing (demo). Send one above!');
+        return;
+      }
+      let html = 'Bids on this listing:\n\n';
+      bids.forEach(b => {
+        html += `• ${b.bidderName} — ${b.amount} (${b.timeline})\n  ${b.message}\n  Contact: ${b.bidderContact}\n\n`;
+      });
+      alert(html + 'In real system these would be emailed to the poster with reply-to the bidder.');
+    }
+
+    function renderSentBids() {
+      const el = document.getElementById('sent-bids');
+      if (!el) return;
+      if (sentBids.length === 0) { el.innerHTML = '<div class="text-zinc-500">No bids sent yet. Use the table above.</div>'; return; }
+      el.innerHTML = sentBids.slice(0,6).map(b => `
+        <div class="bg-zinc-900 p-2 rounded">${b.listingTitle} — <strong>${b.amount}</strong> by ${b.bidderName} <span class="text-emerald-400">(${b.status})</span><br><span class="text-zinc-400">${b.message.slice(0,80)}...</span></div>
+      `).join('');
+    }
+
+    function renderReceivedBids() {
+      const el = document.getElementById('received-bids');
+      if (!el) return;
+      // For demo, show bids where the listing poster matches a "my" email or simply recent received
+      const myEmail = 'demo@poster.test'; // demo
+      let html = '';
+      let count = 0;
+      Object.keys(receivedBids).forEach(lid => {
+        const listing = activeListings.find(l => l.id === lid) || {title: 'Listing ' + lid};
+        receivedBids[lid].forEach(b => {
+          if (count < 5) {
+            html += `<div class="bg-zinc-900 p-2 rounded mb-1">${listing.title}<br><strong>${b.amount}</strong> from ${b.bidderName} — ${b.bidderContact}<br><button onclick="acceptBidDemo('${b.id}','${lid}')" class="text-emerald-400 text-xs underline">Accept (demo)</button></div>`;
+            count++;
+          }
+        });
+      });
+      el.innerHTML = html || '<div class="text-zinc-500">No bids received on your listings yet. Post via List Anything form.</div>';
+    }
+
+    function acceptBidDemo(bidId, listingId) {
+      alert('Demo: Bid accepted! In real flow you would email the winner, collect the small premium, and mark the deal closed in the dashboard.');
+      // Remove or mark the bid
+      sentBids = sentBids.filter(b => b.id !== bidId);
+      if (receivedBids[listingId]) receivedBids[listingId] = receivedBids[listingId].filter(b => b.id !== bidId);
+      saveAll();
+      renderAll();
+    }
+
+    function showMyListings() {
+      const mine = activeListings.filter(l => l.email && l.email.includes('demo')); // demo filter
+      if (mine.length === 0) {
+        alert('Post a listing using the List Anything form on for-pros.html to see it here with received bids.');
+        return;
+      }
+      let msg = 'Your posted listings:\n';
+      mine.forEach(l => {
+        const bc = sentBids.filter(b=>b.listingId===l.id).length;
+        msg += `\n• ${l.title} (${l.category}) — ${bc} bid(s)`;
+      });
+      alert(msg + '\n\nUse "View bids" in the Active RFPs table or the Received Bids panel.');
+    }
+
+    // Bootstrap
+    function initDashboard() {
+      loadAll();
+
+      // Seed some demo data on first visit if nothing exists
+      if (activeListings.length === 0) {
+        // will be seeded by button or auto on first meaningful use
+      }
+      if (routedLeads.length === 0) {
+        // light auto seed
+        setTimeout(() => {
+          if (routedLeads.length === 0) {
+            routedLeads = [
+              {date: new Date().toISOString().slice(0,10), name:'Demo Homeowner', contact:'demo@home.test', service:'hvac', zip:'78704', details:'AC not cooling 2200sqft', source:'demo', model:'per-lead', estRev:30, status:'Routed'}
+            ];
+            saveAll(); renderAll();
+          }
+        }, 400);
+      }
+
+      // Make sure stats update after any async
+      setTimeout(updateStats, 300);
+    }
+
+    window.onload = initDashboard;
+    // Expose a couple helpers for console testing
+    window.QMA_seedListings = seedDemoListings;
+    window.QMA_seedLeads = seedDemoLeads;
+  </script>
+</body>
+</html>
