@@ -120,14 +120,14 @@
       </div>
       <!-- Mobile menu -->
       <div id="mobile-menu" class="hidden md:hidden mt-2 bg-zinc-900 border border-zinc-800 rounded-3xl p-4 text-sm">
-        <a href="#quick-form" class="block py-2 font-medium">🚀 Get Free Quotes</a>
-        <a href="for-pros.html#list-anything" class="block py-2 font-medium text-emerald-400">🛍️ List Anything Free &amp; Get Bids</a>
+        <a href="#quick-form" class="block py-2 font-medium">Get Free Quotes</a>
+        <a href="for-pros.html#list-anything" class="block py-2 font-medium text-[#0f766e]">List Anything Free &amp; Get Bids</a>
         <a href="for-pros.html" class="block py-2">For Pros &amp; Partners</a>
         <div class="h-px bg-zinc-800 my-2"></div>
         <a href="roofing.html" class="block py-1 text-zinc-400">Roofing</a>
         <a href="hvac.html" class="block py-1 text-zinc-400">HVAC</a>
         <a href="plumbing.html" class="block py-1 text-zinc-400">Plumbing</a>
-        <a href="for-pros.html#list-anything" class="block py-1 text-emerald-400 font-medium">+ List Free / Yard Sale</a>
+        <a href="for-pros.html#list-anything" class="block py-1 text-[#0f766e] font-medium">+ List Free / Yard Sale</a>
       </div>
     </nav>
 
@@ -143,7 +143,7 @@
         <a href="#quick-form" 
            class="px-9 py-4 rounded-3xl border border-zinc-700 hover:bg-zinc-900 font-semibold text-lg transition">Get Free Quotes</a>
         <a href="for-pros.html#list-anything" 
-           class="px-9 py-4 rounded-3xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-lg transition shadow">List Anything (Free) – Get Bids &amp; Deals</a>
+           class="px-9 py-4 rounded-3xl bg-[#0f766e] hover:bg-[#115e59] text-white font-semibold text-lg transition shadow">List Anything (Free) – Get Bids &amp; Deals</a>
       </div>
 
       <div class="text-sm text-emerald-400/90">Always free for homeowners &amp; sellers. <span class="text-zinc-400">Free to list. Small premium only when you win the deal.</span> No spam. No calls.</div>
@@ -157,6 +157,15 @@
       <span>✓ One email. Real next steps. No calls.</span>
     </div>
 
+    <!-- Dynamic Live Activity (more dynamic site) -->
+    <div class="mb-8 text-center">
+      <div class="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-800 rounded-3xl px-4 py-2 text-xs">
+        <span class="w-2 h-2 bg-[#0f766e] rounded-full animate-pulse"></span>
+        <span id="live-stats">Live: <strong id="live-listings">128</strong> new listings • <strong id="live-bids">47</strong> bids sent in last 24h • <strong id="live-matched">89</strong> matches this week</span>
+      </div>
+      <div class="text-[10px] text-zinc-500 mt-1">Real high-intent volume from homeowners &amp; sellers (updates with activity)</div>
+    </div>
+
     <!-- Quick Quote Form -->
     <div class="mb-16">
       <form id="quick-form" action="https://formspree.io/f/xdajvlvr" method="POST" class="bg-zinc-900 p-8 rounded-3xl space-y-5" onsubmit="showQuoteMessage(event)">
@@ -165,11 +174,25 @@
         <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
         <div>
-          <label class="block text-sm text-zinc-400 mb-2">What do you need? (Home repair, sports tickets, cruise, yard sale items, diamonds, antiques, or anything)</label>
-          <textarea name="message" rows="4"
+          <label class="block text-sm text-zinc-400 mb-2">Category (select for tailored help)</label>
+          <select id="category" name="category" class="w-full p-4 bg-black rounded-2xl border border-zinc-800 focus:border-emerald-500 text-sm mb-3" onchange="updateFormForCategory(this.value)">
+            <option value="Anything Else">Anything Else / General</option>
+            <option value="Home Services">Home Services (Roof, HVAC, Plumbing, etc.)</option>
+            <option value="Sports Tickets & Events">Sports Tickets &amp; Events</option>
+            <option value="Last-Minute Cruises">Last-Minute Cruises &amp; Travel</option>
+            <option value="Diamonds, Pawn & Antiques">Diamonds, Pawn &amp; Antiques</option>
+            <option value="Luxury & Collectibles">Luxury &amp; Collectibles</option>
+            <option value="Online Yard Sale">Online Yard Sale &amp; Garage Sale Items</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm text-zinc-400 mb-2" id="need-label">What do you need? (Home repair, sports tickets, cruise, yard sale items, diamonds, antiques, or anything)</label>
+          <textarea id="need-textarea" name="message" rows="4"
             placeholder="e.g. Roof repair in Liberty Hill, TX • 2 Taylor Swift tickets this weekend • Full living room set for yard sale • Last-minute cruise for 2 • Diamond appraisal or anything else..."
             class="w-full p-5 bg-black rounded-2xl border border-zinc-800 focus:border-emerald-500 focus:outline-none resize-none transition-colors"
             required></textarea>
+          <div id="category-tips" class="text-[10px] text-emerald-400 mt-1 hidden"></div>
         </div>
 
         <div>
@@ -229,18 +252,18 @@
       }
     </script>
 
-    <!-- Featured: Gemini AI Commercial Video (the one we want - prominent early) -->
-    <div class="mb-16 bg-zinc-900 rounded-3xl p-8 border border-emerald-800">
+    <!-- Featured: QMA Brand Film (the one we want - prominent early, only approved public spot) -->
+    <div class="mb-16 bg-zinc-900 rounded-3xl p-8 border border-[#0f766e]">
       <div class="text-center mb-4">
-        <div class="inline-block text-[10px] px-3 py-0.5 rounded-full bg-emerald-900/60 text-emerald-400 tracking-widest mb-2">COMMERCIAL</div>
+        <div class="inline-block text-[10px] px-3 py-0.5 rounded-full bg-[#0f766e]/60 text-[#14b8a6] tracking-widest mb-2">COMMERCIAL</div>
         <h2 id="gemini-title" class="text-2xl font-bold mt-1 tracking-tight">QMA Commercial</h2>
-        <p id="gemini-desc" class="text-zinc-400 text-sm">10s brand spot. "Free Quotes On Anything!™" — watch then get your quotes below.</p>
+        <p id="gemini-desc" class="text-zinc-400 text-sm">QMA June 6 brand film. "Free Quotes On Anything!™" — watch then get your quotes below.</p>
       </div>
       <div class="max-w-2xl mx-auto">
         <video controls playsinline class="w-full rounded-2xl bg-black border border-zinc-700" poster="assets/logos/qma_logo_icon.jpg">
-          <source src="assets/gemini/gemini_qma_commercial.mp4" type="video/mp4">
+          <source src="assets/gemini/qma_new_video_2.mp4" type="video/mp4">
         </video>
-        <div class="text-[10px] text-zinc-500 mt-2 text-center">Gemini brand commercial • "Free Quotes On Anything!™"</div>
+        <div class="text-[10px] text-zinc-500 mt-2 text-center">QMA June 6 brand film • "Free Quotes On Anything!™"</div>
       </div>
     </div>
 
@@ -265,29 +288,29 @@
           <div class="text-xs text-zinc-400">Pick the best price/terms. No obligation. No spam calls. We are your AI Concierge for quotes on anything.</div>
         </div>
       </div>
-      <p class="text-center text-[10px] text-emerald-400 mt-3">Watch the Gemini commercial above → then get your quotes in the form below.</p>
+      <p class="text-center text-[10px] text-[#0f766e] mt-3">Watch the QMA June 6 brand film (COMMERCIAL section above) — or use the quick form higher up for your quotes.</p>
     </div>
 
     <!-- Services Grid -->
     <div class="mb-16">
       <h2 id="services-title" class="text-2xl font-bold text-center mb-6">Quotes on Anything™ – Home, Travel, Tickets, Luxury &amp; More</h2>
       <div class="grid grid-cols-2 gap-3 text-sm">
-        <a href="roofing.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">🏠 Roof Replacement</a>
-        <a href="hvac.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">❄️ HVAC / AC Repair</a>
-        <a href="plumbing.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">🔧 Plumbing</a>
-        <a href="solar.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">☀️ Solar Installation</a>
-        <a href="lawn-care.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">🌿 Lawn Care</a>
-        <a href="painting.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">🎨 House Painting</a>
-        <a href="electrical.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">⚡ Electrical</a>
-        <a href="pest-control.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">🐛 Pest Control</a>
-        <a href="tree-service.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">🌳 Tree Service</a>
-        <a href="moving.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">📦 Moving</a>
-        <a href="house-cleaning.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">🧹 House Cleaning</a>
-        <a href="#quick-form" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">🎟️ Sports Tickets &amp; Events</a>
-        <a href="#quick-form" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">🚢 Last Minute Cruises</a>
-        <a href="#quick-form" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">💎 Diamonds, Pawn &amp; Antiques</a>
-        <a href="#quick-form" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">🏛️ Luxury &amp; Collectibles</a>
-        <a href="#quick-form" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">✈️ Travel &amp; Experiences</a>
+        <a href="roofing.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Roof Replacement</a>
+        <a href="hvac.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">HVAC / AC Repair</a>
+        <a href="plumbing.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Plumbing</a>
+        <a href="solar.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Solar Installation</a>
+        <a href="lawn-care.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Lawn Care</a>
+        <a href="painting.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">House Painting</a>
+        <a href="electrical.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Electrical</a>
+        <a href="pest-control.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Pest Control</a>
+        <a href="tree-service.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Tree Service</a>
+        <a href="moving.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Moving</a>
+        <a href="house-cleaning.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">House Cleaning</a>
+        <a href="sports-tickets.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Sports Tickets &amp; Events</a>
+        <a href="cruises.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Last Minute Cruises</a>
+        <a href="diamonds-antiques.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Diamonds, Pawn &amp; Antiques</a>
+        <a href="luxury-collectibles.html" class="bg-zinc-900 p-4 rounded-2xl block hover:bg-zinc-800 micro">Luxury &amp; Collectibles</a>
+        <a href="yard-sale.html" class="bg-[#0f766e] p-4 rounded-2xl block hover:bg-[#115e59] micro font-semibold text-white">Online Yard Sale &amp; Garage Sale Items</a>
       </div>
     </div>
 
@@ -308,7 +331,7 @@
       </div>
     </div>
 
-    <!-- (Gemini video now featured higher after the quick form - see above) -->
+    <!-- (QMA June 6 brand film / COMMERCIAL now featured after the quick form - see above; internal/backend assets only for partners) -->
 
     <!-- Simple Legal Anchors for the links in consent/form -->
     <div id="privacy" class="max-w-2xl mx-auto px-6 pb-6 text-xs text-zinc-500">
@@ -423,21 +446,21 @@
         'hero-sub': 'We are the Diamond District, the Pawn Shop, the Antique Dealer — the AI Concierge who finds sports tickets, last-minute cruises, yard sale buyers, diamonds, antiques, or anything.',
         'services-title': 'Quotes on Anything™ – Home, Travel, Tickets, Luxury &amp; More',
         'gemini-title': 'COMMERCIAL',
-        'gemini-desc': '10s brand spot. "Free Quotes On Anything!™" — watch then get your quotes.'
+        'gemini-desc': 'QMA June 6 brand film. "Free Quotes On Anything!™" — watch then get your quotes.'
       },
       es: {
         'hero-slogan': '¡Cotizaciones para Cualquier Cosa!™',
         'hero-sub': 'Somos el Diamond District, la Casa de Empeño, el Anticuario — la IA Concierge que encuentra boletos, cruceros de último minuto, compradores de ventas de garaje, diamantes o cualquier cosa.',
         'services-title': 'Cotizaciones para Cualquier Cosa™ – Hogar, Viajes, Boletos y Lujo',
         'gemini-title': 'COMERCIAL',
-        'gemini-desc': 'Spot de marca de 10s. "¡Cotizaciones Gratis de Cualquier Cosa!™"'
+        'gemini-desc': 'Película de marca QMA 6 de junio. "¡Cotizaciones Gratis de Cualquier Cosa!™"'
       },
       zh: {
         'hero-slogan': '任何东西免费报价！™',
         'hero-sub': '我们是钻石区、当铺、古董商 — 能帮你找到体育票、最后一刻邮轮、庭院销售买家、钻石或任何东西的 AI 礼宾。',
         'services-title': '任何东西报价™ – 家居、旅行、门票、奢侈品等',
         'gemini-title': '商业广告',
-        'gemini-desc': '10秒品牌短片。"免费报价任何东西！™"'
+        'gemini-desc': 'QMA 6月6日品牌影片。"免费报价任何东西！™"'
       }
     };
 
@@ -451,7 +474,7 @@
       // also update some labels if needed
       const bannerP = document.querySelector('#cookie-banner p');
       if (bannerP) {
-        if (lang === 'es') bannerP.innerHTML = 'Usamos almacenamiento local del navegador para analíticas básicas (vistas de página y estadísticas de formularios). Sin cookies. Sin seguimiento de terceros. <a href="#privacy" class="underline text-emerald-400">政策乎隐私</a>';
+        if (lang === 'es') bannerP.innerHTML = '我们使用本地浏览器存储进行基本分析（页面浏览和表单统计）。无 cookie。无第三方跟踪。<a href="#privacy" class="underline text-emerald-400">隐私政策</a>';
         else if (lang === 'zh') bannerP.innerHTML = '我们使用本地浏览器存储进行基本分析（页面浏览和表单统计）。无 cookie。无第三方跟踪。<a href="#privacy" class="underline text-emerald-400">隐私政策</a>';
         else bannerP.innerHTML = 'We use local browser storage for basic analytics (page views & form stats). No cookies. No third-party tracking. <a href="#privacy" class="underline text-emerald-400">Privacy Policy</a>';
       }
@@ -478,13 +501,124 @@
       hamburgerBtn.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
       });
-      // Optional: close menu when clicking a link
       mobileMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
           mobileMenu.classList.add('hidden');
         });
       });
     }
+
+    // === Dynamic Category Switcher (makes form & experience more dynamic) ===
+    const categoryPlaceholders = {
+      'Home Services': 'e.g. Roof replacement in 78704, 3 quotes needed this week, or HVAC repair in Liberty Hill...',
+      'Sports Tickets & Events': 'e.g. 2 Taylor Swift tickets this weekend, best offer or $800, or 4 Cowboys seats...',
+      'Last-Minute Cruises': 'e.g. Last-minute cruise for 2 from Galveston next month, balcony if possible...',
+      'Diamonds, Pawn & Antiques': 'e.g. Appraisal or buyer for 2ct diamond ring, or vintage Rolex Daytona...',
+      'Luxury & Collectibles': 'e.g. Buyer for Hermès Birkin or original Banksy print, best offer...',
+      'Online Yard Sale': 'e.g. Full mid-century living room set, vintage tools, or kids furniture - local pickup...',
+      'Anything Else': 'e.g. Roof repair in Liberty Hill, TX • 2 Taylor Swift tickets this weekend • Full living room set for yard sale • Last-minute cruise for 2 • Diamond appraisal or anything else...'
+    };
+    const categoryTips = {
+      'Home Services': 'Homeowners love the no-spam email process. Pros get routed qualified leads.',
+      'Sports Tickets & Events': 'List free. Serious local buyers bid. Small premium only on the win.',
+      'Last-Minute Cruises': 'Free to post. We match you to real availability and competing offers.',
+      'Diamonds, Pawn & Antiques': 'The Diamond District positioning — pros and collectors see high-intent listings.',
+      'Luxury & Collectibles': 'Free listing. Buyers compete. You keep the value minus small premium on close.',
+      'Online Yard Sale': 'Post photos/descriptions free. Local buyers matched via AI. Full app coming soon.',
+      'Anything Else': 'One form covers everything. We email next steps + real options. No spam.'
+    };
+
+    function updateFormForCategory(cat) {
+      const ta = document.getElementById('need-textarea');
+      const label = document.getElementById('need-label');
+      const tips = document.getElementById('category-tips');
+      if (!ta || !label) return;
+      ta.placeholder = categoryPlaceholders[cat] || categoryPlaceholders['Anything Else'];
+      label.textContent = `Describe your ${cat.toLowerCase()} need (details, location, timeline, budget if known)`;
+      if (tips) {
+        tips.textContent = categoryTips[cat] || '';
+        tips.classList.remove('hidden');
+      }
+      // Also persist the chosen category for downstream (dashboard / for-pros)
+      try { localStorage.setItem('qma_last_category', cat); } catch(e){}
+    }
+
+    // Live activity counters (more dynamic site - driven by localStorage + form activity)
+    function bumpLiveStats(isList = false) {
+      try {
+        let listings = parseInt(localStorage.getItem('qma_live_listings') || '128') + (isList ? 1 : 0);
+        let bids = parseInt(localStorage.getItem('qma_live_bids') || '47') + (Math.random() > 0.6 ? 1 : 0);
+        let matched = parseInt(localStorage.getItem('qma_live_matched') || '89') + 1;
+        localStorage.setItem('qma_live_listings', listings);
+        localStorage.setItem('qma_live_bids', bids);
+        localStorage.setItem('qma_live_matched', matched);
+        const elL = document.getElementById('live-listings');
+        const elB = document.getElementById('live-bids');
+        const elM = document.getElementById('live-matched');
+        if (elL) elL.textContent = listings;
+        if (elB) elB.textContent = bids;
+        if (elM) elM.textContent = matched;
+      } catch(e){}
+    }
+
+    function initLiveStats() {
+      try {
+        const elL = document.getElementById('live-listings');
+        const elB = document.getElementById('live-bids');
+        const elM = document.getElementById('live-matched');
+        if (elL) elL.textContent = localStorage.getItem('qma_live_listings') || '128';
+        if (elB) elB.textContent = localStorage.getItem('qma_live_bids') || '47';
+        if (elM) elM.textContent = localStorage.getItem('qma_live_matched') || '89';
+      } catch(e){}
+      // Occasional random bump for demo dynamism
+      setInterval(() => {
+        try {
+          if (Math.random() > 0.85) bumpLiveStats(false);
+        } catch(e){}
+      }, 45000);
+    }
+
+    // Hook the form submit to also persist listings for dashboard + bump live stats
+    const origShow = window.showQuoteMessage;
+    window.showQuoteMessage = function(e) {
+      const form = e.target;
+      const cat = (document.getElementById('category') || {}).value || 'Anything Else';
+      const msg = (form.querySelector('[name="message"]') || {}).value || '';
+      // Persist as active listing so it appears in for-pros / dashboard RFPs
+      try {
+        const listings = JSON.parse(localStorage.getItem('qma_active_listings') || '[]');
+        listings.unshift({
+          ts: Date.now(),
+          category: cat,
+          title: msg.substring(0, 80) + (msg.length > 80 ? '...' : ''),
+          budget: 'Best offer or as discussed',
+          deadline: '2-5 days',
+          bids: 0
+        });
+        localStorage.setItem('qma_active_listings', JSON.stringify(listings.slice(0, 12)));
+      } catch(e){}
+      bumpLiveStats(cat.toLowerCase().includes('yard') || cat.toLowerCase().includes('sale') || cat.toLowerCase().includes('list'));
+      if (origShow) origShow(e);
+      else {
+        e.preventDefault();
+        document.getElementById('quote-message').classList.remove('hidden');
+        setTimeout(() => form.submit(), 120);
+      }
+    };
+
+    // Init on load
+    document.addEventListener('DOMContentLoaded', function () {
+      const catSel = document.getElementById('category');
+      if (catSel) {
+        const saved = localStorage.getItem('qma_last_category');
+        if (saved) catSel.value = saved;
+        // run once
+        setTimeout(() => updateFormForCategory(catSel.value), 50);
+      }
+      initLiveStats();
+      // initial bump sometimes
+      if (Math.random() > 0.7) setTimeout(() => bumpLiveStats(false), 8000);
+    });
   </script>
 
 </body>

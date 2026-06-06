@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diamonds, Pawn &amp; Antiques — Free Quotes &amp; Listings | Quotes On Anything!™</title>
+  <meta name="description" content="List diamonds, pawn items, antiques or collectibles for free. We are the Diamond District — get real competing bids. Always free to list. Small premium only on the win. No spam calls.">
+  <link rel="canonical" href="https://quotemyanything.com/diamonds-antiques.html">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+
+  <div class="max-w-2xl mx-auto p-6">
+    <nav class="mb-8">
+      <div class="flex items-center justify-between bg-zinc-900/95 backdrop-blur border border-zinc-800 rounded-3xl px-5 py-3.5">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <span class="inline-flex items-center justify-center w-8 h-8 bg-emerald-500 text-zinc-950 rounded-2xl text-sm font-black tracking-[-1px] group-hover:scale-105 transition">Q</span>
+          <div>
+            <div class="font-semibold tracking-tighter text-lg leading-none">QuoteMyAnything</div>
+            <div class="text-[9px] text-emerald-400/70 tracking-[1.5px] -mt-0.5">FREE QUOTES ON ANYTHING!™</div>
+          </div>
+        </a>
+        <div class="hidden md:flex items-center gap-2 text-sm">
+          <a href="index.html#quick-form" class="px-4 py-1.5 rounded-2xl hover:bg-zinc-800 transition">Get Quotes</a>
+          <a href="for-pros.html#list-anything" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-medium transition">List Free &amp; Get Bids</a>
+          <a href="for-pros.html" class="px-4 py-1.5 rounded-2xl hover:bg-zinc-800 transition">For Pros</a>
+        </div>
+        <button id="hamburger-btn" class="md:hidden text-2xl px-2 leading-none" aria-label="Toggle menu">☰</button>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden mt-2 bg-zinc-900 border border-zinc-800 rounded-3xl p-4 text-sm">
+        <a href="index.html#quick-form" class="block py-2 font-medium">🚀 Get Free Quotes</a>
+        <a href="for-pros.html#list-anything" class="block py-2 font-medium text-emerald-400">🛒 List Anything Free &amp; Get Bids</a>
+      </div>
+    </nav>
+
+    <div class="text-center mb-8">
+      <div class="text-[10px] tracking-[3px] text-emerald-400 font-semibold mb-2">DIAMONDS • PAWN • ANTIQUES • THE DIAMOND DISTRICT</div>
+      <h1 class="text-5xl md:text-6xl font-semibold tracking-[-3px] leading-none mb-3">Diamonds, Pawn &amp; Antiques</h1>
+      <p class="max-w-xl mx-auto text-lg text-zinc-300 mb-1">We are the Diamond District, the Pawn Shop, the Antique Dealer — the AI Concierge who finds the right buyer or the right deal for jewelry, watches, antiques, and collectibles.</p>
+      <p class="max-w-xl mx-auto text-base text-zinc-400 mb-6">List free. Serious collectors and dealers bid. Small premium only on the win. With experience we save time and eliminate spam calls.</p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mb-5">
+        <a href="#list-form" class="px-8 py-4 rounded-3xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-lg transition">List Your Item Free — Get Bids</a>
+        <a href="index.html#quick-form" class="px-8 py-4 rounded-3xl border border-zinc-700 hover:bg-zinc-900 font-semibold text-lg transition">I Need a Deal — Get Quotes</a>
+      </div>
+      <div class="text-sm text-emerald-400/90">Always free for sellers. Free to list. Small premium only when you win the deal. No spam. No calls.</div>
+    </div>
+
+    <div id="list-form" class="mb-16">
+      <form action="https://formspree.io/f/xdajvlvr" method="POST" class="bg-zinc-900 p-8 rounded-3xl space-y-5" onsubmit="persistListingAndSubmit(event, 'Diamonds, Pawn & Antiques')">
+        <input type="hidden" name="site_source" value="quotemyanything.com/diamonds-antiques">
+        <input type="hidden" name="category" value="Diamonds, Pawn & Antiques">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        <div>
+          <label class="block text-sm text-zinc-400 mb-2">Item description (diamond, watch, antique, pawn — carat, condition, provenance, best offer or $)</label>
+          <textarea name="message" rows="4" placeholder="2.1ct round brilliant diamond, GIA cert, best offer or $9800. Local Austin or insured ship..." class="w-full p-5 bg-black rounded-2xl border border-zinc-800 focus:border-emerald-500" required></textarea>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div><label class="block text-sm text-zinc-400 mb-2">Your Email</label><input type="email" name="email" placeholder="you@email.com" required class="w-full p-5 bg-black rounded-2xl border border-zinc-800 focus:border-emerald-500"></div>
+          <div><label class="block text-sm text-zinc-400 mb-2">City / ZIP</label><input type="text" name="zip" placeholder="78701" class="w-full p-5 bg-black rounded-2xl border border-zinc-800 focus:border-emerald-500"></div>
+        </div>
+        <div class="p-4 bg-black/70 rounded-2xl border border-emerald-900 text-xs text-zinc-400">
+          <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" name="consent" required class="mt-1 accent-emerald-500 shrink-0"><span>By submitting you agree to email-only contact from serious buyers. No spam. Small premium only on the winning buyer side. <a href="privacy.html" class="underline text-emerald-400">Privacy</a></span></label>
+        </div>
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 py-5 rounded-3xl text-xl font-semibold">List Free in the Diamond District — Get Bids →</button>
+        <p class="text-center text-xs text-zinc-600">Free to list. Collectors and dealers bid. Small premium only on close.</p>
+      </form>
+    </div>
+
+    <div id="success-msg" class="hidden bg-emerald-900/20 border border-emerald-800 rounded-3xl p-8 text-center mb-10">
+      <h3 class="text-2xl font-bold mb-2">Listing live in the Diamond District.</h3>
+      <p class="text-zinc-300">Your item is now visible to serious buyers and dealers. We email you the bids. Small premium only on the winning side.</p>
+      <a href="for-pros.html#list-anything" class="inline-block mt-4 text-emerald-400 underline">Watch bids in the dashboard →</a>
+    </div>
+
+    <div class="mb-16 bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+      <h2 class="text-2xl font-bold mb-3">List Diamonds, Antiques &amp; Pawn Free — Get Bids</h2>
+      <p class="text-zinc-300 mb-4">We are the Diamond District. Post jewelry, watches, antiques, or pawn items for free. Real buyers compete. You get the offers by email. Small premium only on the award. This is the modern way serious people move high-value items without the spam.</p>
+      <a href="for-pros.html#list-anything" class="inline-flex px-6 py-3 bg-emerald-600 hover:bg-emerald-500 rounded-3xl font-semibold">List any diamond, antique or anything else →</a>
+    </div>
+
+    <footer class="text-center text-xs text-zinc-600 pb-8"><div>(737) 667-6844 • quotemyanything.com · Austin, TX</div><div class="mt-1">© 2026 QuoteMyAnything. Always free for sellers &amp; homeowners.</div></footer>
+  </div>
+
+  <script>
+    function persistListingAndSubmit(e, cat) { e.preventDefault(); const form = e.target; const msg = (form.querySelector('[name="message"]')||{}).value||''; try { const listings = JSON.parse(localStorage.getItem('qma_active_listings')||'[]'); listings.unshift({ts:Date.now(), category:cat, title:msg.substring(0,70), budget:'Best offer', deadline:'2-5 days', bids:0}); localStorage.setItem('qma_active_listings', JSON.stringify(listings.slice(0,12))); } catch(err){} document.getElementById('success-msg').classList.remove('hidden'); setTimeout(()=>form.submit(),90); }
+    const hb = document.getElementById('hamburger-btn'); const mm = document.getElementById('mobile-menu'); if(hb&&mm){hb.addEventListener('click',()=>mm.classList.toggle('hidden')); mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.add('hidden')));}
+  </script>
+</body>
+</html>

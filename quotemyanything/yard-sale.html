@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Yard Sale &amp; Garage Sale — Free Listings &amp; Bids | Quotes On Anything!™</title>
+  <meta name="description" content="List yard sale, garage sale, furniture, tools, clothes for free. Local buyers matched. We are the AI Concierge for anything — free to list, small premium only on the win. No spam.">
+  <link rel="canonical" href="https://quotemyanything.com/yard-sale.html">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+
+  <div class="max-w-2xl mx-auto p-6">
+    <nav class="mb-8">
+      <div class="flex items-center justify-between bg-zinc-900/95 backdrop-blur border border-zinc-800 rounded-3xl px-5 py-3.5">
+        <a href="index.html" class="flex items-center gap-3 group">
+          <span class="inline-flex items-center justify-center w-8 h-8 bg-emerald-500 text-zinc-950 rounded-2xl text-sm font-black tracking-[-1px] group-hover:scale-105 transition">Q</span>
+          <div>
+            <div class="font-semibold tracking-tighter text-lg leading-none">QuoteMyAnything</div>
+            <div class="text-[9px] text-emerald-400/70 tracking-[1.5px] -mt-0.5">FREE QUOTES ON ANYTHING!™</div>
+          </div>
+        </a>
+        <div class="hidden md:flex items-center gap-2 text-sm">
+          <a href="index.html#quick-form" class="px-4 py-1.5 rounded-2xl hover:bg-zinc-800 transition">Get Quotes</a>
+          <a href="for-pros.html#list-anything" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-2xl font-medium transition">List Free &amp; Get Bids</a>
+          <a href="for-pros.html" class="px-4 py-1.5 rounded-2xl hover:bg-zinc-800 transition">For Pros</a>
+        </div>
+        <button id="hamburger-btn" class="md:hidden text-2xl px-2 leading-none" aria-label="Toggle menu">☰</button>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden mt-2 bg-zinc-900 border border-zinc-800 rounded-3xl p-4 text-sm">
+        <a href="index.html#quick-form" class="block py-2 font-medium">🚀 Get Free Quotes</a>
+        <a href="for-pros.html#list-anything" class="block py-2 font-medium text-emerald-400">🛒 List Anything Free &amp; Get Bids</a>
+      </div>
+    </nav>
+
+    <div class="text-center mb-8">
+      <div class="text-[10px] tracking-[3px] text-emerald-400 font-semibold mb-2">ONLINE YARD SALE • GARAGE SALE • FREE LISTINGS</div>
+      <h1 class="text-5xl md:text-6xl font-semibold tracking-[-3px] leading-none mb-3">Online Yard Sale &amp; Garage Sale Items</h1>
+      <p class="max-w-xl mx-auto text-lg text-zinc-300 mb-1">Furniture, tools, clothes, collectibles, the whole garage — list it free. Local buyers see it through our AI Concierge. We are the modern yard sale with real matching.</p>
+      <p class="max-w-xl mx-auto text-base text-zinc-400 mb-6">Free to list. Buyers bid or offer. Small premium only when sold. Full app with photos, chat and local pickup coming soon. With experience we save time and eliminate spam.</p>
+
+      <div class="flex flex-col sm:flex-row gap-3 justify-center mb-5">
+        <a href="#list-form" class="px-8 py-4 rounded-3xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-lg transition">List Your Yard Sale Items Free</a>
+        <a href="index.html#quick-form" class="px-8 py-4 rounded-3xl border border-zinc-700 hover:bg-zinc-900 font-semibold text-lg transition">I'm Buying — See What's Listed</a>
+      </div>
+      <div class="text-sm text-emerald-400/90">Always free for sellers. Zero cost to post. Small premium only on the sale. No spam calls.</div>
+    </div>
+
+    <div id="list-form" class="mb-16">
+      <form action="https://formspree.io/f/xdajvlvr" method="POST" class="bg-zinc-900 p-8 rounded-3xl space-y-5" onsubmit="persistListingAndSubmit(event, 'Online Yard Sale')">
+        <input type="hidden" name="site_source" value="quotemyanything.com/yard-sale">
+        <input type="hidden" name="category" value="Online Yard Sale">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+        <div>
+          <label class="block text-sm text-zinc-400 mb-2">What are you selling? (furniture, tools, clothes, collectibles — describe, quantity, condition, pickup location)</label>
+          <textarea name="message" rows="4" placeholder="Mid-century dresser + matching nightstands, good condition, local pickup 78704, best offer or $380 for the set..." class="w-full p-5 bg-black rounded-2xl border border-zinc-800 focus:border-emerald-500" required></textarea>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div><label class="block text-sm text-zinc-400 mb-2">Your Email</label><input type="email" name="email" placeholder="you@email.com" required class="w-full p-5 bg-black rounded-2xl border border-zinc-800 focus:border-emerald-500"></div>
+          <div><label class="block text-sm text-zinc-400 mb-2">Pickup ZIP / Area</label><input type="text" name="zip" placeholder="78704" class="w-full p-5 bg-black rounded-2xl border border-zinc-800 focus:border-emerald-500"></div>
+        </div>
+        <div class="p-4 bg-black/70 rounded-2xl border border-emerald-900 text-xs text-zinc-400">
+          <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" name="consent" required class="mt-1 accent-emerald-500 shrink-0"><span>Free to list. Local buyers matched. Small premium only paid by buyer on sale. Email contact only. <a href="privacy.html" class="underline text-emerald-400">Privacy</a></span></label>
+        </div>
+        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 py-5 rounded-3xl text-xl font-semibold">List Free in the Online Yard Sale →</button>
+        <p class="text-center text-xs text-zinc-600">Zero cost. AI finds local buyers. Small premium only on sold items. Full app soon.</p>
+      </form>
+    </div>
+
+    <div id="success-msg" class="hidden bg-emerald-900/20 border border-emerald-800 rounded-3xl p-8 text-center mb-10">
+      <h3 class="text-2xl font-bold mb-2">Your yard sale items are live.</h3>
+      <p class="text-zinc-300">Local buyers are seeing your listing now. We will email you offers. Small premium only when a buyer wins. Full photos + chat app coming soon.</p>
+      <a href="for-pros.html#list-anything" class="inline-block mt-4 text-emerald-400 underline">See bids in the dashboard →</a>
+    </div>
+
+    <div class="mb-16 bg-zinc-900 border border-zinc-800 rounded-3xl p-8">
+      <h2 class="text-2xl font-bold mb-3">The Modern Online Yard Sale — Free + Real Buyers</h2>
+      <p class="text-zinc-300 mb-4">Post furniture, tools, clothes, antiques, garage sale items — anything physical. Free. Local buyers matched through our AI Concierge. You get the offers. Small premium only on the actual sale. This is "all in one app soon" — starting with free listings that actually convert.</p>
+      <a href="for-pros.html#list-anything" class="inline-flex px-6 py-3 bg-emerald-600 hover:bg-emerald-500 rounded-3xl font-semibold">List your yard sale stuff or anything else free →</a>
+    </div>
+
+    <footer class="text-center text-xs text-zinc-600 pb-8"><div>(737) 667-6844 • quotemyanything.com · Austin, TX</div><div class="mt-1">© 2026 QuoteMyAnything. Always free for sellers &amp; homeowners.</div></footer>
+  </div>
+
+  <script>
+    function persistListingAndSubmit(e, cat) { e.preventDefault(); const form = e.target; const msg = (form.querySelector('[name="message"]')||{}).value||''; try { const listings = JSON.parse(localStorage.getItem('qma_active_listings')||'[]'); listings.unshift({ts:Date.now(), category:cat, title:msg.substring(0,70), budget:'Best offer', deadline:'local pickup', bids:0}); localStorage.setItem('qma_active_listings', JSON.stringify(listings.slice(0,12))); } catch(err){} document.getElementById('success-msg').classList.remove('hidden'); setTimeout(()=>form.submit(),90); }
+    const hb = document.getElementById('hamburger-btn'); const mm = document.getElementById('mobile-menu'); if(hb&&mm){hb.addEventListener('click',()=>mm.classList.toggle('hidden')); mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.add('hidden')));}
+  </script>
+</body>
+</html>
