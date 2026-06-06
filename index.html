@@ -1,61 +1,356 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote My Anything - Get Free Quotes from Local Pros</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        .hero { background: #007bff; color: white; padding: 60px 20px; text-align: center; }
-        .disclaimer { background: #f8f9fa; padding: 20px; margin: 20px; border-left: 4px solid #ffc107; }
-        form { max-width: 600px; margin: 40px auto; padding: 20px; }
-        select, input, textarea { width: 100%; margin: 10px 0; padding: 10px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Quotes On Anything! | Compare 3+ Local licensed professionals Austin TX - Roofing, HVAC, Plumbing &amp; 11+ Services</title>
+  <meta name="description" content="Submit your free quote request in 60 seconds. Local licensed pros compete for your job. No spam, no calls. Always free for homeowners. Roofing, HVAC, plumbing, solar, lawn &amp; more.">
+  <meta name="keywords" content="free quotes Austin TX, compare contractor quotes free, free roofing quotes Austin, HVAC quotes Austin, plumbing quotes Austin, free home service quotes Texas">
+  <link rel="canonical" href="https://quotemyanything.com">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "QuoteMyAnything",
+        "url": "https://quotemyanything.com",
+        "logo": "https://quotemyanything.com/assets/logos/qma_logo_wordmark.jpg",
+        "description": "Free competing quotes platform for 11+ home services. Get 3+ Local licensed professionals in 60 seconds. Always free for homeowners.",
+        "areaServed": "Austin TX and United States"
+      },
+      {
+        "@type": "Service",
+        "name": "Free Quotes On Anything!",
+        "provider": {"@id": "https://quotemyanything.com"},
+        "serviceType": "Home Services Quote Comparison",
+        "areaServed": "Austin, TX, United States",
+        "description": "Submit a free quote request in 60 seconds for roofing, HVAC, plumbing, solar, lawn care and 11+ services. Local licensed pros reach out with competing quotes. Always free. No spam, no calls.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How do I get free quotes on anything?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Fill out one free form in 60 seconds. We match your request to local licensed Austin pros who compete for your job. Always free for homeowners."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it really free for homeowners?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. No registration or payment required, no spam. You get competing quotes and choose. Pros pay us only for real matched leads or via subscription."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What services do you cover?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Roofing, HVAC/AC repair, plumbing, solar, lawn care, painting, electrical, pest control, tree service, moving, house cleaning, pool service and more."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
-<body>
-    <div class="hero">
-        <h1>Get Multiple Free Quotes for Any Home Service</h1>
-        <p>We connect you with local professionals — we don’t do the work ourselves.</p>
-        <div class="disclaimer">
-            <strong>Important:</strong> Quote My Anything connects homeowners with independent local service providers. We are not a contractor.
-        </div>
-        
-        <!-- Service Selector -->
-        <select id="serviceSelector" onchange="prefillService()">
-            <option value="">Select a Service</option>
-            <option value="roofing">Roofing</option>
-            <option value="hvac">HVAC / Heating & Cooling</option>
-            <option value="plumbing">Plumbing</option>
-            <option value="cleaning">House Cleaning</option>
-            <option value="landscaping">Landscaping</option>
-            <option value="painting">Painting</option>
-            <option value="electrical">Electrical</option>
-            <!-- Add more as needed -->
+<body class="bg-zinc-950 text-zinc-100 min-h-screen">
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-banner" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-zinc-900 border border-zinc-700 rounded-2xl p-6 max-w-sm w-full mx-4 hidden z-50 shadow-2xl">
+    <p class="text-sm text-zinc-300 mb-4">
+      We use local browser storage for basic analytics (page views &amp; form stats).
+      No cookies. No third-party tracking.
+      <a href="#privacy" class="underline text-emerald-400">Privacy Policy</a>
+    </p>
+    <div class="flex gap-3">
+      <button onclick="acceptConsent()"
+        class="flex-1 bg-emerald-600 hover:bg-emerald-500 px-4 py-3 rounded-xl text-sm font-medium transition-colors">
+        Accept &amp; Continue
+      </button>
+      <button onclick="declineConsent()"
+        class="flex-1 bg-zinc-700 hover:bg-zinc-600 px-4 py-3 rounded-xl text-sm font-medium transition-colors">
+        Decline
+      </button>
+    </div>
+  </div>
+
+  <div class="max-w-2xl mx-auto p-6">
+
+    <!-- Header -->
+    <div class="text-center mb-8 pt-6">
+      <img src="assets/logos/qma_logo_wordmark.jpg" alt="Free Quotes On Anything! Logo - QuoteMyAnything" class="mx-auto mb-4 max-w-[320px] w-full h-auto rounded-lg shadow-xl">
+      <div class="flex justify-center mb-2">
+        <select id="lang-select" onchange="switchLang(this.value)" class="bg-zinc-900 border border-zinc-700 text-sm px-3 py-1 rounded text-zinc-300">
+          <option value="en"> English</option>
+          <option value="es"> Español</option>
+          <option value="zh"> 中文</option>
         </select>
-        <button onclick="goToForm()">Get Quotes Now</button>
+      </div>
+      <div class="text-emerald-400 text-sm font-semibold uppercase tracking-widest mb-2">Free for Homeowners · Austin, TX</div>
+      <h1 id="hero-slogan" class="text-5xl font-bold mb-3">Free Quotes On Anything!</h1>
+      <p id="hero-sub" class="text-zinc-400 text-lg">Submit your free quote request in 60 seconds.<br>Local pros compete for your job. No spam, no calls. Always free.</p>
+      <p class="text-zinc-500 text-xs mt-3 max-w-md mx-auto">We connect you with independent local licensed pros — we don't do the work ourselves.</p>
+
+      <!-- Service quick-pick -->
+      <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-2 max-w-md mx-auto">
+        <select id="hero-service-select" class="w-full sm:flex-1 bg-zinc-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white">
+          <option value="">Pick a service…</option>
+          <option value="Roofing">Roofing</option>
+          <option value="HVAC">HVAC / Heating & Cooling</option>
+          <option value="Plumbing">Plumbing</option>
+          <option value="Electrical">Electrical</option>
+          <option value="Solar">Solar</option>
+          <option value="Painting">Painting</option>
+          <option value="Lawn Care">Lawn Care</option>
+          <option value="Pest Control">Pest Control</option>
+          <option value="Tree Service">Tree Service</option>
+          <option value="Moving">Moving</option>
+          <option value="House Cleaning">House Cleaning</option>
+          <option value="Other">Other / Custom</option>
+        </select>
+        <button type="button" onclick="qmaPickService()" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-zinc-950 font-bold rounded-xl px-5 py-3 text-sm">Get Quotes →</button>
+      </div>
     </div>
 
-    <form id="quick-form">
-        <h2>Quick Quote Request</h2>
-        <input type="hidden" id="source" name="source" value="qma-home">
-        <select id="service" name="service" required>
-            <!-- Populated by selector -->
-        </select>
-        <input type="text" id="zip" name="zip" placeholder="Zip Code" required>
-        <input type="email" id="email" name="email" placeholder="Your Email" required>
-        <textarea id="project_details" name="project_details" placeholder="Describe your project..." required></textarea>
-        <label><input type="checkbox" required> I consent to being contacted by local pros.</label>
-        <button type="submit">Get Free Quotes</button>
-    </form>
+    <!-- Trust Badges -->
+    <div class="flex justify-center gap-4 mb-10 flex-wrap text-xs text-zinc-400">
+      <span class="flex items-center gap-1"> Always free for homeowners</span>
+      <span class="flex items-center gap-1"> No spam</span>
+      <span class="flex items-center gap-1">⚡ 60-second form</span>
+    </div>
 
-    <script>
-        function prefillService() {
-            const sel = document.getElementById('serviceSelector').value;
-            if (sel) document.getElementById('service').value = sel;
-        }
-        function goToForm() {
-            document.getElementById('quick-form').scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
+    <!-- Quick Quote Form -->
+    <div class="mb-16">
+      <form id="quick-form" action="https://formspree.io/f/xdajvlvr" method="POST" class="bg-zinc-900 p-8 rounded-3xl space-y-5">
+        <input type="hidden" name="site_source" value="quotemyanything.com">
+        <!-- Honeypot — bots fill this, humans don't -->
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div>
+          <label class="block text-sm text-zinc-400 mb-2">What do you need a quote for?</label>
+          <textarea name="message" rows="4"
+            placeholder="e.g. Roof repair in Liberty Hill, TX. Need 3 quotes ASAP..."
+            class="w-full p-5 bg-black rounded-2xl border border-zinc-800 focus:border-emerald-500 focus:outline-none resize-none transition-colors"
+            required></textarea>
+        </div>
+
+        <div>
+          <label class="block text-sm text-zinc-400 mb-2">Your Email</label>
+          <input type="email" name="email" placeholder="you@email.com" required
+            class="w-full p-5 bg-black rounded-2xl border border-zinc-800 focus:border-emerald-500 focus:outline-none transition-colors">
+        </div>
+
+        <div class="p-4 bg-black/70 rounded-2xl border border-emerald-900 text-xs text-zinc-400">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" name="consent" required class="mt-1 accent-emerald-500 shrink-0">
+            <span>
+              By submitting, I consent to my info being shared with relevant licensed local providers to receive quotes.
+              I understand this is a free service for homeowners and I may be contacted by pros.
+              <a href="#privacy" class="underline text-emerald-400">Privacy Policy</a> ·
+              <a href="#terms" class="underline text-emerald-400">Terms</a>
+            </span>
+          </label>
+        </div>
+
+        <button type="submit"
+          class="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 py-5 rounded-3xl text-xl font-semibold transition-colors">
+          Get My Free Quotes → </button>
+
+        <p class="text-center text-xs text-zinc-600">No credit card. No spam. Cancel anytime.</p>
+      </form>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="mb-16">
+      <h2 id="services-title" class="text-2xl font-bold text-center mb-6">11+ Services Available in Austin</h2>
+      
+    <!-- Core Promise Section -->
+    <div class="bg-emerald-950 border border-emerald-800 rounded-2xl p-8 mb-8 text-center">
+      <h2 class="text-2xl font-bold text-emerald-100 mb-4">How Quotes Should Always Work</h2>
+      <div class="space-y-3 text-emerald-200">
+        <p class="text-lg font-semibold">3 competing quotes in your inbox</p>
+        <p class="text-sm">Same or next business day — not weeks</p>
+        <p class="text-sm">No calls until you are ready</p>
+      </div>
+      <p class="text-xs text-emerald-300 mt-6">This is how buying a quote should have always been.</p>
+    </div>
+
+<div class="grid grid-cols-2 gap-3 text-sm">
+        <div class="bg-zinc-900 p-4 rounded-2xl">Roof Replacement</div>
+        <div class="bg-zinc-900 p-4 rounded-2xl">HVAC / AC Repair</div>
+        <div class="bg-zinc-900 p-4 rounded-2xl">Plumbing</div>
+        <div class="bg-zinc-900 p-4 rounded-2xl">Solar Installation</div>
+        <div class="bg-zinc-900 p-4 rounded-2xl">Lawn Care</div>
+        <div class="bg-zinc-900 p-4 rounded-2xl">House Painting</div>
+        <div class="bg-zinc-900 p-4 rounded-2xl">Electrical</div>
+        <div class="bg-zinc-900 p-4 rounded-2xl">Pest Control</div>
+        <div class="bg-zinc-900 p-4 rounded-2xl">Tree Service</div>
+        <div class="bg-zinc-900 p-4 rounded-2xl">Moving</div>
+        <div class="bg-zinc-900 p-4 rounded-2xl">House Cleaning</div>
+        <div class="bg-zinc-900 p-4 rounded-2xl">Pool Service</div>
+      </div>
+    </div>
+
+    <!-- Approved QMA Commercial -->
+    <div class="mb-12 bg-zinc-900 rounded-3xl p-8 border border-emerald-800">
+      <div class="text-center mb-4">
+        <div class="text-emerald-400 text-xs tracking-[3px] font-semibold">COMMERCIAL</div>
+        <h2 class="text-2xl font-bold mt-1">QuoteMyAnything — Local Pros, Real Quotes</h2>
+      </div>
+      <div class="max-w-2xl mx-auto">
+        <video controls playsinline class="w-full rounded-2xl bg-black border border-zinc-700" poster="assets/logos/qma_logo_icon.jpg">
+          <source src="assets/gemini/gemini_qma_commercial.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+
+    <!-- Simple Legal Anchors for the links in consent/form -->
+    <div id="privacy" class="max-w-2xl mx-auto px-6 pb-6 text-xs text-zinc-500">
+      <strong>Privacy:</strong> We only use local browser storage for anonymous stats when you consent. No selling data. Form submissions go to licensed Local licensed professionals only. <a href="https://quotemyanything.com" class="underline">Full details on main site</a>.
+    </div>
+    <div id="terms" class="max-w-2xl mx-auto px-6 pb-8 text-xs text-zinc-500">
+      <strong>Terms:</strong> Free service for homeowners. Quotes are provided directly by local licensed contractors. We facilitate connections only.
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-xs text-zinc-600 pb-8 space-y-2">
+      <div>quotemyanything.com · Austin, TX</div>
+      <div class="flex justify-center gap-4">
+        <a href="/privacy" class="hover:text-zinc-400 underline">Privacy Policy</a>
+        <a href="/terms" class="hover:text-zinc-400 underline">Terms of Service</a>
+      </div>
+      <span id="copyright" onclick="handleSecretClick(event)" style="cursor: pointer; user-select: none;">© 2026 QuoteMyAnything. Always free for homeowners.</span>
+    </footer>
+
+  </div>
+
+  <script>
+    function qmaPickService() {
+      var sel = document.getElementById('hero-service-select');
+      var val = sel ? sel.value : '';
+      var ta = document.querySelector('#quick-form textarea[name="message"]');
+      if (val && ta && !ta.value.trim()) {
+        ta.value = val + ' — ';
+        setTimeout(function(){ ta.focus(); ta.setSelectionRange(ta.value.length, ta.value.length); }, 250);
+      }
+      var form = document.getElementById('quick-form');
+      if (form) form.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    const CONSENT_KEY    = 'qma_consent';
+    const PAGEVIEWS_KEY  = 'qma_pageviews';
+    const SUBS_KEY       = 'qma_submissions';
+
+    function hasConsent() {
+      return localStorage.getItem(CONSENT_KEY) === 'true';
+    }
+
+    function acceptConsent() {
+      localStorage.setItem(CONSENT_KEY, 'true');
+      document.getElementById('cookie-banner').classList.add('hidden');
+      initAnalytics();
+    }
+
+    function declineConsent() {
+      localStorage.setItem(CONSENT_KEY, 'false');
+      document.getElementById('cookie-banner').classList.add('hidden');
+    }
+
+    function initAnalytics() {
+      if (!hasConsent()) return;
+
+      const views = parseInt(localStorage.getItem(PAGEVIEWS_KEY) || '0') + 1;
+      localStorage.setItem(PAGEVIEWS_KEY, views);
+
+      const form = document.getElementById('quick-form');
+      if (form) {
+        form.addEventListener('submit', function () {
+          const subs = parseInt(localStorage.getItem(SUBS_KEY) || '0') + 1;
+          localStorage.setItem(SUBS_KEY, subs);
+          const el = document.createElement('input');
+          el.type  = 'hidden';
+          el.name  = 'analytics_event';
+          el.value = JSON.stringify({ type: 'quick_quote_submit', timestamp: new Date().toISOString(), total_views: views });
+          this.appendChild(el);
+        });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const consent = localStorage.getItem(CONSENT_KEY);
+      if (consent === null) {
+        document.getElementById('cookie-banner').classList.remove('hidden');
+      } else if (consent === 'true') {
+        initAnalytics();
+      }
+      const savedLang = localStorage.getItem('qma_lang') || (navigator.language || 'en').slice(0,2);
+      const sel = document.getElementById('lang-select');
+      if (sel) {
+        if (['es','zh'].includes(savedLang)) sel.value = savedLang;
+        switchLang(sel.value);
+      }
+    });
+
+    // === i18n for top USA languages (EN, ES, ZH) ===
+    const translations = {
+      en: {
+        'hero-slogan': 'Free Quotes On Anything!',
+        'hero-sub': 'Submit your free quote request in 60 seconds.<br>Local pros compete for your job. No spam, no calls. Always free.',
+        'services-title': '11+ Services Available in Austin'
+      },
+      es: {
+        'hero-slogan': '¡Cotizaciones Gratis de Cualquier Cosa!',
+        'hero-sub': 'Envía tu solicitud de cotización gratis en 60 segundos.<br>Los pros locales compiten por tu trabajo. Sin spam, sin llamadas. Siempre gratis.',
+        'services-title': '11+ Servicios Disponibles en Austin'
+      },
+      zh: {
+        'hero-slogan': '任何东西免费报价！',
+        'hero-sub': '60秒内提交免费报价请求。<br>本地专业人士竞争您的工作。无垃圾邮件，无电话。永远免费。',
+        'services-title': '奥斯汀提供11+项服务'
+      }
+    };
+
+    function switchLang(lang) {
+      localStorage.setItem('qma_lang', lang);
+      const t = translations[lang] || translations.en;
+      Object.keys(t).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = t[id];
+      });
+      const bannerP = document.querySelector('#cookie-banner p');
+      if (bannerP) {
+        if (lang === 'es') bannerP.innerHTML = 'Usamos almacenamiento local del navegador para analíticas básicas (vistas de página y estadísticas de formularios). Sin cookies. Sin seguimiento de terceros. <a href="#privacy" class="underline text-emerald-400">Política de Privacidad</a>';
+        else if (lang === 'zh') bannerP.innerHTML = '我们使用本地浏览器存储进行基本分析（页面浏览和表单统计）。无 cookie。无第三方跟踪。<a href="#privacy" class="underline text-emerald-400">隐私政策</a>';
+        else bannerP.innerHTML = 'We use local browser storage for basic analytics (page views & form stats). No cookies. No third-party tracking. <a href="#privacy" class="underline text-emerald-400">Privacy Policy</a>';
+      }
+    }
+
+    let secretClicks = 0;
+    let secretTimer = null;
+    function handleSecretClick(e) {
+      secretClicks++;
+      clearTimeout(secretTimer);
+      secretTimer = setTimeout(() => { secretClicks = 0; }, 1200);
+      if (secretClicks >= 3) {
+        secretClicks = 0;
+        window.location.href = 'dashboard.html';
+      }
+    }
+  </script>
+
+  <script src="assets/js/qma-chat.js"></script>
 </body>
 </html>
