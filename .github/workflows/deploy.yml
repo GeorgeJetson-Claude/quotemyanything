@@ -11,10 +11,11 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Deploy to Vercel (production)
+        env:
+          VERCEL_ORG_ID: team_3YtSEbUblz50OMLFKwRDU42J
+          VERCEL_PROJECT_ID: prj_lPknd6uqHmkwxjDdrE6Y7wzpYDZQ
         run: |
           T="${{ secrets.VERCEL_TOKEN }}"
-          echo "=== whoami ==="; vercel whoami --token="$T" 2>&1 || true
-          echo "=== teams ==="; vercel teams ls --token="$T" 2>&1 || true
-          echo "=== projects (team scope) ==="; vercel project ls --token="$T" --scope=georgejetson-claudes-projects 2>&1 | head -15 || true
-          echo "=== DEPLOY (team scope) ==="
-          vercel deploy --prod --yes --token="$T" --scope=georgejetson-claudes-projects 2>&1
+          echo "whoami:"; vercel whoami --token="$T" 2>&1 || true
+          vercel pull --yes --environment=production --token="$T"
+          vercel deploy --prod --yes --token="$T"
