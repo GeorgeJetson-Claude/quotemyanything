@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car AI Guide — Get Real Quotes on Specific VINs | QuoteMyAnything</title>
+    <meta name="description" content="Avoid dealer tricks. Get real quotes on specific cars (by VIN) from local dealers. Free, no spam. QMA matches you to serious offers.">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --dark: #111;
+            --light: #f5f5f0;
+            --midnight-blue: #111;
+        }
+        body { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin:0; padding:0; background:#f5f5f0; color:#111; line-height:1.5; }
+        .container { max-width: 960px; margin: 0 auto; padding: 20px; }
+        header { background: var(--dark); color: var(--light); padding: 16px 0; }
+        .hero { background: linear-gradient(135deg, #111 0%, #222 100%); color: var(--light); padding: 60px 20px; text-align: center; }
+        .hero h1 { font-size: 42px; margin: 0 0 12px; }
+        .hero p { font-size: 18px; max-width: 600px; margin: 0 auto 24px; opacity: .9; }
+        .card { background: #fff; border: 1px solid #ddd; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+        .aimax-mascot { font-size: 80px; }
+        form input, form textarea, form button { width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
+        .footer { background: #111; color: #ccc; padding: 20px; text-align: center; font-size: 12px; }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 32px; }
+            .aimax-mascot { font-size: 60px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- QMA cross-nav (unified funnel): access main site, quick email form, other services -->
+    <nav class="bg-zinc-950 text-white text-xs py-1 px-3" style="font-family: system-ui, sans-serif;">
+      <div class="max-w-5xl mx-auto flex justify-between items-center">
+        <a href="index.html" style="font-weight:700; color:#fff;">QuoteMyAnything <span style="font-size:9px; opacity:.7;">Free Quotes On Anything!</span></a>
+        <span>
+          <a href="index.html#quick-form" style="color:#34d399; margin-right:8px;">🚀 Get Free Quotes (emails us)</a>
+          <a href="index.html" style="color:#34d399; margin-right:8px;">All Services</a>
+          <button id="hamburger-btn" style="background:#111; color:#fff; border:none; padding:2px 6px; border-radius:3px; cursor:pointer;" aria-label="More">☰</button>
+        </span>
+      </div>
+    </nav>
+
+    <div class="hero">
+        <div class="container">
+            <div class="aimax-mascot">🚗</div>
+            <h1>Car AI Guide</h1>
+            <p style="max-width:620px; margin:0 auto 20px; font-size:18px; opacity:.95;">
+                Get real quotes on <strong>specific cars</strong> (by VIN) from local dealers.<br>
+                No more "that one sold" tricks. Serious offers only.
+            </p>
+            <p style="font-size:14px; opacity:.8;">Powered by QuoteMyAnything — Free Quotes On Anything!™</p>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="card">
+            <h2 style="margin-top:0; color:#111;">How the AI Car Guide Works</h2>
+            <ul style="padding-left:20px; line-height:1.7;">
+                <li>Tell us the exact car (VIN, make/model/year, or details).</li>
+                <li>We match you to local dealers who actually have it (or can get it).</li>
+                <li>You get 2-3 real competing quotes via email — no spam calls.</li>
+                <li>Compare offers on the <em>same</em> car. Save thousands.</li>
+            </ul>
+            <p style="font-size:13px; color:#555; margin:12px 0 0;">Classic dealer trick: <em>"That car you saw online? Oh, it sold this morning. But look at this one..."</em> (costs $5K more). With AiMax, quotes are for <span class="faq-highlight">SPECIFIC VINs</span> – actual cars, not fake listings. Dealers know we're watching. They quote real cars at real prices. <strong>You get the EXACT car you wanted</strong>, or we find another dealer who has it.</p>
+        </div>
+
+        <div class="card" style="background:#111; color:#f5f5f0; border:none;">
+            <h2 style="color:#D4AF37; margin-top:0;">Get Quotes on a Specific Car</h2>
+            <form action="https://formspree.io/f/xdajvlvr" method="POST" onsubmit="showCarMessage(event)">
+                <input type="hidden" name="site_source" value="car-ai-guide">
+                <input type="hidden" name="category" value="car">
+
+                <input type="text" name="vin" placeholder="VIN (if you have it)" style="width:100%; padding:12px; margin:8px 0; background:#1a1a1a; border:1px solid #D4AF37; color:#f5f5f0; border-radius:8px;">
+                <input type="text" name="make_model" placeholder="Make / Model / Year (e.g. 2022 Toyota Camry LE)" required style="width:100%; padding:12px; margin:8px 0; background:#1a1a1a; border:1px solid #D4AF37; color:#f5f5f0; border-radius:8px;">
+                <input type="text" name="zip" placeholder="ZIP (e.g. 78701)" required style="width:100%; padding:12px; margin:8px 0; background:#1a1a1a; border:1px solid #D4AF37; color:#f5f5f0; border-radius:8px;">
+                <textarea name="message" placeholder="Car details (buying new/used, repair, trade-in? mileage, options)" style="width:100%; padding:12px; margin:8px 0; background:#1a1a1a; border:1px solid #D4AF37; color:#f5f5f0; border-radius:8px; height:80px;"></textarea>
+                <button type="submit" style="width:100%; padding:14px; background:#D4AF37; color:#0a1929; font-weight:700; border:none; border-radius:8px; font-size:16px; margin-top:8px;">Get My Auto Quotes via QMA</button>
+                <p style="font-size:9px; color:#888; text-align:center; margin-top:6px;">By submitting, you agree to be contacted by up to 3 local licensed auto pros in the greater Austin area. Reply STOP to unsubscribe. Message and data rates may apply. Your information is only shared with contractors for the purpose of providing quotes. We do not sell or share your data for any other reason.</p>
+            </form>
+            <p style="margin-top:12px; color:#D4AF37;"><a href="/moving.html" style="color:#D4AF37;">Or explore other QMA services →</a></p>
+        </div>
+
+        <div class="card">
+            <h2 style="margin-top:0;">Why This Beats Traditional Car Shopping</h2>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; font-size:14px;">
+                <div><strong>Real VINs only</strong><br>Quotes on the exact car you want — not bait-and-switch inventory.</div>
+                <div><strong>Local dealers compete</strong><br>2-3 serious offers. You pick the best price/terms. No obligation.</div>
+                <div><strong>Free & private</strong><br>No spam calls. Email-only next steps. We never sell your data.</div>
+                <div><strong>Works for new/used/repair</strong><br>Buying, trading, or fixing — same clean process.</div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer style="text-align:center; padding:12px; font-size:11px; color:#555; background:#f5f5f0; border-top:1px solid #ddd;">
+  (737) 667-6844 • quotemyanything.com · Austin, TX • Free Quotes On Anything! • <a href="index.html" style="color:#111;">Main site</a>
+</footer>
+
+<script>
+  function showCarMessage(e) {
+    e.preventDefault();
+    const form = e.target;
+    const msg = document.createElement('div');
+    msg.style.cssText = 'background:#111; color:#D4AF37; padding:20px; border-radius:8px; margin-top:12px; text-align:center;';
+    msg.innerHTML = '<strong>Quote Yodler has your request.</strong><br>We emailed next steps + competing offers on the specific car from local pros.<br><span style="font-size:11px; opacity:.7;">Check email (and spam). No calls.</span>';
+    form.parentNode.replaceChild(msg, form);
+    setTimeout(() => { form.submit(); }, 800);
+  }
+
+  // Mobile menu toggle (simple)
+  const btn = document.getElementById('hamburger-btn');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      const nav = document.querySelector('nav');
+      if (nav) nav.style.display = (nav.style.display === 'none' ? 'block' : 'none');
+    });
+  }
+</script>
+
+</body>
+</html>
