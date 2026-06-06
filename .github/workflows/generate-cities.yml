@@ -1,0 +1,22 @@
+name: Generate City Pages
+
+on:
+  push:
+    paths:
+      - 'scripts_gen_cities.py'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Generator
+        run: python scripts_gen_cities.py
+      - name: Commit & Push
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add qma-city-*.html qma-cities-index.html qma-cities-sitemap.xml
+          git commit -m "Auto-generate city landing pages" || echo "No changes"
+          git push
