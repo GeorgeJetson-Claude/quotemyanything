@@ -4,19 +4,34 @@ on:
   push:
     paths:
       - 'scripts_gen_cities.py'
+      - '.github/workflows/generate-cities.yml'
   workflow_dispatch:
 
 jobs:
   generate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
       - name: Run Generator
-        run: python scripts_gen_cities.py
+        run: python3 scripts_gen_cities.py
+      - name: Copy generated files into repo
+        run: |
+          cp /tmp/qma-city-pages/qma-city-*.html .
+          cp /tmp/qma-city-pages/qma-cities-index.html .
+          cp /tmp/qma-city-pages/qma-cities-sitemap.xml .
+          ls qma-city-*.html | wc -l
       - name: Commit & Push
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add qma-city-*.html qma-cities-index.html qma-cities-sitemap.xml
-          git commit -m "Auto-generate city landing pages" || echo "No changes"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Auto-generate QMA city landing pages + index + sitemap"
+            git push
+          fi
