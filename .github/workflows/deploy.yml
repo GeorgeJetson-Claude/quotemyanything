@@ -1,0 +1,17 @@
+name: Deploy QMA to Vercel Production
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Deploy to Vercel (production)
+        env:
+          VERCEL_ORG_ID: team_3YtSEbUblz50OMLFKwRDU42J
+          VERCEL_PROJECT_ID: prj_lPknd6uqHmkwxjDdrE6Y7wzpYDZQ
+        run: vercel deploy --prod --yes --token=${{ secrets.VERCEL_TOKEN }}
