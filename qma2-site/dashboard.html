@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Seller Dashboard — Quote Me Anything</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2316a34a'/><text x='50' y='72' font-size='62' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'>Q</text></svg>" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#0f1115;--surface:#171a21;--surface2:#1f242e;--border:#2a313d;--green:#22c55e;--green-dark:#16a34a;--gold:#f5b301;--red:#ef4444;--text:#f4f6f8;--muted:#9aa4b2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.5}
+  a{color:var(--green);text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:8px;font-weight:600}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+  header{border-bottom:1px solid var(--border);background:rgba(15,17,21,.9);position:sticky;top:0;z-index:10}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;max-width:1080px;margin:0 auto}
+  .logo{font-weight:800;display:flex;align-items:center;gap:9px}
+  .logo .mark{width:28px;height:28px;border-radius:7px;background:var(--green-dark);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800}
+  .btn-go{background:var(--green-dark);color:#fff;padding:10px 16px}
+  .btn-go:hover{background:var(--green)}
+  .btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);padding:9px 14px}
+  .btn-sm{padding:6px 12px;font-size:13px}
+  .btn-red{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3);padding:6px 12px;font-size:13px}
+
+  /* login */
+  .login{max-width:380px;margin:8vh auto;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:30px}
+  .login h1{font-size:22px;font-weight:800;margin-bottom:4px}
+  .login p{color:var(--muted);font-size:14px;margin-bottom:20px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+  .field input,.field textarea,.field select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:11px 13px;color:var(--text);font-size:15px;font-family:inherit;outline:none}
+  .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--green)}
+  .login .btn-go{width:100%;padding:13px;margin-top:4px}
+  .err{color:var(--red);font-size:13px;margin-top:10px;min-height:18px}
+
+  /* dashboard */
+  .hide{display:none}
+  .top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin:24px 0 16px}
+  .top h1{font-size:22px;font-weight:800}
+  .top .who{color:var(--muted);font-size:14px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:24px}
+  .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px}
+  .stat .lbl{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+  .stat .val{font-size:26px;font-weight:800;margin-top:4px}
+  .stat .val.green{color:var(--green)}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:26px}
+  @media(max-width:820px){.cols{grid-template-columns:1fr}}
+  .col{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;min-height:120px}
+  .col h3{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;justify-content:space-between}
+  .col h3 .pill{background:var(--surface2);color:var(--muted);border-radius:99px;padding:1px 9px;font-size:12px;font-weight:600}
+  .offer{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:11px;margin-bottom:9px}
+  .offer .amt{font-weight:800;font-size:17px}
+  .offer .it{font-size:13px;color:var(--muted);margin:2px 0 4px}
+  .offer .by{font-size:12px;color:var(--muted)}
+  .offer .acts{display:flex;gap:7px;margin-top:8px}
+  .muted-empty{color:var(--muted);font-size:13px;padding:10px 2px}
+
+  .sec{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:26px}
+  .sec .sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+  .sec .sh h3{font-size:16px;font-weight:700}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px;padding:8px 8px;border-bottom:1px solid var(--border)}
+  td{padding:10px 8px;border-bottom:1px solid var(--border)}
+  .tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;text-transform:capitalize}
+  .tag.active{background:rgba(34,197,94,.16);color:var(--green)}
+  .tag.pending{background:rgba(245,179,1,.16);color:var(--gold)}
+  .tag.sold,.tag.removed{background:var(--surface2);color:var(--muted)}
+  .feebar{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--muted);margin-bottom:24px}
+
+  .modal-bg{position:fixed;inset:0;background:rgba(5,7,11,.8);z-index:100;display:none;align-items:center;justify-content:center;padding:18px}
+  .modal-bg.open{display:flex}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;max-width:520px;width:100%;max-height:90vh;overflow:auto;padding:24px;position:relative}
+  .modal .x{position:absolute;top:14px;right:14px;background:var(--surface2);color:var(--text);width:32px;height:32px}
+  .row2{display:flex;gap:10px}.row2>*{flex:1}
+  .modal .btn-go{width:100%;padding:12px;margin-top:6px}
+  #toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(110px);background:var(--green-dark);color:#fff;padding:12px 20px;border-radius:9px;font-weight:600;z-index:200;transition:.3s}
+  #toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header><div class="nav">
+  <div class="logo"><span class="mark">Q</span> Seller Dashboard</div>
+  <div id="navRight"><a href="/">← Marketplace</a></div>
+</div></header>
+
+<!-- LOGIN -->
+<div id="loginView">
+  <div class="login">
+    <h1>Seller login</h1>
+    <p>Enter your Client ID and PIN. New here? <a href="/">Apply to sell →</a></p>
+    <div class="field"><label>Client ID</label><input id="cid" placeholder="e.g. QMA2-DEMO" autocomplete="username" /></div>
+    <div class="field"><label>PIN</label><input id="pin" type="password" placeholder="••••••" autocomplete="current-password" /></div>
+    <button class="btn-go" onclick="login()">Log in</button>
+    <div class="err" id="loginErr"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<main class="wrap hide" id="dashView">
+  <div class="top">
+    <div><h1>Dashboard</h1><div class="who" id="who"></div></div>
+    <button class="btn-go" onclick="openNew()">+ New Listing</button>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <h3 style="font-size:15px;font-weight:700;margin-bottom:10px">Offer pipeline</h3>
+  <div class="cols">
+    <div class="col"><h3>New offers <span class="pill" id="cNew">0</span></h3><div id="pNew"></div></div>
+    <div class="col"><h3>Accepted <span class="pill" id="cAcc">0</span></h3><div id="pAcc"></div></div>
+    <div class="col"><h3>Closed <span class="pill" id="cClo">0</span></h3><div id="pClo"></div></div>
+  </div>
+
+  <div class="sec">
+    <div class="sh"><h3>Your listings</h3></div>
+    <div style="overflow-x:auto"><table id="listTable"></table></div>
+  </div>
+
+  <div class="feebar" id="feebar"></div>
+</main>
+
+<!-- NEW LISTING MODAL -->
+<div class="modal-bg" id="newModal"><div class="modal">
+  <button class="x" onclick="closeM('newModal')">×</button>
+  <h3 style="font-weight:700;margin-bottom:16px">New listing</h3>
+  <form id="newForm">
+    <div class="field"><label>Title</label><input name="title" required placeholder="2019 Ford F-150 XLT" /></div>
+    <div class="row2">
+      <div class="field"><label>Category</label><select name="category" id="newCat" required></select></div>
+      <div class="field"><label>Condition</label><select name="cond"><option value="">—</option><option>new</option><option>like-new</option><option>used</option><option>for-parts</option></select></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Brand</label><input name="brand" placeholder="Ford" /></div>
+      <div class="field"><label>Size <span style="color:var(--muted)">(optional)</span></label><input name="size" /></div>
+    </div>
+    <div class="row2">
+      <div class="field"><label>Price ($)</label><input name="price" type="number" step="0.01" required /></div>
+      <div class="field"><label>Was price ($)</label><input name="was_price" type="number" step="0.01" /></div>
+    </div>
+    <div class="field"><label>City</label><input name="city" placeholder="Austin, TX" /></div>
+    <div class="field"><label>Description</label><textarea name="description" rows="3"></textarea></div>
+    <button class="btn-go" type="submit">Publish listing</button>
+  </form>
+</div></div>
+
+<div id="toast"></div>
+
+<script>
+const FN = 'https://tnrivpvbpxopgmbifzaw.supabase.co/functions/v1/seller-portal';
+const ANON = 'sb_publishable_EkFrLOiCu4hWqUMQ7zNvbg_h-bcNP-j';
+let CREDS = JSON.parse(sessionStorage.getItem('qma2_creds') || 'null');
+let DATA = null, CATS = [];
+const money = n => '$' + (Number(n)||0).toLocaleString('en-US',{maximumFractionDigits:0});
+const esc = s => (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+async function api(action, payload){
+  const r = await fetch(FN, { method:'POST', headers:{'Content-Type':'application/json','apikey':ANON,'Authorization':'Bearer '+ANON},
+    body: JSON.stringify({ ...CREDS, action, payload }) });
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.error || 'Error');
+  return j;
+}
+async function login(){
+  const client_id = document.getElementById('cid').value.trim();
+  const pin = document.getElementById('pin').value.trim();
+  document.getElementById('loginErr').textContent = '';
+  CREDS = { client_id, pin };
+  try { DATA = await api('dashboard', {}); sessionStorage.setItem('qma2_creds', JSON.stringify(CREDS)); show(); }
+  catch(e){ document.getElementById('loginErr').textContent = e.message; CREDS=null; }
+}
+function logout(){ sessionStorage.removeItem('qma2_creds'); location.reload(); }
+
+function show(){
+  document.getElementById('loginView').classList.add('hide');
+  document.getElementById('dashView').classList.remove('hide');
+  document.getElementById('navRight').innerHTML = '<a href="/">Marketplace</a> &nbsp; <button class="btn-ghost btn-sm" onclick="logout()">Log out</button>';
+  CATS = DATA.cats || CATS;
+  render();
+}
+function render(){
+  const s = DATA.stats, sel = DATA.seller;
+  document.getElementById('who').textContent = `${sel.name||sel.client_id} · ${sel.client_id} · ref ${sel.ref_code||'—'}`;
+  document.getElementById('stats').innerHTML = `
+    ${stat('Active listings', s.active_listings)}
+    ${stat('New offers', s.new_offers)}
+    ${stat('Pipeline', money(s.pipeline_value), true)}
+    ${stat('Sold', s.sold_count)}
+    ${stat('Payout total', money(s.payout_total), true)}`;
+
+  const byStatus = st => DATA.offers.filter(o=>o.status===st);
+  fillCol('pNew','cNew', byStatus('new'), true);
+  fillCol('pAcc','cAcc', byStatus('accepted'), false);
+  fillCol('pClo','cClo', DATA.offers.filter(o=>o.status==='declined'||o.status==='countered'), false);
+
+  const rows = DATA.listings.map(l=>`<tr>
+    <td>${esc(l.title)}</td><td>${money(l.price)}</td>
+    <td><span class="tag ${l.status}">${l.status}</span></td>
+    <td style="color:var(--muted)">${new Date(l.created_at).toLocaleDateString()}</td>
+    <td>${l.status==='active'?`<button class="btn-red" onclick="setStatus('${l.id}','removed')">Remove</button>`:l.status==='pending'?`<button class="btn-go btn-sm" onclick="setStatus('${l.id}','sold')">Mark sold</button>`:''}</td>
+  </tr>`).join('');
+  document.getElementById('listTable').innerHTML =
+    `<tr><th>Item</th><th>Price</th><th>Status</th><th>Listed</th><th></th></tr>` +
+    (rows || `<tr><td colspan="5" class="muted-empty">No listings yet. Click “+ New Listing”.</td></tr>`);
+
+  document.getElementById('feebar').innerHTML =
+    `<b style="color:var(--text)">How you get paid:</b> buyer & seller deal direct — we never touch the money. ` +
+    `Our fee on a sale: 5% under $1k · 12.5% $1k–$20k · 5% $20k–$100k · 2.5% $100k–$1M · custom above. Free to list.`;
+}
+function stat(lbl,val,green){ return `<div class="stat"><div class="lbl">${lbl}</div><div class="val ${green?'green':''}">${val}</div></div>`; }
+function fillCol(boxId, countId, offers, actionable){
+  document.getElementById(countId).textContent = offers.length;
+  document.getElementById(boxId).innerHTML = offers.length ? offers.map(o=>`
+    <div class="offer">
+      <div class="amt">${money(o.amount)}</div>
+      <div class="it">${esc(o.listing_title)}</div>
+      <div class="by">${esc(o.buyer_name||'Buyer')} · ${esc(o.buyer_email||'')}${o.buyer_contact?(' · '+esc(o.buyer_contact)):''}</div>
+      ${o.message?`<div class="by" style="margin-top:4px">“${esc(o.message)}”</div>`:''}
+      ${actionable?`<div class="acts">
+        <button class="btn-go btn-sm" onclick="act('accept_offer','${o.id}')">Accept</button>
+        <button class="btn-red" onclick="act('decline_offer','${o.id}')">Decline</button></div>`:''}
+    </div>`).join('') : `<div class="muted-empty">None</div>`;
+}
+async function act(action, offer_id){ try{ DATA = await api(action,{offer_id}); render(); toast(action==='accept_offer'?'Offer accepted — contact unlocked.':'Offer declined.'); }catch(e){ toast('⚠️ '+e.message); } }
+async function setStatus(id, status){ try{ DATA = await api('update_listing',{id,status}); render(); toast('Listing updated.'); }catch(e){ toast('⚠️ '+e.message); } }
+
+function openNew(){
+  const sel = document.getElementById('newCat');
+  const cats = (DATA.cats && DATA.cats.length) ? DATA.cats : FALLBACK_CATS;
+  sel.innerHTML = cats.map(c=>`<option value="${c.slug}">${c.name}</option>`).join('');
+  document.getElementById('newModal').classList.add('open');
+}
+function closeM(id){ document.getElementById(id).classList.remove('open'); }
+document.getElementById('newForm').onsubmit = async e => {
+  e.preventDefault();
+  const fd = Object.fromEntries(new FormData(e.target));
+  const payload = { ...fd, price: fd.price?Number(fd.price):null, was_price: fd.was_price?Number(fd.was_price):null };
+  try{ DATA = await api('create_listing', payload); closeM('newModal'); e.target.reset(); render(); toast('Listing published.'); }
+  catch(err){ toast('⚠️ '+err.message); }
+};
+let tT; function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tT); tT=setTimeout(()=>t.classList.remove('show'),3600); }
+
+// 12 categories (fallback for the new-listing dropdown)
+const FALLBACK_CATS = [
+  {slug:'cars',name:'Cars & Trucks'},{slug:'car-parts',name:'Car & Auto Parts'},{slug:'electronics',name:'Electronics & Tech'},
+  {slug:'home',name:'Home & Furniture'},{slug:'tools',name:'Tools & Equipment'},{slug:'jewelry',name:'Jewelry & Watches'},
+  {slug:'collectibles',name:'Collectibles & Antiques'},{slug:'fashion',name:'Fashion — Clothing, Shoes & Bags'},
+  {slug:'sporting',name:'Sporting Goods & Outdoors'},{slug:'music',name:'Musical Instruments & Gear'},
+  {slug:'toys',name:'Toys, Hobbies & Games'},{slug:'heavy',name:'Heavy & Business Equipment'}];
+
+// auto-login if creds saved
+if (CREDS) { api('dashboard',{}).then(d=>{DATA=d;show();}).catch(()=>{sessionStorage.removeItem('qma2_creds');}); }
+</script>
+</body>
+</html>
