@@ -1,0 +1,10 @@
+address,county,state,asset_type,purchase_price,arv,zillow_value,financing_terms,flood_zone,existing_operation,is_land,photos_url,notes
+"1423 W Roosevelt St, Phoenix, AZ",Maricopa,AZ,single_family,135000,310000,310000,cash,No,,,https://drive.example/1423,"3bed/2bath, cosmetic rehab ~45k, comps solid"
+"880 E Southern Ave, Mesa, AZ",Maricopa,AZ,single_family,210000,300000,300000,creative,No,,,https://drive.example/880,"Seller open to subto, ARV tight"
+"55 Desert Vista Rd, Tucson, AZ",Pima,AZ,single_family,120000,260000,260000,cash,No,,,,"Right price but wrong county (Pima)"
+"Sunset Mobile Home Park, Austin, TX",Travis,TX,mhp,1200000,,,seller finance,No,Yes,No,https://drive.example/sunset,"42 pads, 90% occupancy, seller carry 10yr"
+"Cactus MHP, Phoenix, AZ",Maricopa,AZ,mhp,2400000,,,cash,No,Yes,No,,"Owner wants all cash — fails creative-only rule"
+"Pinewood RV Resort, San Diego, CA",San Diego,CA,rv_park,3100000,,,creative,No,Yes,No,https://drive.example/pinewood,"118 sites, existing, no flood zone, seller carry"
+"Riverbend Campground, Baton Rouge, LA",East Baton Rouge,LA,campground,900000,,,creative,Yes,Yes,No,,"In FEMA flood zone — should fail"
+"40ac Raw Land off I-10, Buckeye, AZ",Maricopa,AZ,rv_park,500000,,,creative,No,No,Yes,,"Development land, no existing operation — should fail"
+"721 N 7th Ave, Phoenix, AZ",Maricopa,AZ,single_family,175000,330000,330000,subto,No,,,,"Needs ARV photos; subto terms; under 50% cap"
