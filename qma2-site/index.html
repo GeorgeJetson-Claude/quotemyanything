@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quote Me Anything — Where deals take off 🚀</title>
+<meta name="description" content="Buy it, sell it, or name your price. A fast, negotiation-first marketplace for anything — sneakers to supercars. Free to list. No spam. Just launch." />
+<meta property="og:title" content="Quote Me Anything — Where deals take off 🚀" />
+<meta property="og:description" content="Buy it, sell it, or name your price. Free to list. No spam. Just launch." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --black:#0B0E1A; --surface:#121627; --surface2:#1a1f36; --border:#262c44;
+    --violet:#6D28D9; --teal:#2DD4BF; --ignite:#FF5C39; --ignite2:#FF8A3D; --mint:#34D399;
+    --text:#F8FAFC; --muted:#94A3B8;
+    --grad:linear-gradient(120deg,#6D28D9 0%,#2DD4BF 100%);
+    --grad-ignite:linear-gradient(120deg,#FF5C39 0%,#FF8A3D 100%);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--black);color:var(--text);font-family:Inter,system-ui,sans-serif;line-height:1.5;overflow-x:hidden}
+  h1,h2,h3,.brandfont{font-family:'Space Grotesk',sans-serif}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(11,14,26,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+  .nav{display:flex;align-items:center;gap:16px;padding:14px 20px;max-width:1200px;margin:0 auto}
+  .logo{font-family:'Space Grotesk';font-weight:700;font-size:20px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+  .logo .mark{font-size:22px}
+  .logo b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .search{flex:1;display:flex;align-items:center;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:9px 16px;gap:10px;min-width:120px}
+  .search input{flex:1;background:none;border:none;color:var(--text);font-size:15px;outline:none}
+  .search input::placeholder{color:var(--muted)}
+  .btn{border-radius:999px;padding:10px 18px;font-weight:600;font-size:14px;transition:.15s transform,.15s box-shadow;white-space:nowrap}
+  .btn:active{transform:scale(.97)}
+  .btn-ignite{background:var(--grad-ignite);color:#fff;box-shadow:0 6px 20px rgba(255,92,57,.35)}
+  .btn-ignite:hover{box-shadow:0 8px 28px rgba(255,92,57,.55)}
+  .btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+  .btn-ghost:hover{border-color:var(--teal)}
+
+  /* Hero */
+  .hero{position:relative;text-align:center;padding:84px 20px 64px;overflow:hidden}
+  .hero .stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 20% 30%,#fff,transparent),radial-gradient(1px 1px at 70% 60%,#fff,transparent),radial-gradient(1px 1px at 40% 80%,#cbd5e1,transparent),radial-gradient(2px 2px at 85% 25%,#fff,transparent),radial-gradient(1px 1px at 55% 15%,#fff,transparent);opacity:.5}
+  .hero .glow{position:absolute;left:50%;top:-120px;transform:translateX(-50%);width:680px;height:420px;background:var(--grad);filter:blur(120px);opacity:.28;border-radius:50%}
+  .hero-content{position:relative;z-index:1}
+  .hero h1{font-size:clamp(40px,7vw,76px);line-height:1.02;letter-spacing:-1.5px}
+  .hero h1 .em{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{max-width:620px;margin:20px auto 0;color:var(--muted);font-size:clamp(16px,2.5vw,20px)}
+  .hero-cta{display:flex;gap:14px;justify-content:center;margin-top:30px;flex-wrap:wrap}
+  .hero-cta .btn{padding:14px 26px;font-size:16px}
+  .trust{display:flex;gap:22px;justify-content:center;margin-top:30px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+  .trust span{display:flex;align-items:center;gap:7px}
+  .trust .dot{color:var(--mint)}
+
+  /* Categories */
+  section{padding:40px 0}
+  .sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;gap:12px;flex-wrap:wrap}
+  .sec-head h2{font-size:24px}
+  .chips{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;-ms-overflow-style:none;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:9px 15px;font-size:14px;font-weight:500;white-space:nowrap;color:var(--text);transition:.15s}
+  .chip:hover{border-color:var(--teal)}
+  .chip.active{background:var(--grad);border-color:transparent;color:#fff}
+
+  /* Controls */
+  .controls{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+  .count{color:var(--muted);font-size:14px}
+  select.sort{background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:14px;outline:none}
+
+  /* Grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:.18s transform,.18s box-shadow,.18s border-color;cursor:pointer;display:flex;flex-direction:column}
+  .card:hover{transform:translateY(-4px);border-color:var(--teal);box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .thumb{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;font-size:60px;background:linear-gradient(135deg,#171c30,#0e1322);position:relative}
+  .thumb .enh{position:absolute;top:10px;left:10px;background:var(--grad-ignite);color:#fff;font-size:11px;font-weight:600;padding:4px 9px;border-radius:999px}
+  .cond{position:absolute;top:10px;right:10px;font-size:11px;font-weight:600;padding:4px 9px;border-radius:999px;background:rgba(52,211,153,.15);color:var(--mint);text-transform:capitalize}
+  .card-body{padding:14px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .card .brand{color:var(--teal);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+  .card .title{font-weight:600;font-size:15px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .price-row{display:flex;align-items:baseline;gap:8px;margin-top:auto}
+  .price{font-family:'Space Grotesk';font-weight:700;font-size:20px}
+  .was{color:var(--muted);text-decoration:line-through;font-size:13px}
+  .meta{color:var(--muted);font-size:12px;display:flex;align-items:center;gap:6px}
+
+  .empty{text-align:center;color:var(--muted);padding:60px 20px}
+  .skel{background:var(--surface);border:1px solid var(--border);border-radius:16px;height:300px;animation:pulse 1.3s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.5}50%{opacity:.9}}
+
+  /* Band */
+  .band{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:34px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin:20px 0}
+  .band .item h3{font-size:18px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .band .item p{color:var(--muted);font-size:14px}
+
+  /* Seller CTA */
+  .sellercta{position:relative;overflow:hidden;border-radius:24px;padding:48px 30px;text-align:center;background:radial-gradient(120% 140% at 50% 0%,rgba(109,40,217,.35),rgba(45,212,191,.12) 50%,transparent 75%),var(--surface);border:1px solid var(--border)}
+  .sellercta h2{font-size:clamp(26px,4vw,40px);letter-spacing:-1px}
+  .sellercta p{color:var(--muted);max-width:560px;margin:14px auto 24px}
+
+  /* Modal */
+  .modal-bg{position:fixed;inset:0;background:rgba(5,7,14,.78);backdrop-filter:blur(6px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+  .modal-bg.open{display:flex}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;padding:26px;position:relative}
+  .modal .x{position:absolute;top:16px;right:16px;background:var(--surface2);color:var(--text);width:34px;height:34px;border-radius:50%;font-size:18px}
+  .modal h3{font-size:22px;margin-bottom:4px;padding-right:30px}
+  .modal .sub{color:var(--muted);font-size:14px;margin-bottom:18px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+  .field input,.field textarea,.field select{width:100%;background:var(--black);border:1px solid var(--border);border-radius:10px;padding:11px 13px;color:var(--text);font-size:15px;font-family:inherit;outline:none}
+  .field input:focus,.field textarea:focus{border-color:var(--teal)}
+  .field textarea{resize:vertical;min-height:80px}
+  .catgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .catpick{display:flex;align-items:center;gap:8px;background:var(--black);border:1px solid var(--border);border-radius:10px;padding:9px 11px;font-size:13px;cursor:pointer}
+  .catpick input{width:auto}
+  .listing-hero{display:flex;gap:16px;margin-bottom:16px;align-items:center}
+  .listing-hero .big{width:96px;height:96px;border-radius:14px;background:linear-gradient(135deg,#171c30,#0e1322);display:flex;align-items:center;justify-content:center;font-size:48px;flex-shrink:0}
+  .listing-hero .price{font-size:28px}
+  .row2{display:flex;gap:12px}.row2>*{flex:1}
+  .consent{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--muted);margin:6px 0 16px}
+  .consent input{width:auto;margin-top:3px}
+  .modal .btn{width:100%;padding:14px;font-size:16px;margin-top:4px}
+
+  /* Toast */
+  #toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--grad);color:#fff;padding:14px 22px;border-radius:999px;font-weight:600;z-index:200;transition:transform .35s cubic-bezier(.2,1.3,.4,1);box-shadow:0 10px 30px rgba(0,0,0,.5);max-width:90vw}
+  #toast.show{transform:translateX(-50%) translateY(0)}
+
+  /* Footer */
+  footer{border-top:1px solid var(--border);margin-top:40px;padding:34px 20px;color:var(--muted);font-size:13px}
+  .foot{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+  .foot a{color:var(--muted)}.foot a:hover{color:var(--teal)}
+  .badge-os{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:5px 11px;color:var(--mint)}
+  @media(max-width:640px){.nav{flex-wrap:wrap}.search{order:3;width:100%;flex-basis:100%}.hero{padding:54px 16px 44px}}
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav">
+    <div class="logo"><span class="mark">🚀</span> Quote&nbsp;Me&nbsp;<b>Anything</b></div>
+    <div class="search">
+      <span>🔎</span>
+      <input id="q" type="search" placeholder="Search anything — sneakers, watches, trucks…" autocomplete="off" />
+    </div>
+    <button class="btn btn-ghost" onclick="openSell()">Sell</button>
+    <button class="btn btn-ignite" onclick="openSell()">🚀 Start Selling</button>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="stars"></div><div class="glow"></div>
+  <div class="hero-content wrap">
+    <h1>Quote Me <span class="em">Anything.</span></h1>
+    <p>Buy it, sell it, or name your price — deals that take off in seconds. Free to list. No spam. No tire-kickers. Just launch. 🚀</p>
+    <div class="hero-cta">
+      <button class="btn btn-ignite" onclick="document.getElementById('browse').scrollIntoView()">Browse Deals</button>
+      <button class="btn btn-ghost" onclick="openSell()">Sell Your Stuff — Free</button>
+    </div>
+    <div class="trust">
+      <span><span class="dot">●</span> Free to list</span>
+      <span><span class="dot">●</span> Pay only when it sells</span>
+      <span><span class="dot">●</span> Make an offer on anything</span>
+      <span><span class="dot">●</span> Vetted sellers</span>
+    </div>
+  </div>
+</div>
+
+<main class="wrap" id="browse">
+  <section style="padding-top:10px">
+    <div class="sec-head"><h2>Shop by category</h2></div>
+    <div class="chips" id="chips"></div>
+  </section>
+
+  <section style="padding-top:6px">
+    <div class="controls">
+      <div class="count" id="count">Loading the launchpad…</div>
+      <select class="sort" id="sort">
+        <option value="new">Newest</option>
+        <option value="low">Price: Low → High</option>
+        <option value="high">Price: High → Low</option>
+      </select>
+    </div>
+    <div class="grid" id="grid">
+      <div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="band">
+      <div class="item"><h3>⚡ List in 60 seconds</h3><p>Snap, price, publish. Free to list — always.</p></div>
+      <div class="item"><h3>💸 Name your price</h3><p>Buy now or send an offer. Haggle like a pro.</p></div>
+      <div class="item"><h3>🛡️ Vetted sellers</h3><p>Approved sellers only. No scammers, no spam.</p></div>
+      <div class="item"><h3>📈 Pay only on sale</h3><p>Low fees that drop as the price climbs.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sellercta">
+      <h2>Got stuff to sell? <span style="background:var(--grad-ignite);-webkit-background-clip:text;background-clip:text;color:transparent">Launch it.</span></h2>
+      <p>Get approved, list free, and let buyers come to you with offers. We keep the tire-kickers out — you keep the profit.</p>
+      <button class="btn btn-ignite" onclick="openSell()" style="padding:14px 28px;font-size:16px">🚀 Become a Seller — Free</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot">
+    <div>© <span id="yr"></span> Quote Me Anything — Where deals take off. 🚀</div>
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+      <a href="#" onclick="openSell();return false">Sell</a>
+      <a href="https://github.com" target="_blank" rel="noopener" class="badge-os">⭐ Open Source · MIT</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Listing modal -->
+<div class="modal-bg" id="listingModal">
+  <div class="modal" id="listingInner"></div>
+</div>
+
+<!-- Sell modal -->
+<div class="modal-bg" id="sellModal">
+  <div class="modal">
+    <button class="x" onclick="closeModal('sellModal')">×</button>
+    <h3>Become a Seller 🚀</h3>
+    <p class="sub">Free to join. List free. Pay a small fee only when you sell. Tell us what you've got.</p>
+    <form id="sellForm">
+      <div class="row2">
+        <div class="field"><label>Name / Business</label><input name="name" required placeholder="Your name or shop" /></div>
+        <div class="field"><label>City</label><input name="city" placeholder="Austin, TX" /></div>
+      </div>
+      <div class="field"><label>Email</label><input name="email" type="email" required placeholder="you@email.com" /></div>
+      <div class="field"><label>What do you sell?</label><div class="catgrid" id="sellCats"></div></div>
+      <div class="row2">
+        <div class="field"><label>Resale / dealer license # <span style="color:var(--muted)">(optional)</span></label><input name="license_no" placeholder="If applicable" /></div>
+      </div>
+      <div class="field"><label>Sample inventory / links <span style="color:var(--muted)">(optional)</span></label><textarea name="inventory_sample" placeholder="What you've got, links to current listings, etc."></textarea></div>
+      <label class="consent"><input type="checkbox" name="agreed" required /> I agree to the no-spam seller terms and that my listings are accurate.</label>
+      <button class="btn btn-ignite" type="submit">🚀 Apply to Sell</button>
+    </form>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://tnrivpvbpxopgmbifzaw.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_EkFrLOiCu4hWqUMQ7zNvbg_h-bcNP-j';
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+// Reseller / affiliate link capture
+const params = new URLSearchParams(location.search);
+const REF = params.get('ref') || localStorage.getItem('qma2_ref') || null;
+if (params.get('ref')) {
+  localStorage.setItem('qma2_ref', params.get('ref'));
+  db.from('referral_hits').insert({ ref_code: params.get('ref'), path: location.pathname, utm: Object.fromEntries(params) }).then(()=>{});
+}
+
+let CATS = [], LISTINGS = [], activeCat = 'all', query = '', sortBy = 'new';
+const iconFor = {};
+
+const money = n => n==null ? '—' : '$' + Number(n).toLocaleString('en-US', {maximumFractionDigits:0});
+
+async function load() {
+  const [{data:cats}, {data:listings}] = await Promise.all([
+    db.from('categories').select('*').order('sort'),
+    db.from('listings').select('*').eq('status','active').order('created_at',{ascending:false})
+  ]);
+  CATS = cats || []; LISTINGS = listings || [];
+  CATS.forEach(c => iconFor[c.slug] = c.icon);
+  renderChips(); render();
+}
+
+function renderChips() {
+  const el = document.getElementById('chips');
+  el.innerHTML = `<button class="chip ${activeCat==='all'?'active':''}" onclick="setCat('all')">✨ All</button>` +
+    CATS.map(c => `<button class="chip ${activeCat===c.slug?'active':''}" onclick="setCat('${c.slug}')">${c.icon||''} ${c.name}</button>`).join('');
+}
+function setCat(s){ activeCat=s; renderChips(); render(); }
+
+function filtered(){
+  let r = LISTINGS.slice();
+  if (activeCat!=='all') r = r.filter(l=>l.category===activeCat);
+  if (query){ const q=query.toLowerCase(); r=r.filter(l=>(`${l.title} ${l.brand||''} ${l.description||''} ${l.model||''}`).toLowerCase().includes(q)); }
+  if (sortBy==='low') r.sort((a,b)=>(a.price||0)-(b.price||0));
+  else if (sortBy==='high') r.sort((a,b)=>(b.price||0)-(a.price||0));
+  return r;
+}
+
+function render(){
+  const r = filtered();
+  document.getElementById('count').textContent = r.length + (r.length===1?' deal':' deals') + ' on the launchpad';
+  const grid = document.getElementById('grid');
+  if (!r.length){ grid.innerHTML = `<div class="empty" style="grid-column:1/-1">🛰️ Nothing here yet. <a style="color:var(--teal)" href="#" onclick="openSell();return false">Be the first to list →</a></div>`; return; }
+  grid.innerHTML = r.map(l => `
+    <div class="card" onclick="openListing('${l.id}')">
+      <div class="thumb">${iconFor[l.category]||'📦'}
+        ${l.enhanced?'<span class="enh">🔥 Featured</span>':''}
+        ${l.cond?`<span class="cond">${l.cond}</span>`:''}
+      </div>
+      <div class="card-body">
+        ${l.brand?`<div class="brand">${l.brand}</div>`:''}
+        <div class="title">${esc(l.title)}</div>
+        <div class="price-row">
+          <span class="price">${money(l.price)}</span>
+          ${l.was_price?`<span class="was">${money(l.was_price)}</span>`:''}
+        </div>
+        <div class="meta">📍 ${esc(l.city||'—')} ${l.accept_offers?'· 💬 Offers welcome':''}</div>
+      </div>
+    </div>`).join('');
+}
+
+function openListing(id){
+  const l = LISTINGS.find(x=>x.id===id); if(!l) return;
+  document.getElementById('listingInner').innerHTML = `
+    <button class="x" onclick="closeModal('listingModal')">×</button>
+    <div class="listing-hero">
+      <div class="big">${iconFor[l.category]||'📦'}</div>
+      <div>
+        ${l.brand?`<div class="brand" style="color:var(--teal);font-size:12px;font-weight:600;text-transform:uppercase">${l.brand}</div>`:''}
+        <h3 style="padding:0">${esc(l.title)}</h3>
+        <div class="price-row"><span class="price" style="font-size:28px">${money(l.price)}</span>${l.was_price?`<span class="was">${money(l.was_price)}</span>`:''}</div>
+      </div>
+    </div>
+    <div class="meta" style="margin-bottom:14px">📍 ${esc(l.city||'—')} ${l.cond?`· <span style="text-transform:capitalize">${l.cond}</span>`:''} ${l.size?`· Size ${esc(l.size)}`:''}</div>
+    ${l.description?`<p style="color:var(--muted);margin-bottom:18px">${esc(l.description)}</p>`:''}
+    <div class="row2" style="margin-bottom:18px">
+      <button class="btn btn-ignite" onclick="reserve('${l.id}')">⚡ Reserve / Buy</button>
+      ${l.accept_offers?`<button class="btn btn-ghost" onclick="showOffer('${l.id}')">💬 Make an Offer</button>`:''}
+    </div>
+    <div id="offerBox"></div>`;
+  open('listingModal');
+}
+
+function reserve(id){ showOffer(id, true); }
+
+function showOffer(id, buy){
+  const l = LISTINGS.find(x=>x.id===id);
+  document.getElementById('offerBox').innerHTML = `
+    <div style="border-top:1px solid var(--border);padding-top:16px">
+      <h3 style="font-size:17px;padding:0;margin-bottom:12px">${buy?'⚡ Reserve this item':'💬 Name your price'}</h3>
+      <form id="offerForm">
+        <div class="row2">
+          <div class="field"><label>Your name</label><input name="buyer_name" required /></div>
+          <div class="field"><label>${buy?'Your offer ($)':'Offer ($)'}</label><input name="amount" type="number" step="0.01" value="${l.price||''}" ${buy?'':'placeholder="Make it count"'} required /></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>Email</label><input name="buyer_email" type="email" required /></div>
+          <div class="field"><label>Phone / contact <span style="color:var(--muted)">(optional)</span></label><input name="buyer_contact" /></div>
+        </div>
+        <div class="field"><label>Message <span style="color:var(--muted)">(optional)</span></label><textarea name="message" placeholder="Anything the seller should know?"></textarea></div>
+        <button class="btn btn-ignite" type="submit">🚀 Send ${buy?'Reservation':'Offer'}</button>
+      </form>
+    </div>`;
+  document.getElementById('offerForm').onsubmit = e => submitOffer(e, id);
+  document.getElementById('offerBox').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+async function submitOffer(e, listing_id){
+  e.preventDefault();
+  const f = e.target, btn = f.querySelector('button'); btn.disabled=true; btn.textContent='Launching…';
+  const fd = Object.fromEntries(new FormData(f));
+  const { error } = await db.from('offers').insert({
+    listing_id, amount: parseFloat(fd.amount)||null, buyer_name: fd.buyer_name,
+    buyer_email: fd.buyer_email, buyer_contact: fd.buyer_contact||null,
+    message: fd.message||null, referred_by: REF
+  });
+  if (error){ btn.disabled=false; btn.textContent='🚀 Send'; toast('⚠️ '+error.message); return; }
+  closeModal('listingModal'); toast('Offer sent 🚀 The seller will be in touch!');
+}
+
+function openSell(){
+  document.getElementById('sellCats').innerHTML = CATS.map(c =>
+    `<label class="catpick"><input type="checkbox" value="${c.slug}" /> ${c.icon||''} ${c.name}</label>`).join('');
+  open('sellModal');
+}
+document.getElementById('sellForm').onsubmit = async e => {
+  e.preventDefault();
+  const f = e.target, btn=f.querySelector('button'); btn.disabled=true; btn.textContent='Launching…';
+  const fd = Object.fromEntries(new FormData(f));
+  const cats = [...document.querySelectorAll('#sellCats input:checked')].map(i=>i.value);
+  const { error } = await db.from('seller_applications').insert({
+    name:fd.name, email:fd.email, city:fd.city||null, categories:cats,
+    license_no:fd.license_no||null, inventory_sample:fd.inventory_sample||null, agreed_terms:!!fd.agreed
+  });
+  if(error){ btn.disabled=false; btn.textContent='🚀 Apply to Sell'; toast('⚠️ '+error.message); return; }
+  closeModal('sellModal'); f.reset(); toast('Application sent 🚀 We\'ll review and get you live!');
+};
+
+// helpers
+function esc(s){ return (s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function open(id){ document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+document.querySelectorAll('.modal-bg').forEach(m=>m.addEventListener('click',e=>{ if(e.target===m) closeModal(m.id); }));
+let tT; function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(tT); tT=setTimeout(()=>t.classList.remove('show'),4200); }
+document.getElementById('q').addEventListener('input', e=>{ query=e.target.value; render(); });
+document.getElementById('sort').addEventListener('change', e=>{ sortBy=e.target.value; render(); });
+
+load();
+</script>
+</body>
+</html>
