@@ -1,697 +1,221 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Roof Quote Calculator Austin TX - Get 3 Competing Quotes | QuoteMyAnything</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=drawing,geometry"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-
-        .header p {
-            opacity: 0.9;
-            font-size: 1.1em;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-        }
-
-        .left-panel {
-            padding: 30px;
-            background: #f8f9fa;
-            border-right: 2px solid #e9ecef;
-        }
-
-        .right-panel {
-            padding: 30px;
-        }
-
-        .section {
-            margin-bottom: 30px;
-        }
-
-        .section h2 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.4em;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-
-        #map {
-            width: 100%;
-            height: 400px;
-            border-radius: 10px;
-            border: 2px solid #ddd;
-            margin-bottom: 15px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #2c3e50;
-            font-weight: 600;
-            font-size: 0.95em;
-        }
-
-        input[type="text"],
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        select:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-right: 10px;
-            margin-bottom: 10px;
-        }
-
-        .btn-primary {
-            background: #667eea;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #5568d3;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #c82333;
-        }
-
-        .measurement-info {
-            background: #e7f3ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 10px;
-            border-left: 4px solid #667eea;
-        }
-
-        .measurement-info p {
-            margin: 5px 0;
-            color: #2c3e50;
-        }
-
-        .measurement-info strong {
-            color: #667eea;
-        }
-
-        .quote-summary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 20px;
-        }
-
-        .quote-summary h3 {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .quote-line {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            font-size: 1.1em;
-        }
-
-        .quote-total {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px 0;
-            font-size: 1.5em;
-            font-weight: bold;
-            border-top: 2px solid white;
-            margin-top: 10px;
-        }
-
-        .material-option {
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .material-option:hover {
-            border-color: #667eea;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
-        }
-
-        .material-option.selected {
-            border-color: #667eea;
-            background: #f0f4ff;
-        }
-
-        .material-option h4 {
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-
-        .material-option p {
-            color: #6c757d;
-            font-size: 0.9em;
-            margin: 3px 0;
-        }
-
-        .pitch-multiplier {
-            background: #fff3cd;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-            border-left: 4px solid #ffc107;
-        }
-
-        .instructions {
-            background: #d1ecf1;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid #17a2b8;
-        }
-
-        .instructions p {
-            margin: 5px 0;
-            color: #0c5460;
-        }
-
-        @media (max-width: 968px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-
-            .left-panel {
-                border-right: none;
-                border-bottom: 2px solid #e9ecef;
-            }
-
-            .header h1 {
-                font-size: 1.8em;
-            }
-        }
-
-        .checkbox-group {
-            margin: 15px 0;
-        }
-
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-            padding: 10px;
-            background: white;
-            border-radius: 8px;
-            border: 2px solid #e9ecef;
-        }
-
-        .checkbox-item input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
-
-        .checkbox-item label {
-            margin: 0;
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .checkbox-item .price {
-            color: #667eea;
-            font-weight: 600;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Roof Replacement Cost Calculator Austin TX - Instant Estimate &amp; 3 Competing Quotes | QuoteMyAnything</title>
+  <meta name="description" content="Instant roof replacement cost estimate for Austin TX homes. Enter your home size, pitch, and material to see your price range, then get 3 free competing quotes from local licensed roofers in 60 seconds. Always free for homeowners.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .micro { transition: all .1s ease; }
+    .micro:hover { transform: translateY(-1px); }
+    .calc-result { background: #052e16; border: 1px solid #166534; }
+  </style>
 </head>
-<body>
-    <!-- QMA top nav for consistency + access to video, quick form, all services (amazing unified experience) -->
-    <nav class="bg-zinc-950 border-b border-zinc-800 p-2 text-xs">
-      <div class="max-w-4xl mx-auto flex items-center justify-between text-white">
-        <a href="index.html" class="font-bold flex items-center gap-1"><span class="inline-block w-4 h-4 bg-emerald-500 text-zinc-950 rounded text-[9px] font-black leading-4 text-center">Q</span> <span>QuoteMyAnything</span></a>
-        <div class="flex items-center gap-3">
-          <a href="index.html#quick-form" class="hover:text-emerald-400"> Quick Quotes + Video</a>
-          <a href="index.html" class="hover:text-emerald-400">All Services</a>
-          <button id="hamburger-btn" class="text-lg px-1" aria-label="Menu">☰</button>
-        </div>
+<body class="bg-zinc-950 text-zinc-100">
+  <div class="max-w-3xl mx-auto p-6">
+
+    <!-- Hamburger Menu (shared across subpages) -->
+    <nav class="mb-6">
+      <div class="flex items-center justify-between bg-zinc-900 border border-zinc-800 rounded-2xl p-3">
+        <a href="index.html" class="font-bold tracking-tighter flex items-center gap-2">
+          <span class="inline-block w-6 h-6 bg-emerald-500 text-zinc-950 rounded text-center text-xs font-black leading-6">Q</span>
+          <span class="text-sm">QMA</span>
+        </a>
+        <button id="hamburger-btn" class="text-2xl px-3 py-1 leading-none focus:outline-none" aria-label="Toggle menu">☰</button>
       </div>
-      <div id="mobile-menu" class="hidden max-w-4xl mx-auto mt-1 bg-zinc-900 border border-zinc-700 rounded p-2 text-xs">
-        <a href="index.html#quick-form" class="block py-0.5 text-emerald-400">Get Free Quotes (form that emails us) — Watch the Gemini commercial</a>
-        <a href="roofing.html" class="block py-0.5"> Roofing Landing</a>
-        <a href="hvac.html" class="block py-0.5">️ HVAC</a>
-        <a href="solar.html" class="block py-0.5">☀️ Solar</a>
-        <a href="plumbing.html" class="block py-0.5"> Plumbing + all 11</a>
-        <a href="index.html" class="block py-0.5">Main hub with all calculators &amp; Free Quotes On Anything!</a>
-        <a href="privacy.html" class="block py-0.5">Legal</a>
+      <div id="mobile-menu" class="hidden mt-2 bg-zinc-900 border border-zinc-800 rounded-2xl p-4 text-sm max-h-[70vh] overflow-auto">
+        <a href="index.html#quick-form" class="block py-2 font-semibold text-emerald-400 hover:underline"> Get Free Quotes Now (Quick Form that emails us)</a>
+        <div class="mt-3 text-emerald-400 font-semibold text-xs tracking-widest">SERVICES (click to landing page with form)</div>
+        <a href="roofing.html" class="block py-1 pl-1 hover:text-emerald-400"> Roofing</a>
+        <a href="hvac.html" class="block py-1 pl-1 hover:text-emerald-400">️ HVAC / AC Repair</a>
+        <a href="plumbing.html" class="block py-1 pl-1 hover:text-emerald-400"> Plumbing</a>
+        <a href="solar.html" class="block py-1 pl-1 hover:text-emerald-400">☀️ Solar Installation</a>
+        <a href="lawn-care.html" class="block py-1 pl-1 hover:text-emerald-400"> Lawn Care</a>
+        <a href="painting.html" class="block py-1 pl-1 hover:text-emerald-400"> House Painting</a>
+        <a href="electrical.html" class="block py-1 pl-1 hover:text-emerald-400">⚡ Electrical</a>
+        <a href="pest-control.html" class="block py-1 pl-1 hover:text-emerald-400"> Pest Control</a>
+        <a href="tree-service.html" class="block py-1 pl-1 hover:text-emerald-400"> Tree Service</a>
+        <a href="moving.html" class="block py-1 pl-1 hover:text-emerald-400"> Moving</a>
+        <a href="house-cleaning.html" class="block py-1 pl-1 hover:text-emerald-400"> House Cleaning</a>
+        <a href="index.html#quick-form" class="block py-1 pl-1 hover:text-emerald-400"> Pool Service (Quick Free Form)</a>
+
+        <div class="mt-3 text-emerald-400 font-semibold text-xs tracking-widest">FREE CALCULATORS &amp; TOOLS</div>
+        <a href="roof-calculator.html" class="block py-1 pl-1 hover:text-emerald-400"> Roof Calculator</a>
+        <a href="car-ai-guide.html" class="block py-1 pl-1 hover:text-emerald-400"> Car AI Guide</a>
+        <a href="hvac-calculator.html" class="block py-1 pl-1 hover:text-emerald-400">️ HVAC Savings Calculator</a>
+        <a href="solar-calculator.html" class="block py-1 pl-1 hover:text-emerald-400">☀️ Solar Payback Calculator</a>
+        <a href="moving-estimator.html" class="block py-1 pl-1 hover:text-emerald-400"> Moving Cost Estimator</a>
+        <a href="electrical-estimator.html" class="block py-1 pl-1 hover:text-emerald-400">⚡ Electrical Estimator</a>
+        <a href="painting-calculator.html" class="block py-1 pl-1 hover:text-emerald-400"> Painting Cost Calculator</a>
+
+        <div class="mt-3 text-emerald-400 font-semibold text-xs tracking-widest">LEGAL</div>
+        <a href="privacy.html" class="block py-1 pl-1 hover:text-emerald-400">Privacy Policy</a>
+        <a href="terms.html" class="block py-1 pl-1 hover:text-emerald-400">Terms of Service</a>
+        <a href="disclaimer.html" class="block py-1 pl-1 hover:text-emerald-400">Disclaimer</a>
       </div>
     </nav>
-    <div class="container">
-        <div class="header">
-            <h1> Professional Roof Quote Calculator</h1>
-            <p>Draw your roof on the map and get an instant estimate</p>
+
+    <!-- Header -->
+    <div class="text-center mb-8 pt-4">
+      <div class="inline-flex items-center gap-2 mb-3">
+        <div class="w-9 h-9 bg-emerald-500 rounded-2xl flex items-center justify-center text-zinc-950 font-black text-2xl">Q</div>
+        <div>
+          <div class="text-3xl font-bold tracking-tighter">Free Quotes On Anything!</div>
+          <div class="text-emerald-400 text-xs tracking-[2px] -mt-1">ALWAYS FREE FOR HOMEOWNERS • AUSTIN TX</div>
         </div>
-
-        <div class="main-content">
-            <div class="left-panel">
-                <div class="section">
-                    <h2> Step 1: Find & Measure Roof</h2>
-                    <div class="instructions">
-                        <p><strong>Instructions:</strong></p>
-                        <p>1. Enter address and click Search</p>
-                        <p>2. Click "Draw Roof" to outline the roof area</p>
-                        <p>3. Click points to draw, double-click to finish</p>
-                    </div>
-                    <div class="input-group">
-                        <label>Property Address</label>
-                        <input type="text" id="address" placeholder="Enter address to search">
-                        <button class="btn btn-primary" onclick="searchAddress()" style="margin-top: 10px; width: 100%;"> Search Address</button>
-                    </div>
-                    <div id="map"></div>
-                    <button class="btn btn-primary" onclick="startDrawing()">️ Draw Roof</button>
-                    <button class="btn btn-secondary" onclick="clearDrawing()">️ Clear Drawing</button>
-                    <div class="measurement-info" id="measurementInfo" style="display: none;">
-                        <p><strong>Area:</strong> <span id="area">0</span> sq ft</p>
-                        <p><strong>Squares:</strong> <span id="squares">0</span> (1 square = 100 sq ft)</p>
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2> Step 2: Roof Details</h2>
-                    <div class="input-group">
-                        <label>Roof Pitch</label>
-                        <select id="pitch" onchange="updateQuote()">
-                            <option value="1.00">Flat (0/12) - No multiplier</option>
-                            <option value="1.05">Low (1-3/12) - 5% more</option>
-                            <option value="1.10">Medium (4-6/12) - 10% more</option>
-                            <option value="1.15" selected>Standard (7-9/12) - 15% more</option>
-                            <option value="1.25">Steep (10-12/12) - 25% more</option>
-                            <option value="1.40">Very Steep (13+/12) - 40% more</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Number of Stories</label>
-                        <select id="stories" onchange="updateQuote()">
-                            <option value="1.00">1 Story</option>
-                            <option value="1.10" selected>2 Stories - 10% more</option>
-                            <option value="1.20">3+ Stories - 20% more</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Roof Access Difficulty</label>
-                        <select id="access" onchange="updateQuote()">
-                            <option value="1.00">Easy Access</option>
-                            <option value="1.10" selected>Normal Access</option>
-                            <option value="1.25">Difficult Access - 25% more</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="right-panel">
-                <div class="section">
-                    <h2>️ Step 3: Select Materials</h2>
-                    <div id="materialOptions">
-                        <!-- Materials will be populated by JavaScript -->
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2>➕ Step 4: Additional Services</h2>
-                    <div class="checkbox-group" id="additionalServices">
-                        <!-- Services will be populated by JavaScript -->
-                    </div>
-                </div>
-
-                <div class="section">
-                    <h2> Your Quote</h2>
-                    <div class="quote-summary">
-                        <h3>Estimated Cost</h3>
-                        <div class="quote-line">
-                            <span>Base Materials:</span>
-                            <span id="quoteMaterials">$0</span>
-                        </div>
-                        <div class="quote-line">
-                            <span>Labor:</span>
-                            <span id="quoteLabor">$0</span>
-                        </div>
-                        <div class="quote-line">
-                            <span>Additional Services:</span>
-                            <span id="quoteServices">$0</span>
-                        </div>
-                        <div class="quote-line">
-                            <span>Complexity Adjustments:</span>
-                            <span id="quoteAdjustments">$0</span>
-                        </div>
-                        <div class="quote-total">
-                            <span>TOTAL ESTIMATE:</span>
-                            <span id="quoteTotal">$0</span>
-                        </div>
-                        <button class="btn" style="width: 100%; margin-top: 20px; background: white; color: #667eea;" onclick="downloadQuote()"> Download Quote PDF</button>
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
+      <p class="text-zinc-400">Roof Replacement Cost Calculator — get your instant estimate, then 3 local bids.</p>
+      <div class="mt-3 flex justify-center gap-2">
+        <a href="https://quotemyanything.com" class="inline-block bg-emerald-600 hover:bg-emerald-500 text-sm font-semibold px-5 py-2 rounded-3xl micro">Main Site</a>
+        <a href="https://quotemyanything.com/roofing.html" class="inline-block bg-zinc-800 hover:bg-zinc-700 text-sm font-semibold px-5 py-2 rounded-3xl micro">Get Roofing Quotes →</a>
+      </div>
     </div>
 
-    <script>
-        let map;
-        let drawingManager;
-        let currentShape = null;
-        let geocoder;
-        let currentArea = 0;
+    <!-- Estimator -->
+    <div class="bg-zinc-900 rounded-3xl p-8 border border-zinc-800 mb-8">
+      <h2 class="text-2xl font-bold mb-4">Roof Replacement Cost Estimator</h2>
+      <p class="text-sm text-zinc-400 mb-6">Quick ballpark for Austin-area homes. Real pricing comes from 3 competing local quotes (typically 10–25% better).</p>
 
-        // Pricing configuration
-        const materials = [
-            {
-                id: 'architectural',
-                name: 'Architectural Shingles',
-                description: '30-year warranty, enhanced curb appeal',
-                pricePerSquare: 350,
-                laborPerSquare: 150
-            },
-            {
-                id: '3tab',
-                name: '3-Tab Shingles',
-                description: '25-year warranty, economical choice',
-                pricePerSquare: 250,
-                laborPerSquare: 130
-            },
-            {
-                id: 'designer',
-                name: 'Designer Shingles',
-                description: '50-year warranty, premium aesthetics',
-                pricePerSquare: 500,
-                laborPerSquare: 180
-            },
-            {
-                id: 'metal',
-                name: 'Standing Seam Metal',
-                description: '40+ year lifespan, energy efficient',
-                pricePerSquare: 700,
-                laborPerSquare: 250
-            },
-            {
-                id: 'tile',
-                name: 'Concrete Tile',
-                description: '50+ year lifespan, excellent durability',
-                pricePerSquare: 800,
-                laborPerSquare: 300
-            }
-        ];
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Home size (sq ft)</label>
+          <input id="home" type="number" value="2000" min="400" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm" oninput="calcRoof()">
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Stories</label>
+          <select id="stories" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm" onchange="calcRoof()">
+            <option value="1">1 story</option>
+            <option value="1.5">1.5 stories</option>
+            <option value="2">2 stories</option>
+            <option value="3">3 stories</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Roof pitch / slope</label>
+          <select id="pitch" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm" onchange="calcRoof()">
+            <option value="1.05">Flat / low-slope</option>
+            <option value="1.15">Low (3:12–4:12)</option>
+            <option value="1.30" selected>Medium (5:12–8:12)</option>
+            <option value="1.45">Steep (9:12+)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-zinc-400 mb-1">Roofing material</label>
+          <select id="material" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm" onchange="calcRoof()">
+            <option value="375">Asphalt 3-tab shingle</option>
+            <option value="475" selected>Architectural shingle</option>
+            <option value="950">Standing-seam metal</option>
+            <option value="1100">Tile (concrete / clay)</option>
+          </select>
+        </div>
+      </div>
 
-        const additionalServices = [
-            { id: 'tearoff', name: 'Remove Old Roof (1 layer)', price: 100 },
-            { id: 'tearoff2', name: 'Remove Old Roof (2 layers)', price: 150 },
-            { id: 'decking', name: 'Replace Damaged Decking (avg)', price: 200 },
-            { id: 'underlayment', name: 'Premium Underlayment Upgrade', price: 150 },
-            { id: 'ventilation', name: 'Ridge Vent Installation', price: 300 },
-            { id: 'gutters', name: 'New Gutter System', price: 1200 },
-            { id: 'skylight', name: 'Skylight Installation (each)', price: 800 },
-            { id: 'warranty', name: 'Extended Warranty Package', price: 500 }
-        ];
+      <label class="flex items-center gap-2 text-sm text-zinc-300 mb-2">
+        <input id="tearoff" type="checkbox" checked class="accent-emerald-500" onchange="calcRoof()">
+        Tear off &amp; haul away the existing roof
+      </label>
 
-        let selectedMaterial = 'architectural';
+      <div id="roof-results" class="calc-result rounded-2xl p-6 mt-4">
+        <div class="grid grid-cols-3 gap-4 text-center">
+          <div>
+            <div class="text-xs text-zinc-400">Est. roof area</div>
+            <div id="area" class="text-2xl font-bold text-white mt-1">—</div>
+          </div>
+          <div>
+            <div class="text-xs text-zinc-400">Roofing squares</div>
+            <div id="squares" class="text-2xl font-bold text-white mt-1">—</div>
+          </div>
+          <div>
+            <div class="text-xs text-emerald-400">Estimated cost</div>
+            <div id="cost" class="text-2xl font-bold text-emerald-400 mt-1">—</div>
+          </div>
+        </div>
+        <div class="mt-4 text-xs text-zinc-400 text-center">1 square = 100 sq ft. Estimate only — get 3 free local bids for exact pricing, materials, and warranty.</div>
+      </div>
 
-        function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 30.5383, lng: -97.6786 }, // Hutto, TX
-                zoom: 18,
-                mapTypeId: 'satellite',
-                tilt: 0
-            });
+      <button onclick="showRoofForm()" class="mt-6 w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-3xl font-semibold text-lg micro">Get My 3 Free Roofing Quotes &amp; Beat This Price →</button>
+      <p class="text-center text-[10px] text-zinc-500 mt-2">Free for homeowners. Compare &amp; choose the best local deal.</p>
+    </div>
 
-            geocoder = new google.maps.Geocoder();
+    <!-- Form -->
+    <div id="roof-form" class="bg-zinc-900 rounded-3xl p-6 border border-zinc-800 mb-8 hidden">
+      <h3 class="font-bold mb-1">Free roofing quotes in 60 seconds</h3>
+      <p class="text-xs text-zinc-400 mb-4">One form. 3 licensed local roofers compete for your roof.</p>
+      <form action="https://formspree.io/f/xpwzgqkd" method="POST">
+        <input type="hidden" name="site_source" value="roof-calculator">
+        <input type="hidden" id="estimate_summary" name="estimate_summary" value="">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1">
+        <textarea name="message" required rows="2" class="w-full bg-black border border-zinc-700 rounded-2xl p-3 text-sm mb-3" placeholder="e.g. 2,000 sq ft 1-story home in 78745, architectural shingle, full tear-off, some storm damage"></textarea>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <input type="email" name="email" required placeholder="you@email.com" class="bg-black border border-zinc-700 rounded-2xl p-3 text-sm">
+          <input type="tel" name="phone" placeholder="Phone (optional)" class="bg-black border border-zinc-700 rounded-2xl p-3 text-sm">
+        </div>
+        <div class="mt-3 p-3 bg-black/60 rounded-2xl text-[11px] text-zinc-400">
+          <label class="flex gap-2">
+            <input type="checkbox" required class="mt-0.5 accent-emerald-500">
+            <span>By submitting, you agree to be contacted by up to 3 local licensed contractors in the greater Austin area. Your information is only shared with contractors for the purpose of providing quotes. We do not sell or share your data for any other reason. <a href="https://quotemyanything.com/privacy.html" class="underline">Privacy</a></span>
+          </label>
+        </div>
+        <button type="submit" class="mt-4 w-full bg-emerald-600 hover:bg-emerald-500 py-4 rounded-3xl font-semibold text-lg micro">Send My Free Roofing Quote Request →</button>
+      </form>
+    </div>
 
-            drawingManager = new google.maps.drawing.DrawingManager({
-                drawingMode: null,
-                drawingControl: false,
-                polygonOptions: {
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.3,
-                    strokeWeight: 3,
-                    strokeColor: '#FF0000',
-                    clickable: true,
-                    editable: true,
-                    zIndex: 1
-                }
-            });
+    <div class="text-center text-xs text-zinc-400 mb-8">
+      More free tools: <a href="https://quotemyanything.com/solar-calculator.html" class="underline">Solar Calculator</a> • <a href="https://quotemyanything.com/hvac-calculator.html" class="underline">HVAC Calculator</a> • <a href="https://quotemyanything.com" class="underline text-emerald-400">All services + Gemini commercial</a>
+    </div>
 
-            drawingManager.setMap(map);
+    <footer class="text-center text-xs text-zinc-500 pb-10">
+      <div class="mb-1">quotemyanything.com • Austin, TX</div>
+      <div class="flex justify-center gap-3">
+        <a href="https://quotemyanything.com/privacy.html" class="hover:text-zinc-300">Privacy</a>
+        <a href="https://quotemyanything.com/terms.html" class="hover:text-zinc-300">Terms</a>
+        <a href="https://quotemyanything.com/disclaimer.html" class="hover:text-zinc-300">Disclaimer</a>
+      </div>
+      <div class="mt-3 text-[10px] text-zinc-600">Always free for homeowners. Value-first. Built for speed &amp; trust.</div>
+    </footer>
+  </div>
 
-            google.maps.event.addListener(drawingManager, 'polygoncomplete', function(polygon) {
-                if (currentShape) {
-                    currentShape.setMap(null);
-                }
-                currentShape = polygon;
-                calculateArea(polygon);
-                drawingManager.setDrawingMode(null);
+  <script>
+    function calcRoof() {
+      const home = parseFloat(document.getElementById('home').value) || 2000;
+      const stories = parseFloat(document.getElementById('stories').value) || 1;
+      const pitch = parseFloat(document.getElementById('pitch').value) || 1.30;
+      const pricePerSq = parseFloat(document.getElementById('material').value) || 475;
+      const tearoff = document.getElementById('tearoff').checked;
 
-                google.maps.event.addListener(polygon.getPath(), 'set_at', function() {
-                    calculateArea(polygon);
-                });
-                google.maps.event.addListener(polygon.getPath(), 'insert_at', function() {
-                    calculateArea(polygon);
-                });
-            });
+      const footprint = home / stories;            // ground-floor footprint
+      const roofArea = Math.round(footprint * pitch);
+      const squares = roofArea / 100;
+      let perSq = pricePerSq + (tearoff ? 125 : 0); // tear-off adds ~$125/square
+      const mid = squares * perSq;
+      const low = Math.round(mid * 0.9 / 100) * 100;
+      const high = Math.round(mid * 1.15 / 100) * 100;
 
-            populateMaterials();
-            populateServices();
-            updateQuote();
-        }
+      document.getElementById('area').textContent = roofArea.toLocaleString() + ' sq ft';
+      document.getElementById('squares').textContent = squares.toFixed(1);
+      document.getElementById('cost').textContent = '$' + low.toLocaleString() + '–$' + high.toLocaleString();
 
-        function searchAddress() {
-            const address = document.getElementById('address').value;
-            geocoder.geocode({ address: address }, function(results, status) {
-                if (status === 'OK') {
-                    map.setCenter(results[0].geometry.location);
-                    map.setZoom(20);
-                } else {
-                    alert('Address not found: ' + status);
-                }
-            });
-        }
+      const sum = `Roof estimate: ${roofArea.toLocaleString()} sq ft (${squares.toFixed(1)} squares), $${low.toLocaleString()}–$${high.toLocaleString()}`;
+      const el = document.getElementById('estimate_summary'); if (el) el.value = sum;
+    }
 
-        function startDrawing() {
-            drawingManager.setDrawingMode(google.maps.drawing.OverlayType.POLYGON);
-        }
+    function showRoofForm() {
+      document.getElementById('roof-form').classList.remove('hidden');
+      document.getElementById('roof-form').scrollIntoView({behavior:'smooth'});
+    }
 
-        function clearDrawing() {
-            if (currentShape) {
-                currentShape.setMap(null);
-                currentShape = null;
-                currentArea = 0;
-                document.getElementById('measurementInfo').style.display = 'none';
-                updateQuote();
-            }
-        }
+    window.onload = function() { calcRoof(); };
 
-        function calculateArea(polygon) {
-            const area = google.maps.geometry.spherical.computeArea(polygon.getPath());
-            const sqFeet = area * 10.764; // Convert sq meters to sq feet
-            currentArea = sqFeet;
-            
-            document.getElementById('area').textContent = Math.round(sqFeet).toLocaleString();
-            document.getElementById('squares').textContent = (sqFeet / 100).toFixed(2);
-            document.getElementById('measurementInfo').style.display = 'block';
-            
-            updateQuote();
-        }
-
-        function populateMaterials() {
-            const container = document.getElementById('materialOptions');
-            materials.forEach(material => {
-                const div = document.createElement('div');
-                div.className = 'material-option' + (material.id === selectedMaterial ? ' selected' : '');
-                div.onclick = () => selectMaterial(material.id);
-                div.innerHTML = `
-                    <h4>${material.name}</h4>
-                    <p>${material.description}</p>
-                    <p><strong>Material:</strong> $${material.pricePerSquare}/square | <strong>Labor:</strong> $${material.laborPerSquare}/square</p>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function selectMaterial(id) {
-            selectedMaterial = id;
-            document.querySelectorAll('.material-option').forEach(el => {
-                el.classList.remove('selected');
-            });
-            event.currentTarget.classList.add('selected');
-            updateQuote();
-        }
-
-        function populateServices() {
-            const container = document.getElementById('additionalServices');
-            additionalServices.forEach(service => {
-                const div = document.createElement('div');
-                div.className = 'checkbox-item';
-                div.innerHTML = `
-                    <input type="checkbox" id="service_${service.id}" onchange="updateQuote()">
-                    <label for="service_${service.id}">${service.name}</label>
-                    <span class="price">+$${service.price}</span>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function updateQuote() {
-            if (currentArea === 0) {
-                document.getElementById('quoteMaterials').textContent = '$0';
-                document.getElementById('quoteLabor').textContent = '$0';
-                document.getElementById('quoteServices').textContent = '$0';
-                document.getElementById('quoteAdjustments').textContent = '$0';
-                document.getElementById('quoteTotal').textContent = '$0';
-                return;
-            }
-
-            const squares = currentArea / 100;
-            const material = materials.find(m => m.id === selectedMaterial);
-            
-            const pitchMultiplier = parseFloat(document.getElementById('pitch').value);
-            const storyMultiplier = parseFloat(document.getElementById('stories').value);
-            const accessMultiplier = parseFloat(document.getElementById('access').value);
-            
-            const combinedMultiplier = pitchMultiplier * storyMultiplier * accessMultiplier;
-            
-            const baseMaterials = squares * material.pricePerSquare;
-            const baseLabor = squares * material.laborPerSquare;
-            
-            const adjustedMaterials = baseMaterials * combinedMultiplier;
-            const adjustedLabor = baseLabor * combinedMultiplier;
-            
-            const adjustmentAmount = (adjustedMaterials + adjustedLabor) - (baseMaterials + baseLabor);
-            
-            let servicesTotal = 0;
-            additionalServices.forEach(service => {
-                const checkbox = document.getElementById(`service_${service.id}`);
-                if (checkbox && checkbox.checked) {
-                    if (service.id.includes('tearoff') || service.id === 'decking' || service.id === 'underlayment') {
-                        servicesTotal += service.price * squares;
-                    } else {
-                        servicesTotal += service.price;
-                    }
-                }
-            });
-            
-            const total = adjustedMaterials + adjustedLabor + servicesTotal;
-            
-            document.getElementById('quoteMaterials').textContent = '$' + Math.round(adjustedMaterials).toLocaleString();
-            document.getElementById('quoteLabor').textContent = '$' + Math.round(adjustedLabor).toLocaleString();
-            document.getElementById('quoteServices').textContent = '$' + Math.round(servicesTotal).toLocaleString();
-            document.getElementById('quoteAdjustments').textContent = '$' + Math.round(adjustmentAmount).toLocaleString();
-            document.getElementById('quoteTotal').textContent = '$' + Math.round(total).toLocaleString();
-        }
-
-        function downloadQuote() {
-            alert('PDF download feature requires backend integration. For now, take a screenshot or copy the quote details.');
-        }
-
-        // Initialize map on load
-        window.onload = initMap;
-
-        // Hamburger for QMA nav (video, quick form, all subpages)
-        setTimeout(()=>{const b=document.getElementById('hamburger-btn'),m=document.getElementById('mobile-menu');if(b&&m){b.onclick=()=>m.classList.toggle('hidden');m.querySelectorAll('a').forEach(a=>a.onclick=()=>m.classList.add('hidden'));}},0);
-    </script>
-
-<div style="background:#0f172a; padding:40px 20px; text-align:center; border-top:3px solid #f59e0b;">
-  <h2 style="color:#f59e0b; margin-bottom:10px;">Now Get 3 Competing Quotes from Local Austin Roofers</h2>
-  <p style="color:#94a3b8; max-width:600px; margin:0 auto 20px;">Used the calculator? Submit your details to get real quotes from 3 licensed Local licensed professionals in 60 seconds. Free for homeowners. No spam.</p>
-  <form action="https://formspree.io/f/xpwzgqkd" method="POST" style="max-width:500px; margin:0 auto; text-align:left;">
-    <input type="hidden" name="site" value="quotemyanything.com">
-    <input type="hidden" name="service" value="roofing">
-    <input type="text" name="name" placeholder="Your Name" required style="width:100%; padding:12px; margin:8px 0; background:#1e293b; border:1px solid #334155; color:#f1f5f9; border-radius:8px;">
-    <input type="email" name="email" placeholder="Email" required style="width:100%; padding:12px; margin:8px 0; background:#1e293b; border:1px solid #334155; color:#f1f5f9; border-radius:8px;">
-    <input type="tel" name="phone" placeholder="Phone" required style="width:100%; padding:12px; margin:8px 0; background:#1e293b; border:1px solid #334155; color:#f1f5f9; border-radius:8px;">
-    <input type="text" name="zip" placeholder="ZIP (e.g. 78701)" required style="width:100%; padding:12px; margin:8px 0; background:#1e293b; border:1px solid #334155; color:#f1f5f9; border-radius:8px;">
-    <textarea name="message" placeholder="Roof details or notes from calculator (sq ft, type, etc.)" style="width:100%; padding:12px; margin:8px 0; background:#1e293b; border:1px solid #334155; color:#f1f5f9; border-radius:8px; height:80px;"></textarea>
-    <button type="submit" style="width:100%; padding:14px; background:#f59e0b; color:#0f172a; font-weight:700; border:none; border-radius:8px; font-size:16px; margin-top:8px;">Get My 3 Free Roofing Quotes</button>
-    <p style="font-size:9px; color:#64748b; text-align:center; margin-top:6px;">By submitting, you agree to be contacted by up to 3 local licensed roofing contractors in the greater Austin area.  Your information is only shared with contractors for the purpose of providing quotes. We do not sell or share your data for any other reason. <a href="privacy.html" style="color:#f59e0b;">Privacy</a></p>
-  </form>
-  <p style="margin-top:12px;"><a href="/roofing.html" style="color:#f59e0b;">Or go to full Roofing Quotes page →</a></p>
-</div>
-
-<footer style="text-align:center; padding:16px; font-size:11px; color:#64748b; background:#0f172a; border-top:1px solid #334155;">
-  quotemyanything.com · Austin, TX • Always free for homeowners. <a href="index.html" style="color:#f59e0b;">Free Quotes On Anything!</a> | <a href="privacy.html" style="color:#64748b;">Privacy</a>
-</footer>
-
+    // Hamburger menu toggle (shared)
+    setTimeout(() => {
+      const btn = document.getElementById('hamburger-btn');
+      const menu = document.getElementById('mobile-menu');
+      if (btn && menu) {
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+        menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('hidden')));
+      }
+    }, 0);
+  </script>
 </body>
 </html>
