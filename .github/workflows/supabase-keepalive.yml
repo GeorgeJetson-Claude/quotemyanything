@@ -1,0 +1,29 @@
+name: Supabase keep-alive
+
+# Free-tier Supabase projects auto-pause after ~7 days of no activity.
+# This pings each project's REST API every 2 days (read-only) so the idle
+# timer never reaches 7 days and the databases never auto-pause.
+#
+# Uses PUBLISHABLE (anon) keys only — these are safe to expose (they already
+# ship in the front-end). No service-role keys here. Nothing is written.
+
+on:
+  schedule:
+    - cron: "17 9 */2 * *"   # 09:17 UTC, every 2 days
+  workflow_dispatch:          # allows a manual run from the Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping qma2 (marketplace)
+        run: |
+          curl -sS -o /dev/null -w "qma2 -> HTTP %{http_code}\n" \
+            "https://tnrivpvbpxopgmbifzaw.supabase.co/rest/v1/categories?select=slug&limit=1" \
+            -H "apikey: sb_publishable_EkFrLOiCu4hWqUMQ7zNvbg_h-bcNP-j"
+
+      - name: Ping qma (services)
+        run: |
+          curl -sS -o /dev/null -w "qma  -> HTTP %{http_code}\n" \
+            "https://alkmupknjwxosalhisdc.supabase.co/rest/v1/listings?select=id&limit=1" \
+            -H "apikey: sb_publishable_AZuzHYybG8oaNa6rC5QPFg_F1HiH3vT"
