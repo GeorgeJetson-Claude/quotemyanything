@@ -22,6 +22,67 @@ Adding an automated source later (the "automate it" part):
 """
 
 import csv
+import json
+import urllib.parse
+import urllib.request
+
+# FEMA National Flood Hazard Layer (NFHL) — free, public, no key required.
+# We query the flood hazard zones layer by lat/lon and report whether the point
+# falls in a Special Flood Hazard Area (SFHA). This is the same data the RV buy
+# box's "NO FLOOD ZONES" rule cares about.
+FEMA_NFHL_URL = (
+    "https://hazards.fema.gov/arcgis/rest/services/public/NFHL/MapServer/28/query"
+)
+# Zones starting with A or V are Special Flood Hazard Areas (high risk).
+SFHA_PREFIXES = ("A", "V")
+
+
+def fema_flood_zone(lat, lon, timeout=8):
+    """Return ("Yes"/"No"/None, zone_code). None means lookup unavailable
+    (offline / API error) — caller should fall back to existing data."""
+    params = {
+        "geometry": f"{lon},{lat}",
+        "geometryType": "esriGeometryPoint",
+        "inSR": "4326",
+        "spatialRel": "esriSpatialRelIntersects",
+        "outFields": "FLD_ZONE,SFHA_TF",
+        "returnGeometry": "false",
+        "f": "json",
+    }
+    url = FEMA_NFHL_URL + "?" + urllib.parse.urlencode(params)
+    try:
+        with urllib.request.urlopen(url, timeout=timeout) as resp:
+            data = json.loads(resp.read().decode())
+    except Exception:
+        return None, None
+    features = data.get("features") or []
+    if not features:
+        return "No", "X"  # not in any mapped SFHA polygon -> outside flood zone
+    attrs = features[0].get("attributes", {})
+    zone = attrs.get("FLD_ZONE") or ""
+    sfha = attrs.get("SFHA_TF")
+    in_sfha = (sfha == "T") or zone.startswith(SFHA_PREFIXES)
+    return ("Yes" if in_sfha else "No"), zone
+
+
+def enrich_flood_zone(deals, only_missing=True):
+    """Fill the flood_zone field on deals that have lat/lon. Mutates and returns
+    the list. Skips deals already carrying flood_zone unless only_missing=False.
+    Never raises on network failure — it just leaves the field as-is."""
+    for d in deals:
+        if only_missing and d.get("flood_zone"):
+            continue
+        lat, lon = d.get("lat") or d.get("latitude"), d.get("lon") or d.get("longitude")
+        if not (lat and lon):
+            continue
+        try:
+            zone_yn, zone_code = fema_flood_zone(float(lat), float(lon))
+        except (ValueError, TypeError):
+            continue
+        if zone_yn is not None:
+            d["flood_zone"] = zone_yn
+            d["flood_zone_code"] = zone_code
+    return deals
 
 
 def from_csv(path):

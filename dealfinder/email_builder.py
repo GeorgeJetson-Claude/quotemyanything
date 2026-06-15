@@ -18,7 +18,28 @@ def _fmt_money(value):
         return str(value) if value else "TBD"
 
 
-def build_email(deal, box_id, result):
+def _underwriting_lines(uw):
+    """Optional numbers block built from an underwriting dict."""
+    if not uw:
+        return []
+    lines = []
+    m = uw.get("model")
+    if m == "fix_flip":
+        if uw.get("rehab") is not None:
+            lines.append(f"  Est. Rehab       : {_fmt_money(uw['rehab'])}"
+                         f" ({uw.get('rehab_basis','')})")
+        if uw.get("projected_profit") is not None:
+            roi = f" ({uw['roi_pct']}% ROI)" if uw.get("roi_pct") is not None else ""
+            lines.append(f"  Projected Profit : {_fmt_money(uw['projected_profit'])}{roi}")
+    elif m == "income":
+        if uw.get("noi") is not None:
+            lines.append(f"  Est. NOI         : {_fmt_money(uw['noi'])}")
+        if uw.get("cap_rate_pct") is not None:
+            lines.append(f"  Cap Rate         : {uw['cap_rate_pct']}%")
+    return lines
+
+
+def build_email(deal, box_id, result, underwriting=None):
     box = all_buy_boxes()[box_id]
 
     address = deal.get("address") or "[ADDRESS NEEDED]"
@@ -61,6 +82,7 @@ def build_email(deal, box_id, result):
     if box.get("require_existing"):
         extras.append(f"  Existing Op      : {deal.get('existing_operation') or 'Yes'}")
     body_lines.extend(extras)
+    body_lines.extend(_underwriting_lines(underwriting))
 
     body_lines += [
         "",

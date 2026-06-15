@@ -19,19 +19,36 @@ actually get read.
 | **RV Parks / Campgrounds / Resorts** | Nationwide (CA/NY ok) | RV park / campground / resort | **Creative only** | **Existing** only, **no flood zones**, no dev land, 15–20/yr |
 | **Private Lending** | n/a | any | private / hard money | Capital for flips & refis |
 
+## The full loop
+
+```
+ingest → enrich (FEMA flood) → match (buy box) → underwrite ($) → rank →
+draft email → track in pipeline → record fee → P&L
+```
+
 ## Usage
 
 ```bash
 cd dealfinder
 
-# Score the sample deals and print a ranked report
-python3 dealfinder.py --input sample_deals.csv
+# Score + underwrite candidates, draft submission emails, record to pipeline
+python3 dealfinder.py scan --input sample_deals.csv --write-drafts
 
-# Only show strong fits, and write submission drafts to outbox/
-python3 dealfinder.py --input sample_deals.csv --min-score 65 --write-drafts
+# Only strong fits; auto-fill flood zone from FEMA for rows that have lat/lon
+python3 dealfinder.py scan --input sample_deals.csv --min-score 65 --flood
 
-# Machine-readable output (for piping into another tool / Zapier)
-python3 dealfinder.py --input sample_deals.csv --json
+# See everything you're tracking + running P&L
+python3 dealfinder.py pipeline
+
+# Move a deal through its lifecycle and record the fee when it closes
+python3 dealfinder.py status "1423 W Roosevelt" --set submitted
+python3 dealfinder.py status 1a2b3c --set accepted --fee 12000
+
+# Machine-readable output (pipe into Zapier / a sheet)
+python3 dealfinder.py scan --input sample_deals.csv --json
+
+# Print the buy box definitions
+python3 dealfinder.py boxes
 ```
 
 Stdlib only — no pip install needed. Python 3.8+.
@@ -44,6 +61,14 @@ stronger, submittable match):
 ```
 address, county, state, asset_type, purchase_price, arv (or zillow_value),
 financing_terms, flood_zone, existing_operation, is_land, photos_url, notes
+```
+
+Optional columns that unlock underwriting numbers:
+
+```
+# fix & flip:   sqft, rehab_level (light|medium|heavy|gut), rehab_cost
+# parks:        pads (or sites/units), lot_rent, occupancy, noi, expense_ratio
+# flood enrich: lat, lon   (used by --flood to query FEMA)
 ```
 
 `asset_type` values: `single_family`, `mhp`, `rv_park`, `campground`, `resort`.
@@ -62,29 +87,54 @@ creative-only box).
 3. `fit = "maybe"` means it qualifies but is missing something you need before
    submitting (photos, purchase price, financing terms — or ARV for the SFH box).
 
+## Underwriting (`underwriting.py`) — putting a number on each deal
+
+- **Fix & flip:** estimates rehab ($/sqft by level, or your explicit number),
+  then projected profit = ARV − price − rehab − holding/selling, plus ROI and
+  spread vs Pace's 50%-of-ARV cap.
+- **Parks (MHP / RV):** NOI (from an explicit figure, or pads × lot_rent ×
+  occupancy with an expense ratio), cap rate, and a value estimate at a target
+  cap so you can see value-vs-price.
+
+These numbers are printed in the report and embedded in the submission email.
+
+## Pipeline + money (`pipeline.py`)
+
+Every qualifying deal is recorded to `pipeline.json` keyed by a stable id from
+the address, so the same property is **never re-submitted by accident**. Deals
+move `new → drafted → submitted → accepted | dead`. Accepted deals carry an
+assignment/referral **fee**, and `dealfinder.py pipeline` rolls it into a P&L
+(realized revenue + pipeline fee potential). This is the "make us money"
+ledger — it tracks what you sent and what it earned.
+
 ## Automating ingestion (the "automate it" part)
 
-`sources.py` is a pluggable adapter registry. CSV ships today. To run this on a
-schedule against live data, add an adapter that returns the same normalized dict
-shape and register it — using **licensed / public** feeds only:
+`sources.py` is a pluggable adapter registry. CSV ships today; `--flood`
+auto-fills the flood-zone field from FEMA's free public NFHL API (no key) for
+any row with `lat`/`lon`. To run on a schedule against live data, add an adapter
+that returns the same normalized dict shape — using **licensed / public** feeds
+only:
 
 - County assessor / GIS open-data exports (public records)
 - Your MLS feed via a licensed RESO Web API account
 - A paid list/data provider API you already license
-- FEMA flood map API to auto-fill `flood_zone`
 
-Then schedule `dealfinder.py --write-drafts` (cron / GitHub Action) and review
-the `outbox/` each morning.
+Then schedule `dealfinder.py scan --write-drafts` (cron / GitHub Action) and
+review `outbox/` each morning. Deals already in the pipeline won't be
+re-created.
 
 ## Files
 
 ```
 buy_boxes.py     buy box definitions (single source of truth)
 matcher.py       scoring engine (hard rules + soft preferences)
+underwriting.py  flip + park valuation models
 email_builder.py drafts the submission email in Pace's required format
-sources.py       pluggable ingestion adapters (CSV today)
-dealfinder.py    CLI entry point
-test_dealfinder.py  smoke tests
+pipeline.py      persistent ledger: dedup, status lifecycle, fee/P&L
+sources.py       pluggable ingestion + FEMA flood enrichment
+dealfinder.py    CLI (scan / pipeline / status / boxes)
+test_dealfinder.py  smoke tests (18)
 sample_deals.csv example input
 outbox/          drafted submission emails land here (git-ignored)
+pipeline.json    the ledger (git-ignored; created on first scan)
 ```
