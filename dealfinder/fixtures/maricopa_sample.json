@@ -1,0 +1,38 @@
+{
+  "_comment": "Offline fixture mirroring the Maricopa County Assessor parcel-search response shape (mcassessor.maricopa.gov/api). Used for tests + demos when network egress to the live host is not yet allowlisted. Replace by pointing the adapter at the live API with a free token.",
+  "results": [
+    {
+      "APN": "111-22-333",
+      "SitusAddress": "1423 W ROOSEVELT ST",
+      "SitusCity": "PHOENIX",
+      "SitusZip": "85007",
+      "PropertyUseDesc": "Single Family Residence",
+      "LivableSqFt": 1450,
+      "YearBuilt": 1958,
+      "FullCashValue": 268000,
+      "LotSize": 6500
+    },
+    {
+      "APN": "222-33-444",
+      "SitusAddress": "721 N 7TH AVE",
+      "SitusCity": "PHOENIX",
+      "SitusZip": "85007",
+      "PropertyUseDesc": "Single Family Residence",
+      "LivableSqFt": 1700,
+      "YearBuilt": 1949,
+      "FullCashValue": 295000,
+      "LotSize": 7000
+    },
+    {
+      "APN": "333-44-555",
+      "SitusAddress": "55 E COMMERCE DR",
+      "SitusCity": "PHOENIX",
+      "SitusZip": "85034",
+      "PropertyUseDesc": "Commercial Retail",
+      "LivableSqFt": 8200,
+      "YearBuilt": 1995,
+      "FullCashValue": 1400000,
+      "LotSize": 30000
+    }
+  ]
+}

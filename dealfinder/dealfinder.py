@@ -30,6 +30,7 @@ import pipeline
 from matcher import match_deal, best_match
 from email_builder import build_email
 from underwriting import underwrite, summary_line
+from assignment import wholesale_math, assignment_agreement
 from buy_boxes import all_buy_boxes
 
 OUTBOX = os.path.join(os.path.dirname(os.path.abspath(__file__)), "outbox")
@@ -40,7 +41,7 @@ def _slug(text):
 
 
 def cmd_scan(args):
-    deals = sources.load(args.source, path=args.input)
+    deals = sources.load(args.source, path=args.input, query=args.query)
 
     if args.flood:
         sources.enrich_flood_zone(deals)
@@ -131,6 +132,15 @@ def cmd_scan(args):
                 pipeline.set_status(ledger, did, "drafted")
             print(f"              ✎ draft: outbox/{fname}")
 
+            # Wholesale paperwork for viable SFH assignment deals.
+            if args.paperwork and r["uw"] and r["uw"].get("model") == "fix_flip":
+                pw = (f"{wholesale_math(deal, r['uw'])}\n\n\n"
+                      f"{assignment_agreement(deal, uw=r['uw'])}\n")
+                pwname = f"{res['score']:03d}_{_slug(addr)}_ASSIGNMENT.txt"
+                with open(os.path.join(OUTBOX, pwname), "w") as f:
+                    f.write(pw)
+                print(f"              ✎ paperwork: outbox/{pwname}")
+
     pipeline.save(ledger)
 
     print("\n" + "-" * 72)
@@ -186,10 +196,14 @@ def main():
     sub = ap.add_subparsers(dest="cmd")
 
     s = sub.add_parser("scan", help="score, underwrite, draft, and track deals")
-    s.add_argument("--input", required=True, help="path to deals CSV")
-    s.add_argument("--source", default="csv", help="ingestion adapter")
+    s.add_argument("--input", help="path to deals CSV (source=csv)")
+    s.add_argument("--source", default="csv",
+                   help="ingestion adapter: csv | maricopa | maricopa_fixture")
+    s.add_argument("--query", help="free-text search (source=maricopa)")
     s.add_argument("--min-score", type=int, default=0)
     s.add_argument("--write-drafts", action="store_true")
+    s.add_argument("--paperwork", action="store_true",
+                   help="also write wholesale math + assignment agreement (SFH)")
     s.add_argument("--flood", action="store_true",
                    help="auto-fill flood_zone from FEMA for deals with lat/lon")
     s.add_argument("--json", action="store_true")

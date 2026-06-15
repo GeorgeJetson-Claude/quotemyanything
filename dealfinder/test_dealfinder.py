@@ -86,4 +86,37 @@ pl.set_status(led, did, "accepted", fee=12000)
 check("pipeline records fee", led[did]["fee"] == 12000)
 check("pipeline pnl realizes revenue", pl.pnl(led)["realized_revenue"] == 12000)
 
+# ---- wholesale assignment economics ----
+wflip = underwrite({"asset_type": "single_family", "arv": "310000",
+                    "purchase_price": "135000", "sqft": "1450",
+                    "rehab_level": "medium"})
+check("assignment fee = 50%ARV - price", wflip["assignment_fee"] == 20000)
+check("wholesale viable flagged", wflip["wholesale_viable"] is True)
+check("max contract price set", wflip["max_contract_price"] == 140000)
+
+thin = underwrite({"asset_type": "single_family", "arv": "310000",
+                   "purchase_price": "153000", "sqft": "1450"})
+check("thin spread not viable", thin["wholesale_viable"] is False)
+
+from assignment import assignment_agreement, wholesale_math
+agr = assignment_agreement({"address": "1 Main St", "apn": "111-22-333"},
+                           fee=20000)
+check("assignment doc names property", "1 Main St" in agr)
+check("assignment doc states fee", "$20,000" in agr)
+check("wholesale math sheet renders", "Pace's ceiling" in wholesale_math(
+    {"asset_type": "single_family", "arv": "310000", "purchase_price": "135000",
+     "sqft": "1450", "rehab_level": "medium"}))
+
+# ---- county (assessor) source via offline fixture ----
+import sources
+md = sources.from_maricopa_fixture()
+check("maricopa fixture loads parcels", len(md) == 3)
+check("maricopa maps SFH asset type",
+      md[0]["asset_type"] == "single_family" and md[0]["county"] == "Maricopa")
+check("maricopa keeps FCV out of ARV (no auto-arv)",
+      not md[0].get("arv"))
+
+# ---- under_contract status in lifecycle ----
+check("under_contract is a valid status", "under_contract" in pl.STATUSES)
+
 print("\nAll smoke tests passed.")

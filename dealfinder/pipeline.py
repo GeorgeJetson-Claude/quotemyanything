@@ -24,7 +24,9 @@ from datetime import datetime, timezone
 LEDGER_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                            "pipeline.json")
 
-STATUSES = ["new", "drafted", "submitted", "accepted", "dead"]
+# Lifecycle for a wholesale-assignment deal: you draft -> submit to Pace ->
+# tie the property up (under_contract) -> assign & close (accepted) | dead.
+STATUSES = ["new", "drafted", "submitted", "under_contract", "accepted", "dead"]
 
 
 def deal_id(deal):
@@ -115,7 +117,7 @@ def pnl(ledger):
         by_status[e.get("status", "new")] += 1
         if e.get("status") == "accepted":
             revenue += float(e.get("fee") or 0)
-        elif e.get("status") in ("drafted", "submitted"):
+        elif e.get("status") in ("drafted", "submitted", "under_contract"):
             pending_fee += float(e.get("fee") or 0)
     return {"by_status": by_status, "realized_revenue": revenue,
             "pipeline_fee_potential": pending_fee, "total_deals": len(ledger)}

@@ -23,6 +23,10 @@ DEFAULT_WHOLESALE_FEE = 10000
 # Rehab $/sqft by level when no explicit rehab_cost is given.
 REHAB_PSF = {"light": 20, "medium": 35, "heavy": 55, "gut": 80}
 
+# --- Wholesale assignment assumptions ---
+TARGET_ASSIGNMENT_FEE = 15000  # what we aim to make per assignment
+MIN_ASSIGNMENT_FEE = 5000      # below this it's not worth doing
+
 # --- Income property assumptions ---
 DEFAULT_EXPENSE_RATIO = 0.40  # opex as % of gross when expenses not given
 DEFAULT_TARGET_CAP = 0.08     # cap rate used to back into a value estimate
@@ -87,6 +91,19 @@ def underwrite_flip(deal):
             out["notes"].append("projected loss at this price")
     else:
         out["notes"].append("need purchase_price + rehab for profit/ROI")
+
+    # --- Wholesale assignment economics (your exit = assign to Pace) ---
+    # Pace pays up to 50% ARV; your fee is the room between his ceiling and the
+    # price you tie the property up at.
+    out["max_contract_price"] = round(out["pace_max_offer"] - TARGET_ASSIGNMENT_FEE)
+    if price is not None:
+        fee = out["pace_max_offer"] - price
+        out["assignment_fee"] = round(fee)
+        out["wholesale_viable"] = fee >= MIN_ASSIGNMENT_FEE
+        if not out["wholesale_viable"]:
+            out["notes"].append(
+                f"thin spread: only ${round(fee):,} for an assignment fee "
+                f"(min ${MIN_ASSIGNMENT_FEE:,})")
     return out
 
 
@@ -152,8 +169,11 @@ def summary_line(uw):
             bits.append(f"ROI {uw['roi_pct']}%")
         if uw.get("rehab") is not None:
             bits.append(f"rehab ~${int(uw['rehab']):,}")
-        if uw.get("spread_vs_pace_cap") is not None:
-            bits.append(f"${uw['spread_vs_pace_cap']:,} under 50% cap")
+        if uw.get("assignment_fee") is not None:
+            flag = "" if uw.get("wholesale_viable") else " (thin)"
+            bits.append(f"assignment fee ~${uw['assignment_fee']:,}{flag}")
+        elif uw.get("max_contract_price") is not None:
+            bits.append(f"tie up <= ${uw['max_contract_price']:,}")
         return " | ".join(bits) or "needs ARV/price/rehab"
     if m == "income":
         bits = []

@@ -34,6 +34,14 @@ cd dealfinder
 # Score + underwrite candidates, draft submission emails, record to pipeline
 python3 dealfinder.py scan --input sample_deals.csv --write-drafts
 
+# Same, plus wholesale math + assignment agreement for SFH deals
+python3 dealfinder.py scan --input sample_deals.csv --write-drafts --paperwork
+
+# Pull candidates straight from Maricopa County public records (offline sample)
+python3 dealfinder.py scan --source maricopa_fixture
+# ...or live (needs a free token; see County feed below)
+MARICOPA_API_TOKEN=xxx python3 dealfinder.py scan --source maricopa --query "Phoenix 85007"
+
 # Only strong fits; auto-fill flood zone from FEMA for rows that have lat/lon
 python3 dealfinder.py scan --input sample_deals.csv --min-score 65 --flood
 
@@ -98,13 +106,49 @@ creative-only box).
 
 These numbers are printed in the report and embedded in the submission email.
 
+## Revenue model: wholesale assignment (`assignment.py`)
+
+The exit is an **assignment**: you tie the property up under contract with the
+seller, then assign that contract to Pace's entity for an **assignment fee**.
+The underwriter does the math so there's room for your fee under Pace's 50% cap:
+
+```
+ARV (your comps) → Pace's ceiling = 50% × ARV
+Tie property up at ≤ ceiling − target fee   ($15k default)
+Your assignment fee = ceiling − your contract price   (min $5k to be "viable")
+```
+
+With `--paperwork`, each viable SFH deal also gets a **wholesale math sheet**
+and a fill-in-the-blank **Assignment of Contract** written to `outbox/`.
+
+> The assignment agreement is a template, **not legal advice**. Assignment rules
+> and disclosures vary by state — have a local attorney or title company review
+> before using it on a live deal.
+
+## County feed (`sources.py`, source=`maricopa`)
+
+Because the SFH box is **Maricopa County only**, the county assessor is the
+public-records feed. The API issues a **free token** (request at
+mcassessor.maricopa.gov); set `MARICOPA_API_TOKEN` and use `--source maricopa
+--query "..."`. An offline fixture (`--source maricopa_fixture`) lets you run it
+with no network/token.
+
+County data gives you address, asset type, sqft, year built, and the assessor's
+Full Cash Value — but **FCV is a tax value, not ARV**, so deals come in as
+"maybe" until you add real comps (ARV), your offer price, and financing. That's
+intentional: it won't let you submit an un-comped number to Pace.
+
+> Egress note: in a sandboxed/allowlisted environment, add
+> `mcassessor.maricopa.gov` (and `hazards.fema.gov` for `--flood`) to the
+> network egress allowlist, or live calls return 403.
+
 ## Pipeline + money (`pipeline.py`)
 
 Every qualifying deal is recorded to `pipeline.json` keyed by a stable id from
 the address, so the same property is **never re-submitted by accident**. Deals
-move `new → drafted → submitted → accepted | dead`. Accepted deals carry an
-assignment/referral **fee**, and `dealfinder.py pipeline` rolls it into a P&L
-(realized revenue + pipeline fee potential). This is the "make us money"
+move `new → drafted → submitted → under_contract → accepted | dead`. Accepted
+deals carry the assignment **fee**, and `dealfinder.py pipeline` rolls it into a
+P&L (realized revenue + pipeline fee potential). This is the "make us money"
 ledger — it tracks what you sent and what it earned.
 
 ## Automating ingestion (the "automate it" part)
@@ -128,13 +172,15 @@ re-created.
 ```
 buy_boxes.py     buy box definitions (single source of truth)
 matcher.py       scoring engine (hard rules + soft preferences)
-underwriting.py  flip + park valuation models
+underwriting.py  flip + park valuation + wholesale assignment economics
+assignment.py    wholesale math sheet + Assignment of Contract template
 email_builder.py drafts the submission email in Pace's required format
 pipeline.py      persistent ledger: dedup, status lifecycle, fee/P&L
-sources.py       pluggable ingestion + FEMA flood enrichment
+sources.py       pluggable ingestion (CSV, Maricopa assessor) + FEMA flood
 dealfinder.py    CLI (scan / pipeline / status / boxes)
-test_dealfinder.py  smoke tests (18)
+test_dealfinder.py  smoke tests (28)
 sample_deals.csv example input
-outbox/          drafted submission emails land here (git-ignored)
+fixtures/        offline county sample for testing without network
+outbox/          drafted emails + paperwork land here (git-ignored)
 pipeline.json    the ledger (git-ignored; created on first scan)
 ```
