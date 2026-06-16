@@ -1,0 +1,65 @@
+name: Dealfinder Daily Scan
+
+# Automates the buy box deal pipeline: pull county candidates, estimate ARV from
+# comps, underwrite, draft submissions + assignment paperwork, and commit the
+# updated pipeline ledger. Nothing is emailed — drafts land in dealfinder/outbox
+# for manual review and submission.
+on:
+  schedule:
+    - cron: "0 13 * * *"   # 13:00 UTC daily (~6am Arizona, MST/UTC-7)
+  workflow_dispatch:
+    inputs:
+      query:
+        description: "Maricopa assessor search query (live source)"
+        required: false
+        default: ""
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run smoke tests
+        working-directory: dealfinder
+        run: python3 test_dealfinder.py
+
+      - name: Daily deal scan
+        working-directory: dealfinder
+        env:
+          # Set this secret to use the live county feed; absent -> offline fixture.
+          MARICOPA_API_TOKEN: ${{ secrets.MARICOPA_API_TOKEN }}
+          QUERY: ${{ github.event.inputs.query }}
+        run: |
+          if [ -n "$MARICOPA_API_TOKEN" ] && [ -n "$QUERY" ]; then
+            echo "Live county feed: $QUERY"
+            python3 dealfinder.py scan --source maricopa --query "$QUERY" \
+              --comps fixtures/comps_sample.csv --arv-from-fcv \
+              --write-drafts --paperwork
+          else
+            echo "No token/query -> offline fixture demo run"
+            python3 dealfinder.py scan --source maricopa_fixture \
+              --comps fixtures/comps_sample.csv --arv-from-fcv \
+              --write-drafts --paperwork
+          fi
+          echo "---- pipeline ----"
+          python3 dealfinder.py pipeline
+
+      - name: Commit pipeline ledger
+        run: |
+          git config user.name "dealfinder-bot"
+          git config user.email "actions@github.com"
+          # Force-add the ledger even though it's gitignored locally.
+          git add -f dealfinder/pipeline.json || true
+          if ! git diff --cached --quiet; then
+            git commit -m "Dealfinder daily scan: update pipeline ledger [skip ci]"
+            git push
+          else
+            echo "No pipeline changes."
+          fi

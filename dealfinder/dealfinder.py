@@ -27,6 +27,7 @@ import re
 
 import sources
 import pipeline
+import arv as arv_mod
 from matcher import match_deal, best_match
 from email_builder import build_email
 from underwriting import underwrite, summary_line
@@ -42,6 +43,11 @@ def _slug(text):
 
 def cmd_scan(args):
     deals = sources.load(args.source, path=args.input, query=args.query)
+
+    if args.comps or args.arv_from_fcv:
+        comps = arv_mod.load_comps_csv(args.comps) if args.comps else {}
+        arv_mod.enrich_arv(deals, comps_by_key=comps,
+                           use_fcv_fallback=args.arv_from_fcv)
 
     if args.flood:
         sources.enrich_flood_zone(deals)
@@ -110,6 +116,9 @@ def cmd_scan(args):
         print(f"            → {boxes[box_id]['name']}")
         for reason in res["reasons"]:
             print(f"              • {reason}")
+        if deal.get("arv_confidence"):
+            print(f"              ~ ARV ${arv_mod._f(deal['arv']):,.0f} "
+                  f"[{deal['arv_confidence']} confidence — {deal.get('arv_basis','')}]")
         if r["uw"]:
             uw_line = summary_line(r["uw"])
             if uw_line:
@@ -204,6 +213,9 @@ def main():
     s.add_argument("--write-drafts", action="store_true")
     s.add_argument("--paperwork", action="store_true",
                    help="also write wholesale math + assignment agreement (SFH)")
+    s.add_argument("--comps", help="comps CSV to estimate ARV from sold sales")
+    s.add_argument("--arv-from-fcv", action="store_true", dest="arv_from_fcv",
+                   help="fallback: rough ARV from assessor value (low confidence)")
     s.add_argument("--flood", action="store_true",
                    help="auto-fill flood_zone from FEMA for deals with lat/lon")
     s.add_argument("--json", action="store_true")

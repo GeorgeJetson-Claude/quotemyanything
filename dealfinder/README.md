@@ -42,6 +42,12 @@ python3 dealfinder.py scan --source maricopa_fixture
 # ...or live (needs a free token; see County feed below)
 MARICOPA_API_TOKEN=xxx python3 dealfinder.py scan --source maricopa --query "Phoenix 85007"
 
+# The full automated chain: county parcels -> ARV from comps -> underwrite ->
+# draft + assignment paperwork, all tracked in the pipeline
+python3 dealfinder.py scan --source maricopa_fixture \
+    --comps fixtures/comps_sample.csv --arv-from-fcv \
+    --write-drafts --paperwork
+
 # Only strong fits; auto-fill flood zone from FEMA for rows that have lat/lon
 python3 dealfinder.py scan --input sample_deals.csv --min-score 65 --flood
 
@@ -105,6 +111,35 @@ creative-only box).
   cap so you can see value-vs-price.
 
 These numbers are printed in the report and embedded in the submission email.
+
+## ARV from comps (`arv.py`) — the number that drives everything
+
+The 50%-of-ARV rule is only as good as the ARV, so this estimates it
+transparently instead of guessing:
+
+- **Comps method (preferred):** median $/sqft of nearby sold/renovated comps,
+  outliers trimmed, applied to the subject's sqft. Confidence (`high`/`medium`/
+  `low`) scales with comp count and how tightly they cluster.
+- **Assessor fallback (`--arv-from-fcv`):** county Full Cash Value × market
+  factor. Always `low` confidence — triage only, never submit on it.
+
+Feed comps with `--comps comps.csv`:
+
+```
+subject_apn, subject_address, comp_address, sold_price, sqft, sold_date
+```
+
+(match each comp to a subject by APN or address). See
+`fixtures/comps_sample.csv`. The report prints the ARV, its confidence, and the
+exact basis (e.g. `4 comps, median $221/sqft x 1450sqft`).
+
+## Scheduling (`.github/workflows/dealfinder.yml`) — the "automate it" part
+
+A GitHub Action runs the scan daily (and on demand), estimates ARV from comps,
+drafts emails + assignment paperwork, and commits the updated `pipeline.json`.
+Set the `MARICOPA_API_TOKEN` repo secret + a `query` input to use the live
+county feed; without them it runs the offline fixture so the workflow is always
+green. It never emails anything — you still review `outbox/` and submit.
 
 ## Revenue model: wholesale assignment (`assignment.py`)
 
@@ -172,15 +207,17 @@ re-created.
 ```
 buy_boxes.py     buy box definitions (single source of truth)
 matcher.py       scoring engine (hard rules + soft preferences)
+arv.py           ARV estimation from comps (+ assessor fallback)
 underwriting.py  flip + park valuation + wholesale assignment economics
 assignment.py    wholesale math sheet + Assignment of Contract template
 email_builder.py drafts the submission email in Pace's required format
 pipeline.py      persistent ledger: dedup, status lifecycle, fee/P&L
 sources.py       pluggable ingestion (CSV, Maricopa assessor) + FEMA flood
 dealfinder.py    CLI (scan / pipeline / status / boxes)
-test_dealfinder.py  smoke tests (28)
+test_dealfinder.py  smoke tests (34)
 sample_deals.csv example input
-fixtures/        offline county sample for testing without network
+fixtures/        offline county + comps samples (test without network)
 outbox/          drafted emails + paperwork land here (git-ignored)
 pipeline.json    the ledger (git-ignored; created on first scan)
+../.github/workflows/dealfinder.yml   daily scheduled scan
 ```

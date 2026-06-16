@@ -119,4 +119,27 @@ check("maricopa keeps FCV out of ARV (no auto-arv)",
 # ---- under_contract status in lifecycle ----
 check("under_contract is a valid status", "under_contract" in pl.STATUSES)
 
+# ---- ARV estimation ----
+import arv as arv_mod
+
+comps = [{"sold_price": "330000", "sqft": "1500"},
+         {"sold_price": "315000", "sqft": "1420"},
+         {"sold_price": "345000", "sqft": "1560"},
+         {"sold_price": "298000", "sqft": "1380"}]
+est = arv_mod.estimate_from_comps("1450", comps)
+check("ARV from comps returns a value", est and est["arv"] > 0)
+check("ARV comps confidence high on tight cluster", est["confidence"] == "high")
+
+check("ARV none without sqft", arv_mod.estimate_from_comps("", comps) is None)
+
+fcv = arv_mod.estimate_from_fcv("268000")
+check("ARV fcv fallback is low confidence", fcv["confidence"] == "low")
+
+# enrich_arv matches comps by APN and fills the field
+deals = [{"apn": "111-22-333", "sqft": "1450", "asset_type": "single_family"}]
+cbk = arv_mod.load_comps_csv("fixtures/comps_sample.csv")
+arv_mod.enrich_arv(deals, comps_by_key=cbk)
+check("enrich_arv fills arv by APN", float(deals[0]["arv"]) > 0)
+check("enrich_arv tags confidence", deals[0]["arv_confidence"] in ("high", "medium", "low"))
+
 print("\nAll smoke tests passed.")
