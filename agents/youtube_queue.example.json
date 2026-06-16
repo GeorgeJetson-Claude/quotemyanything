@@ -1,0 +1,25 @@
+[
+  {
+    "file": "/path/to/5luv/late-night-remix-mix-vol1.mp4",
+    "kind": "late-night long-form mix",
+    "title": "5LUV — Late Night Remix Mix Vol. 1 (1 Hour)",
+    "description": "",
+    "tags": ["5luv", "late night mix", "remix", "lofi remix", "chill"],
+    "category_id": "10",
+    "privacy": "public",
+    "schedule": true
+  },
+  {
+    "file": "/path/to/5luv/short-snippet-01.mp4",
+    "kind": "Short",
+    "hint": "30s hook from the new remix, vertical 1080x1920",
+    "category_id": "10",
+    "schedule": true
+  },
+  {
+    "file": "/path/to/5luv/single-drop.mp4",
+    "kind": "music video",
+    "publish_at": "2026-06-20T04:00:00Z",
+    "schedule": false
+  }
+]

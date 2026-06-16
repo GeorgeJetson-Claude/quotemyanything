@@ -1,3 +1,9 @@
 .vercel
 __pycache__/
 *.pyc
+
+# 5LUV YouTube publisher secrets / local queue (never commit credentials)
+agents/yt_client_secret.json
+agents/yt_token.json
+agents/youtube_queue.json
+agents/.env
