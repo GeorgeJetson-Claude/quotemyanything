@@ -34,6 +34,12 @@
 **Suggested Action**: After first scan, append results to this file via GDrive.
 **Risk/Notes**: Stay small, review everything.
 
+**2026-06-16 (morning, this session)**
+**Idea/Source**: Claude session sync check
+**Thesis**: Flip Engine (gated momentum algo) was built last night — documented in Drive doc "FLIP ENGINE — Build & Backtest Log — Session 2 — 2026-06-15". Backtest: 4-gate filter flips TQQQ/SOXL from net-losers to thin net-winners. Mode: PAPER-PROVE, Honest Money Gate intact.
+**Status / Action**: This session has **no Robinhood MCP connection** and **no copy of `flip_engine.py`** (not committed to any GitHub repo). Per Captain's call, the live gated scan + paper candidate runs in the **broker session** that has the Robinhood connection. This repo holds the **journal only** — no scan or order was run here.
+**Risk/Notes**: No real money. Reminder: container is ephemeral — `flip_engine.py` should be committed to a repo before it's lost.
+
 *(Add new entries below in the same format)*
 
 ---
