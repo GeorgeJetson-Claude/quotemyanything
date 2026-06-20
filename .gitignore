@@ -1,3 +1,6 @@
 .vercel
 __pycache__/
 *.pyc
+
+# generated video output
+build/
