@@ -1,0 +1,10 @@
+{
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "https://quotemyanything-de8ecav9m-georgejetson-claudes-projects.vercel.app/$1"
+    }
+  ]
+}
