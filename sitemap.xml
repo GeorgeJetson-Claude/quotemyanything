@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://quotemyanything.com/</loc><lastmod>2026-08-02</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://quotemyanything.com/get-free-quotes.html</loc><lastmod>2026-08-02</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
+  <url><loc>https://quotemyanything.com/</loc><lastmod>2026-08-12</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://quotemyanything.com/get-free-quotes.html</loc><lastmod>2026-08-12</lastmod><changefreq>weekly</changefreq><priority>0.95</priority></url>
   <url><loc>https://quotemyanything.com/austin-roofing-quotes.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://quotemyanything.com/houston-roofing-quotes.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://quotemyanything.com/dallas-roofing-quotes.html</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
@@ -48,4 +48,13 @@
   <url><loc>https://quotemyanything.com/privacy.html</loc><lastmod>2026-08-02</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://quotemyanything.com/terms.html</loc><lastmod>2026-08-02</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url><loc>https://quotemyanything.com/disclaimer.html</loc><lastmod>2026-08-02</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <!-- New 2026-08-12 lead pages -->
+  <url><loc>https://quotemyanything.com/frisco-roofing-quotes.html</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://quotemyanything.com/mckinney-hvac-quotes.html</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://quotemyanything.com/irving-plumbing-quotes.html</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://quotemyanything.com/round-rock-roofing-quotes.html</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://quotemyanything.com/austin-junk-removal-quotes.html</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://quotemyanything.com/dallas-tree-service-quotes.html</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://quotemyanything.com/houston-fence-quotes.html</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://quotemyanything.com/san-antonio-painting-quotes.html</loc><lastmod>2026-08-12</lastmod><changefreq>monthly</changefreq><priority>0.85</priority></url>
 </urlset>
